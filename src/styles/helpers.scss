@@ -1,0 +1,15 @@
+$font-stack: 'Poppins', sans-serif;
+$white: #E9E9E9;
+$purple: #1E0253;
+$salmon: #FF717C;
+$light-purple: #7338D2;
+$text: #363f47;
+$other-purple: #C637A0;
+$gray-line: rgb(219, 218, 218);
+
+@mixin flexbox($flex-direction, $justify-content, $align-items) {
+  display: flex;
+  flex-direction: $flex-direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}

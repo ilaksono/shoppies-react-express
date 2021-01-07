@@ -1,0 +1,36 @@
+@import './helpers';
+
+.register-container {
+  @include flexbox(column, center, center); 
+  padding-top: 30px;
+  padding-bottom: 20px;
+  // padding-left: 20px;
+  // padding-right: 20px;
+  background-color: $white;
+  border-radius: 15px;
+  border: solid $purple 2px;
+  outline: none;
+  width: 280px;
+}
+
+.user-input-item {
+  margin: 20px;
+  outline: none;
+  border: none;
+  width: 80%;
+  height: 20px;
+  font-size: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: inherit;
+  border-bottom: 1px solid black;
+}
+.error {
+  margin-top: 10px;
+  color: red;
+  height: 23px;
+}
+.error-input {
+  background-color: pink;
+  border: red 1px solid;
+}

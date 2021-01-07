@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+}
+#root {
+  width: 100%;
+  margin: 0;
+}
+.logo-container{
+  font-size: 3em;
+  position: absolute;
+  z-index: 2;
+  font-weight: bold;
+  font-family: 'Poppins';
+  color: #00acc1;
+  margin: 25px;
+}
