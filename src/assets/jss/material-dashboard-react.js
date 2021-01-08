@@ -34,8 +34,10 @@ const transition = {
 const container = {
   paddingRight: "15px",
   paddingLeft: "15px",
-  marginRight: "auto",
-  marginLeft: "auto"
+  // marginRight: "auto",
+  marginLeft: "auto",
+  display: 'flex',
+  justifyContent:'flex-end'
 };
 
 const defaultFont = {

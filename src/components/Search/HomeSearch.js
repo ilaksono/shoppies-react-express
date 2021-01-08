@@ -5,43 +5,74 @@ import {
   ComboboxOption,
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
-import {useState} from 'react';
-
-
-
+import { useState, useContext, useEffect } from 'react';
+import AppContext from 'AppContext';
+import { Button} from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import {makeStyles} from '@material-ui/core/styles';
+const styles = {
+  root: {
+    backgroundColor: 'white',
+    color: 'black',
+    '&:hover': {
+      backgroundColor:'grey'
+    },
+    height: '57.6px'
+  }
+};
+const useStyles = makeStyles(styles);
 const HomeSearch = (props) => {
+  const classes = useStyles();
   const [value, setValue] = useState('');
-  return (
+  const { getAutoResults,
+    autoResults
+  } = useContext(AppContext);
 
+  useEffect(() => {
+    if (value)
+      getAutoResults(value);
+  }, [value]);
+
+  return (
     <div className='home-search-container'>
       <Combobox
         style={{
-          fontFamily: 'Poppins'
+          fontFamily: 'Poppins',
+          border: 'none',
+          outline: 'none'
         }}
         onSelect={res => {
-          setValue(res)
+          setValue(res);
         }}
-          >
+      >
         <ComboboxInput value={value}
           onChange={e => {
-            setValue(e.target.value)
+            setValue(e.target.value);
           }}
           className='home-search-input'
           disabled={false}
+          style={{
+            outline: 'none',
+            border: 'none'
+          }}
           placeholder="Search Movies"
         />
-        <ComboboxPopover style={{ zIndex: 10 }}>
+        <ComboboxPopover style={{
+          zIndex: autoResults.length > 0 ? 10 : -1,
+        }}>
 
-          {props.loc && props.loc.suggest.map(({ place_id, description }) =>
-            <ComboboxOption key={place_id} value={description}>
+          {autoResults.length > 0 && autoResults.map(({ Title, Year, imdbID }) =>
+            <ComboboxOption key={imdbID} value={`${Title} - ${Year}`}>
             </ComboboxOption>
           )
-
           }
 
         </ComboboxPopover>
-        
+
       </Combobox>
+      <Button className={classes.root}>
+        <SearchIcon />
+      </Button>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -8,7 +8,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { useCookies } from 'react-cookie';
 
+
 const initLogin = {
+  username: '',
   email: '',
   errMsg: '',
   errType: ''
@@ -27,8 +29,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
 }));
-const LoginForm = ({ setModal, authoriseLog, modal }) => {
+const LoginForm = ({ setModal, modal, authoriseReg }) => {
 
+  
   const classes = useStyles();
   const [login, setLogin] = useState(initLogin);
   const [cookies, setCookie, removeCookie] = useCookies();
@@ -46,26 +49,33 @@ const LoginForm = ({ setModal, authoriseLog, modal }) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(String(login.email).toLowerCase()))
       return setLogin({ ...login, errMsg: 'Invalid email', password: '', errType: 'email' });
-    const { email } = login;
+    const { email, username } = login;
     if (!email) {
       return setLogin({
         ...login,
-        password: '',
         errMsg: 'Email cannot be empty',
         errType: 'email'
       });
     }
+    if (!username) {
+      return setLogin({
+        ...login,
+        errMsg: 'Username cannot be empty',
+        errType: 'username'
+      });
+    }
 
-    const err = authoriseLog(email);
-    if (err.id) {
-      setCookie('id', err.id, { path: '/' });
-      return setCookie('username', err.username, { path: '/' });
-    };
+    const err = authoriseReg(email, username);
+
+    if (!Number.isNaN(err)) {
+      setCookie('id', err, { path: '/' });
+      return setCookie('username', username, { path: '/' });
+    }
     setLogin({ ...login, errType: 'email', errMsg: err });
   };
 
   const handleClose = () => {
-    setModal(prev => ({ ...prev, logOpen: false }));
+    setModal(prev => ({ ...prev, regOpen: false }));
   };
 
   return (
@@ -80,9 +90,9 @@ const LoginForm = ({ setModal, authoriseLog, modal }) => {
         BackdropProps={{
           timeout: 500,
         }}
-        open={modal.logOpen}
+        open={modal.regOpen}
       >
-        <Fade in={modal.logOpen}>
+        <Fade in={modal.regOpen}>
           <form onSubmit={event => {
             event.preventDefault();
             validate();
@@ -90,18 +100,17 @@ const LoginForm = ({ setModal, authoriseLog, modal }) => {
           }
             className='register-container'>
             <input type='email' placeholder='Email@gmail.com' value={login.email} onChange={(event) =>
-              handleChange(event.target.value, 'email')}
-              className={`user-input-item${login.errType === 'email'
-                ? ' error-input' : ''}`} />
+              handleChange(event.target.value, 'email')} className={`user-input-item${login.errType === 'email' ? ' error-input' : ''}`} />
+            <input type='password' placeholder='Password' value={login.password} onChange={(event) =>
+              handleChange(event.target.value, 'password')} className={`user-input-item${login.errType === 'password' ? ' error-input' : ''}`} />
             <Button onClick={validate}
               variant='contained' color='primary'
               type='submit'
-              className='user-input-btn'
               style={{
                 color: 'white',
                 fontWeight: 'bold'
               }}
-            >Sign in</Button>
+              className='user-input-btn'>Register</Button>
             {login.errMsg && <div className='error'>
               <i class="fas fa-exclamation-triangle"></i> {login.errMsg}
             </div>}

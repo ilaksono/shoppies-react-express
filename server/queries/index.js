@@ -27,16 +27,31 @@ module.exports = (db) => {
       .then(res => res.rows);
   };
 
-  const loadUser = id => {
+  const loadUser = async id => {
     const qs = `
     SELECT * FROM users where id = $1;`;
-    return db.query(qs, [id])
+    const user = await db.query(qs, [id]);
+
+    return getNomsOfUser(id)
+      .then(res => ({
+        noms: res.rows,
+        user: user.rows[0]
+      }));
+  };
+
+  const getNomsOfUser = id => {
+    const qs = `
+    SELECT * FROM nominations WHERE users_id = $1;`;
+    return db
+      .query(qs, [id])
       .then(res => res.rows);
+
   };
 
   return {
     authoriseReg,
     authoriseLog,
-    loadUser
+    loadUser,
+    getNomsOfUser
   };
 };

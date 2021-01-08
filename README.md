@@ -9,3 +9,4 @@
 ## Additional Features
 - autocomplete search
 - Chart shows top nominations and current results
+- trailer preview on each movie's details page

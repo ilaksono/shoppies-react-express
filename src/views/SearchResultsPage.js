@@ -2,7 +2,7 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import { makeStyles } from "@material-ui/core/styles";
-
+import 'styles/SearchResultsPage.scss';
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -38,7 +38,7 @@ const SearchResultsPage = () => {
   return (
     <Card>
       <CardHeader color="primary">
-        <h4 className={classes.cardTitleWhite}>Twitch Streams</h4>
+        <h4 className={classes.cardTitleWhite}>Search Re</h4>
         <p className={classes.cardCategoryWhite}>
           Click to open in new tab
             </p>

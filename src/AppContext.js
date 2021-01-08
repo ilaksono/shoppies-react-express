@@ -8,14 +8,20 @@ export const AppProvider = ({ children }) => {
   const {
     app,
     authoriseReg,
-    authoriseLog
+    authoriseLog,
+    loadUser,
+    getAutoResults,
+    autoResults
   } = useAppState();
   
   return (
     <AppContext.Provider value={{
       app,
       authoriseReg,
-      authoriseLog
+      authoriseLog,
+      loadUser,
+      getAutoResults,
+      autoResults
     }}>
       {children}
     </AppContext.Provider>

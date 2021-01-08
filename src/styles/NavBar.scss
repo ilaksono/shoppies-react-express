@@ -10,10 +10,11 @@
   // padding-left: 55px;
   // padding-right: 55px;
   box-shadow: 0 0 4px 4px rgb(124, 124, 124);
-  position: fixed;
+  position: absolute;
+  right: 0;
   top: 0;
   z-index: 1;
-  width: 100%;
+  width: calc(100vw - 220px);
 }
 
 .logo {
@@ -54,6 +55,9 @@
 .nav-spacer {
   display: none;
 }
+.hamburger-btn {
+  display: none;
+}
 
 // @media screen and (max-width: 650px) {
 //   .nav-container {
@@ -87,3 +91,12 @@
 //     width: 95vw;
 //   }
 // }
+@media screen and (max-width: 959px) {
+  .nav-container {
+    width: 100%;
+  }
+  .hamburger-btn {
+    display: block;
+    cursor: pointer;
+  }
+}
