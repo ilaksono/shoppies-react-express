@@ -1,0 +1,89 @@
+@import './helpers';
+
+.nav-container {
+  @include flexbox(row, space-around, center);
+  height: 85px;
+  padding-bottom: 2px;
+  background-color: rgb(235, 235, 235);
+  // color: rgb(17, 17, 17);
+  opacity: 0.9;
+  // padding-left: 55px;
+  // padding-right: 55px;
+  box-shadow: 0 0 4px 4px rgb(124, 124, 124);
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+}
+
+.logo {
+  max-height: 55px;
+  max-width: 55px;
+}
+.nav-logo {
+  cursor: pointer;
+
+}
+.about-me-logo {
+  font-size: 37px;
+  cursor: pointer;
+}
+.fas {
+  font-size: 1.6em;
+}
+
+.selected {
+  // border-radius: 50%;
+  // border: 2px solid rgb(177, 177, 177);
+  border-bottom: 4px solid #00acc1;
+  border-radius: 4px;
+  color: #00acc1;
+  // height: 60px;
+  // width: 60px;
+  text-align: center;
+}
+.not-selected {
+  // border-radius: 50%;
+    // border: 2px solid rgb(19, 19, 19);
+
+  color: rgb(0, 0, 0);
+  // height: 60px;
+  // width: 60px;
+  text-align: center;
+}
+.nav-spacer {
+  display: none;
+}
+
+// @media screen and (max-width: 650px) {
+//   .nav-container {
+//     position: fixed;
+//     bottom: 0;
+//     width: 100vw;
+//     z-index: 2;
+//     height:75px;
+//     padding-left: 10px;
+//     padding-right: 10px;
+//   }
+//   .nav-spacer {
+//     display: block;
+//     position: absolute;
+//     height: 75px;
+//     width: 95vw;
+//   }
+// }
+
+// @media screen and(min-width: 651px) and (max-width:849px) {
+//   .nav-container {
+//     position: fixed;
+//     top: 0;
+//     width: 100%;
+//     z-index: 3;
+//   }
+//   .nav-spacer {
+//     display: block;
+//     // position: absolute;
+//     height: 75px;
+//     width: 95vw;
+//   }
+// }

@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 const LoginForm = props => {
 
+  const {
+    
+  } = useContext(AppContext);
   const classes = useStyles();
   const [login, setLogin] = useState(initLogin);
   const [cookies, setCookie, removeCookie] = useCookies();

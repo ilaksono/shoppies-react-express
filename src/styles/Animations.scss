@@ -1,0 +1,121 @@
+.small-wobble {
+  animation: small-wobble 1.5s 1;
+}
+
+
+@keyframes small-wobble {
+  25% {
+    transform: rotate(0.2deg);
+  }
+  50% {
+    transform: rotate(-0.6deg);
+  }
+  75% {
+    transform: rotate(0.4deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.account-animation {
+  animation: spin 1s 1;
+  
+}
+
+.wobble-animation {
+  animation: wobble 1s 1;
+}
+@keyframes wobble {
+  25% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(-20deg);
+  }
+  75% {
+    transform: rotate(4deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+.pulse {
+  box-shadow: 0 0 0 0 rgb(224, 89, 89);
+	transform: scale(1);
+  animation: pulse 2s 1;
+}
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+}
+
+.like-bounce {
+  animation: bounce 0.5s 2;
+}
+
+// @keyframes bounce { 
+//   0%, 20%, 40%, 60%, 80%, 100% {transform: translateY(0);}
+//   50% {transform: translateY(-5px);}
+// } 
+
+@keyframes bounce { 
+  from {transform: translateY(0);}
+  50% {transform: translateY(-5px);}
+  to {
+    transform: translateY(0);
+  }
+} 
+
+.fadeOut {
+  animation: fadeOut 0.5s 2
+}
+
+@keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+
+// .dropdown_menu-3
+//   for num in (1..5)
+//      .dropdown_item-{num}  
+//        transform-origin: top center
+//        animation: rotateZ 300ms (num * 60ms) ease-in-out forwards
+
+
+// @keyframes rotateZ {
+//   0% {
+//     opacity: 0;
+//     transform: translateZ(290px);
+//   }
+  
+//   80% {
+//     transform: translateZ(10px);
+//   }
+
+//   100% {
+//     opacity: 1;
+//     transform: translateZ(0);
+//   }
+// }

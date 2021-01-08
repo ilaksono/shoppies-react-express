@@ -8,7 +8,7 @@ const { Pool } = require('pg');
 const db = new Pool({
   connectionString: process.env.DATABASE_URL
 });
-
+const query = require('./queries')(db);
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -37,19 +37,43 @@ app.get('/api/autocomplete', async (req, res) => {
   }
 });
 
-app.post('/api/user', (req, res) => {
-  
+app.post('/api/users', async (req, res) => {
 
-})
+  try {
+    const {
+      email,
+      username
+    } = req.body;
+
+    if (username) {
+      const data = await query.authoriseReg(email, username);
+      return res.send(data);
+    } else {
+      const data = await query.authoriseLog(email);
+      return res.send(data);
+    }
+  } catch (er) {
+    console.log(er);
+  }
+});
+
+app.get('/api/users/:id', async (req, res) => {
+  try {
+    const data = await query.loadUser(Number(req.params.id));
+    res.send(data);
+  } catch (er) {
+    console.log(er);
+  }
+});
 
 app.get('/api/search', async (req, res) => {
   try {
 
     const params = [
-      ,req.query.s,
-      ,req.query.y,
-      ,req.query.page
-  ];
+      req.query.s,
+      req.query.y,
+      req.query.page
+    ];
 
     if (param) {
       const data = await fetch(getURL(...params));

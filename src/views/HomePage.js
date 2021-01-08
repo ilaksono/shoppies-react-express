@@ -1,5 +1,7 @@
 import 'styles/HomePage.scss';
 import { Button } from "@material-ui/core";
+import HomeSearch from 'components/Search/HomeSearch';
+
 const HomePage = () => {
 
   return (
@@ -9,23 +11,9 @@ const HomePage = () => {
       </div>
       <div
         className='background-image-fade'>
-
       </div>
-      <Button color="primary"
-        variant="contained"
-        style={{
-          position: 'fixed',
-          color: 'white',
-          top:'0',
-          fontWeight: 'bold',
-          transform:'none',
-          margin:'25px',
-          right:'0',
-          zIndex: 1
-        }}
-      >
-        Sign In
-</Button>
+      <HomeSearch />
+
     </div>
   );
 };
