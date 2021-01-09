@@ -10,7 +10,7 @@ import AppContext from 'AppContext';
 import { Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const styles = {
   root: {
@@ -32,13 +32,19 @@ const HomeSearch = (props) => {
     getAutoResults,
     autoResults,
     getSearchResults,
-    resetAutoResults
+    resetAutoResults,
+    resetPagination,
+    setSearchLoad
   } = useContext(AppContext);
 
   const handleClick = () => {
-    getSearchResults(value)
-    history.push(`/search?s=${value}`)
-  }
+    if (value) {
+      setSearchLoad(true);
+      resetPagination();
+      getSearchResults(value);
+      history.push(`/search?s=${value}`);
+    }
+  };
 
   useEffect(() => {
     if (value)
@@ -55,7 +61,7 @@ const HomeSearch = (props) => {
         }}
         onSelect={res => {
           setValue(res.slice(0, -7));
-          resetAutoResults()
+          resetAutoResults();
         }}
       >
         <ComboboxInput value={value}

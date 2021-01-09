@@ -9,7 +9,6 @@ const DetailsPage = () => {
       <div className='partial-details-container'>
         <FilmDetails />
         <VideoEmbed />
-
       </div>
       <OtherDetails />
     </div>

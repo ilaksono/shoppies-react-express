@@ -90,17 +90,25 @@ app.get(`/api/details/:id`, async (req, res) => {
 
 });
 
-
 app.post('/api/nominate', async (req, res) => {
+  const {
+    user_id,
+    Title,
+    Year,
+    imdbID
+  } = req.body;
   try {
-
+    const data = await query
+      .updateNominate(user_id, Title, Year, imdbID);
+    res.send(data);
 
   } catch (er) {
     console.log(er);
   }
 
 });
-
+// query.updateNominate(1,"asd",1,1)
+// .then(data => console.log(data));
 app.post('/api/users', async (req, res) => {
 
   try {
@@ -141,13 +149,12 @@ app.get('/api/search', async (req, res) => {
       req.query.page
     ];
     console.log(params);
-
     if (params.length) {
 
       const data = await fetch(getURL(...params));
       const json = await data.json();
       if (json.Search)
-        return res.send(json.Search);
+        return res.send(json);
       else
         res.status(400).send('No Data');
 

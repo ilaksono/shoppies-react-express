@@ -21,6 +21,7 @@
 }
 .results-grid-container {
   display: grid;
+  justify-items: center;
   grid-template-columns: repeat(3, 1fr);
 }
 .card-result-footer {

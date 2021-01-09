@@ -12,7 +12,7 @@ const appReducer = (state, action) => {
       };
     case GET_RESULTS:
       return {
-        ...state, results: action.arr
+        ...state, results: action.arr, numRes: action.numRes
       };
     default:
       return state;
@@ -23,7 +23,8 @@ const initApp = {
   username: '',
   noms: [],
   results: [],
-  details: {}
+  details: {},
+  numRes: 0
 };
 
 const useAppState = () => {
@@ -60,10 +61,20 @@ const useAppState = () => {
       console.log(er);
     }
   };
+  const handleNominate = async (Title, Year, imdbID) => {
+    // console.log(app.id, Title, year, imdbID);
+    const data = axios
+    .post('/api/nominate', {
+      user_id: app.id,
+      Title,
+      Year: Number(Year),
+      imdbID 
+    })
+  }
 
   const getMovieDetails = async (id) => {
     try {
-      const data = await axios.get(`/api/details/${id}`)
+      const data = await axios.get(`/api/details/${id}`);
       console.log(data.data);
     } catch (er) {
       console.error(er);
@@ -102,14 +113,19 @@ const useAppState = () => {
     }
   };
 
-  const getSearchResults = async (s) => {
+  const getSearchResults = async (s, page = 1) => {
     try {
+      console.log(page);
 
-      const data = await axios.get(`/api/search?s=${s}`);
+      const data = await axios
+        .get(`/api/search?s=${s}&page=${page}`);
       // console.log(data)
-      const arr = data.data;
+      const arr = data.data.Search;
+      const numRes = Number(data.data.totalResults);
       if (arr.length) {
-        dispatch({ type: GET_RESULTS, arr });
+        dispatch({ type: GET_RESULTS, arr, numRes });
+      } else {
+        dispatch({type: GET_RESULTS, arr:[], numRes:0})
       }
     } catch (er) {
       console.log(er);
@@ -144,7 +160,8 @@ const useAppState = () => {
     getAutoResults,
     autoResults,
     resetAutoResults,
-    getSearchResults
+    getSearchResults,
+    handleNominate
   };
 };
 export default useAppState;

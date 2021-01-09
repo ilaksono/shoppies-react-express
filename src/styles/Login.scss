@@ -34,3 +34,12 @@
   background-color: pink;
   border: red 1px solid;
 }
+
+.swap-register {
+  color: #00acc1;
+  cursor: pointer;
+  margin-top: 10px;
+  &:hover {
+    color: #1e4a52
+  }
+}

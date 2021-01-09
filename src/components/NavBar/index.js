@@ -18,20 +18,22 @@ const initAnim = {
 };
 
 
-const initMod = {
-  regOpen: false,
-  logOpen: false
-};
+// const initMod = {
+//   regOpen: false,
+//   logOpen: false
+// };
 
 const NavBar = ({ handleDrawerToggle }) => {
   const location = useLocation();
-  const [modal, setModal] = useState(initMod);
-  const [openLogin, setOpenLogin] = useState(false);
-  const [openRegister, setOpenRegister] = useState(false);
+  // const [modal, setModal] = useState(initMod);
+  // const [openLogin, setOpenLogin] = useState(false);
+  // const [openRegister, setOpenRegister] = useState(false);
   const {
     app,
     authoriseReg,
-    authoriseLog
+    authoriseLog,
+    modal, 
+    setModal
   } = useContext(AppContext);
   const history = useHistory();
 

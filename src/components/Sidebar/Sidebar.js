@@ -23,6 +23,8 @@ export default function Sidebar(props) {
   const location = useLocation();
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
+    if (routeName === '/home' && location.pathname === '/')
+      return true;
     return !location.pathname.search(routeName) ? true : false;
   }
   const { color, logo, routes } = props;
@@ -79,8 +81,8 @@ export default function Sidebar(props) {
         </div>
         <div title="To Ian's Portfolio" className='tooltip'>
           Ian Laksono
-      <span style={{fontSize:'14px'}} 
-      className="tooltiptext">To Ian's Porfolio</span>
+      <span style={{ fontSize: '14px' }}
+            className="tooltiptext">To Ian's Porfolio</span>
         </div>
       </a>
 

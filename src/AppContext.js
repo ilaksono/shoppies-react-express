@@ -1,10 +1,18 @@
 import React from 'react';
 import useAppState from 'hooks/useAppState';
+import useLoadingState from 'hooks/useLoadingState';
+import usePagination from 'hooks/usePagination';
+import useLoginModal from 'hooks/useLoginModal';
 
 const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
-  
+
+  const {
+    load,
+    setSearchLoad
+  } = useLoadingState();
+
   const {
     app,
     authoriseReg,
@@ -13,9 +21,21 @@ export const AppProvider = ({ children }) => {
     getAutoResults,
     autoResults,
     resetAutoResults,
-    getSearchResults
+    getSearchResults,
+    handleNominate
+
   } = useAppState();
-  
+
+  const {
+    modal,
+    setModal
+  } = useLoginModal();
+  const {
+    page,
+    goToPage,
+    resetPagination
+  } = usePagination();
+
   return (
     <AppContext.Provider value={{
       app,
@@ -25,7 +45,15 @@ export const AppProvider = ({ children }) => {
       getAutoResults,
       autoResults,
       resetAutoResults,
-      getSearchResults
+      getSearchResults,
+      load,
+      setSearchLoad,
+      page,
+      goToPage,
+      resetPagination,
+      handleNominate,
+      modal,
+      setModal
     }}>
       {children}
     </AppContext.Provider>

@@ -1,11 +1,13 @@
 import ResultsListItem from './ResultsListItem';
 
-const ResultsList = ({arr}) => {
-  console.log(arr);
+const ResultsList = ({arr, handleNominate, app, setModal}) => {
   let parsedList = [];
   if(arr.length) {
     parsedList = arr.map((prop, index) => 
-    <ResultsListItem {...prop} key={index}/>
+    <ResultsListItem {...prop} app={app} key={index} 
+    handleNominate={handleNominate}
+    setModal={setModal}
+    />
     ) 
   }
 

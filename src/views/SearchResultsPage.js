@@ -7,7 +7,9 @@ import { useContext, useEffect, useRef } from 'react';
 import AppContext from 'AppContext';
 import ResultsList from 'components/Search/ResultsList';
 import { useLocation } from 'react-router-dom';
-
+import Pagination from '@material-ui/lab/Pagination';
+import { CircularProgress } from '@material-ui/core';
+import 'styles/Loading.scss';
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -39,9 +41,15 @@ const styles = {
   hoverableText: {
     cursor: 'pointer',
     color: 'grey',
-    "&:hover":{ 
-      color: 'black' 
+    "&:hover": {
+      color: 'black'
     }
+  },
+  paginationText: {
+    font: 'white',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center'
   }
 
 };
@@ -51,21 +59,42 @@ const SearchResultsPage = () => {
   const location = useLocation();
   const {
     app,
-    getSearchResults
+    getSearchResults,
+    page,
+    goToPage,
+    load,
+    setSearchLoad,
+    handleNominate,
+    setModal
   } = useContext(AppContext);
 
   const classes = useStyles();
   const useQuery = () => new URLSearchParams(location.search);
   let query = useQuery();
   useEffect(() => {
-    if (!app.results.length)
+    if (!app.results.length && query.get('s')) {
+      setSearchLoad(true);
       getSearchResults(query.get('s') || '');
+    }
   }, []);
   const ref = useRef();
   const focusInput = () => {
     ref.current = document.querySelector('.search-input');
     ref.current.focus();
   };
+
+  const handlePageChange = (e, val) => {
+    setSearchLoad(true);
+    goToPage(e, val);
+    if (query.get('s')) {
+      getSearchResults(query.get('s'), val);
+    }
+  };
+
+  useEffect(() => {
+    if (load.searchResults)
+      setSearchLoad(false);
+  }, [app]);
 
   return (
     <Card>
@@ -77,23 +106,51 @@ const SearchResultsPage = () => {
       </CardHeader>
       <CardBody>
         {
-          app.results.length > 0 ?
-            <ResultsList arr={app.results} />
-            : (!query.get('s') ?
-              <div className='begin-search'>
-                Begin Your Journey <br />
-                <div 
-                onClick={focusInput}
-                className={classes.hoverableText}>
-                  Search A Title
-                  </div>
-              </div>
-              : <div className='blank-search'>
-                No Results
-              </div>
-            )
+          load.searchResults ?
+            <div className='center-loading'>
+              <CircularProgress size={70} />
+            </div>
 
+            :
+
+            (app.results.length > 0 ?
+              <ResultsList arr={app.results}
+                handleNominate={handleNominate}
+                app={app}
+                setModal={setModal}
+              />
+              : (!query.get('s') ?
+                <div className='begin-search'>
+                  Begin Your Journey <br />
+                  <div
+                    onClick={focusInput}
+                    className={classes.hoverableText}>
+                    Search A Title
+                  </div>
+                </div>
+                :
+                (load.searchResults ?
+                  <CircularProgress />
+                  :
+                  <div className='blank-search'>
+                    No Results
+              </div>
+                )
+              )
+            )
         }
+        <div style={{
+          textAlign: 'center'
+        }}>
+          < Pagination count={Math.ceil(app.numRes / 10) || 1}
+            className={classes.paginationText}
+            color="primary"
+            onChange={handlePageChange}
+            page={page.current}
+            variant='outlined'
+          />
+
+        </div>
       </CardBody>
     </Card>
   );

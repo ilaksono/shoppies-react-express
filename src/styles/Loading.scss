@@ -1,0 +1,6 @@
+@import './helpers.scss';
+.center-loading {
+  width: 100%;
+  height: calc(100% - 30px);
+  @include flexbox(row, center, center)
+;}

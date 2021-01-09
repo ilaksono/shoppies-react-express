@@ -86,7 +86,10 @@ function App() {
       <Switch>
         <div className={classes.content}>
           <div className={classes.container}>
-            <Route path="/home" exact>
+            <Route path="/" exact>
+              <HomePage />
+            </Route>
+            <Route path="/home">
               <HomePage />
             </Route>
             <Route path="/search">
@@ -97,8 +100,8 @@ function App() {
             </Route>
           </div>
         </div>
-        <Redirect from="/" to="/home" />
       </Switch>
+
     </Router>
   );
 }

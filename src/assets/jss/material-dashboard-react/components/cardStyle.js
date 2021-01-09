@@ -40,7 +40,8 @@ const cardStyle = theme => ({
   },
   [theme.breakpoints.up("md")]: {
     card: {
-      width: "75vw"
+      width: "71vw",
+      margin: "30px 15px 30px 15px"
 
     }
   }

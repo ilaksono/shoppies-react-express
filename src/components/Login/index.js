@@ -105,6 +105,12 @@ const LoginForm = ({ setModal, authoriseLog, modal }) => {
             {login.errMsg && <div className='error'>
               <i className="fas fa-exclamation-triangle"></i> {login.errMsg}
             </div>}
+            <div>
+              Don't have an account? 
+              <span className="swap-register"
+              onClick={() => setModal({logOpen: false, regOpen: true})}
+              > Register</span>
+            </div>
           </form>
         </Fade>
       </Modal>

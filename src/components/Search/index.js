@@ -11,7 +11,7 @@ import { Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-
+import 'styles/Search.scss';
 const styles = {
   root: {
     backgroundColor: 'white',
@@ -19,7 +19,8 @@ const styles = {
     '&:hover': {
       backgroundColor: 'grey'
     },
-    height: '17.6px'
+    width: '40px',
+    height: '26px'
   }
 };
 const useStyles = makeStyles(styles);
@@ -28,17 +29,25 @@ const Search = (props) => {
   const history = useHistory();
   const classes = useStyles();
   const [value, setValue] = useState('');
-
+  const [errMsg, setErrMsg] = useState('');
   const {
     getAutoResults,
     autoResults,
     resetAutoResults,
-    getSearchResults
+    getSearchResults,
+    resetPagination,
+    setSearchLoad
   } = useContext(AppContext);
 
   const handleClick = () => {
-    getSearchResults(value);
-    history.push(`/search?s=${value}`);
+    if (value) {
+      setSearchLoad(true);
+      resetPagination();
+      getSearchResults(value);
+      history.push(`/search?s=${value}`);
+    } else {
+      setErrMsg('Search a title');
+    }
   };
 
   useEffect(() => {
@@ -47,45 +56,54 @@ const Search = (props) => {
   }, [value]);
 
   return (
-    <div className='search-container'>
-      <Combobox
-        style={{
-          fontFamily: 'Poppins',
-          border: 'none',
-          outline: 'none'
-        }}
-        onSelect={res => {
-          setValue(res.slice(0, -7));
-          resetAutoResults();
-        }}
-      >
-        <ComboboxInput value={value}
-          onChange={e => {
-            setValue(e.target.value);
-          }}
-          className='search-input'
-          disabled={false}
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+
+      <div className='search-container'>
+        <Combobox
           style={{
-            outline: 'none',
+            fontFamily: 'Poppins',
             border: 'none',
-            width: '100%'
+            outline: 'none'
           }}
-          placeholder="Search Movies"
-        />
-        <ComboboxPopover style={{
-          zIndex: autoResults.length > 0 ? 10 : -1,
-        }}>
-          {autoResults.length > 0 && autoResults.map(({ Title, Year, imdbID }) =>
-            <ComboboxOption key={imdbID} value={`${Title} - ${Year}`}>
-            </ComboboxOption>
-          )}
-        </ComboboxPopover>
-      </Combobox>
-      <Button className={classes.root}
-        onClick={handleClick}
-      >
-        <SearchIcon />
-      </Button>
+          onSelect={res => {
+            setValue(res.slice(0, -7));
+            resetAutoResults();
+          }}
+        >
+          <ComboboxInput value={value}
+            onChange={e => {
+              setValue(e.target.value);
+              setErrMsg('');
+            }}
+            className='search-input'
+            disabled={false}
+            style={{
+              outline: 'none',
+              border: 'none',
+              width: '100%'
+            }}
+            placeholder="Search Movies"
+          />
+          <ComboboxPopover style={{
+            zIndex: autoResults.length > 0 ? 10 : -1,
+          }}>
+            {autoResults.length > 0 && autoResults.map(({ Title, Year, imdbID }) =>
+              <ComboboxOption key={imdbID} value={`${Title} - ${Year}`}>
+              </ComboboxOption>
+            )}
+          </ComboboxPopover>
+        </Combobox>
+        <Button className={classes.root}
+          onClick={handleClick}
+        >
+          <SearchIcon />
+        </Button>
+
+      </div>
+      <div style={{ textAlign: 'center', fontFamily: 'Poppins', height: "1em" }}>
+
+        {errMsg && errMsg}
+      </div>
     </div>
   );
 };

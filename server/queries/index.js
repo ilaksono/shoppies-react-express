@@ -48,10 +48,61 @@ module.exports = (db) => {
 
   };
 
+  const insertNomination = (user_id, movie_id) => {
+    const qs = `
+    INSERT INTO nominations(user_id, movie_id)
+    VALUES($1, $2);`;
+    return db.query(qs, [user_id, movie_id])
+      .then(res => res.rows);
+  };
+
+  const deleteNomination = (user_id, movie_id) => {
+    const qs = `
+    DELETE FROM nominations
+    WHERE user_id = $1 AND movie_id = $2;`;
+
+    return db.query(qs, [user_id, movie_id])
+      .then(res => res.rows);
+  };
+
+  const updateNominate = async (user_id, title, year, imdbID) => {
+    const insertQs = `
+    INSERT INTO movies (title, year, imdbID)
+    VALUES ($1, $2, $3)
+    RETURNING *
+    ;`;
+    let data;
+    try {
+      data = await db
+        .query(insertQs, [title, year, imdbID]);
+    } catch (er) {
+      const getQs = `
+        SELECT * FROM movies WHERE imdbID = $1;`;
+      data = await db.query(getQs, [imdbID]);
+    }
+    data = data.rows[0];
+    const getNomQs = `
+    SELECT * FROM nominations 
+    WHERE user_id = $1 AND movie_id = $2;`;
+    let nomData;
+    try {
+      nomData = await db
+        .query(getNomQs, [user_id, data.id]);
+      if (!nomData.rows.length)
+        await insertNomination(user_id, data.id);
+      else await deleteNomination(user_id, data.id);
+      return data;
+    } catch (er) {
+      console.error(er);
+    }
+  };
+
+
   return {
     authoriseReg,
     authoriseLog,
     loadUser,
-    getNomsOfUser
+    getNomsOfUser,
+    updateNominate
   };
 };
