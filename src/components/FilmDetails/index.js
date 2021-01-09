@@ -11,7 +11,6 @@ const FilmDetails = () => {
     Title,
     Year,
     Rated,
-    Released,
     Runtime,
     Genre,
     Actors,
@@ -24,6 +23,20 @@ const FilmDetails = () => {
 
   return (
     <div className='details-container'>
+      <div className='details-movie-preface'>
+        {Year}Year - 
+        {Rated} Rated - 
+        {Genre} Genre
+      </div>
+      <div className='details-movie-title'>
+        {Title}Title
+      </div>
+      <div className='details-movie-title'>
+        {Title}Title
+      </div>
+      <div className='details-movie-title'>
+        {Title}Title
+      </div>
     </div>
   );
 

@@ -2,11 +2,13 @@
 
 .details-layout {
   background-color: rgb(29, 29, 29);
-  width: calc(100% - 250px);
+  width: calc(100% - 260px);
   height: 100%;
   position: fixed;
   right: 0;
   top: 89px;
+  color: whitesmoke;
+  font-family: 'Poppins'
 }
 .other-details-container {
   width: 100%;
@@ -16,5 +18,16 @@
   width: calc(100% - 560px);
   border: 2px solid pink;
   height: 315px;
+  padding-left: 10px;
 
+}
+.partial-details-container {
+  @include flexbox(row, flex-start, flex-start);
+}
+.details-movie-preface {
+  @include flexbox(row, flex-start, center);
+}
+.details-movie-title {
+  font-size: 3em;
+  font-weight: bold;
 }
