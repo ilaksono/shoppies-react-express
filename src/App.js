@@ -1,4 +1,9 @@
-import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
+import {
+  Switch
+  , BrowserRouter as Router
+  , Route
+  , Redirect
+} from 'react-router-dom';
 import HomePage from 'views/HomePage';
 import React, { useEffect, useContext } from 'react';
 import { useCookies } from 'react-cookie';
@@ -11,6 +16,8 @@ import SearchResultsPage from 'views/SearchResultsPage';
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import { makeStyles } from "@material-ui/core/styles";
 import routes from 'routes';
+import DetailsPage from 'views/DetailsPage';
+
 const useStyles = makeStyles(styles);
 
 let ps;
@@ -62,6 +69,7 @@ function App() {
   }, []);
 
 
+
   return (
     <Router>
       <>
@@ -78,14 +86,18 @@ function App() {
       <Switch>
         <div className={classes.content}>
           <div className={classes.container}>
-            <Route path="/" exact>
+            <Route path="/home" exact>
               <HomePage />
             </Route>
             <Route path="/search">
               <SearchResultsPage />
             </Route>
+            <Route path="/films">
+              <DetailsPage />
+            </Route>
           </div>
         </div>
+        <Redirect from="/" to="/home" />
       </Switch>
     </Router>
   );

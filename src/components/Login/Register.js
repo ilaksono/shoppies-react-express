@@ -112,7 +112,7 @@ const LoginForm = ({ setModal, modal, authoriseReg }) => {
               }}
               className='user-input-btn'>Register</Button>
             {login.errMsg && <div className='error'>
-              <i class="fas fa-exclamation-triangle"></i> {login.errMsg}
+              <i className="fas fa-exclamation-triangle"></i> {login.errMsg}
             </div>}
           </form>
         </Fade>

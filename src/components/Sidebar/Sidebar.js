@@ -14,6 +14,7 @@ import Icon from "@material-ui/core/Icon";
 // core components
 import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
+import 'styles/Sidebar.scss';
 
 const useStyles = makeStyles(styles);
 
@@ -22,7 +23,7 @@ export default function Sidebar(props) {
   const location = useLocation();
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
-    return location.pathname === routeName ? true : false;
+    return !location.pathname.search(routeName) ? true : false;
   }
   const { color, logo, routes } = props;
   var links = (
@@ -67,6 +68,7 @@ export default function Sidebar(props) {
   );
   var brand = (
     <div className={classes.logo}>
+
       <a
         href="https://laks.ca/"
         className={classNames(classes.logoLink)}
@@ -75,8 +77,13 @@ export default function Sidebar(props) {
         <div className={classes.logoImage}>
           <img src={logo} alt="logo" className={classes.img} />
         </div>
-        Ian Laksono
+        <div title="To Ian's Portfolio" className='tooltip'>
+          Ian Laksono
+      <span style={{fontSize:'14px'}} 
+      className="tooltiptext">To Ian's Porfolio</span>
+        </div>
       </a>
+
     </div>
   );
   return (

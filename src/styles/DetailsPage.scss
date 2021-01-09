@@ -1,0 +1,20 @@
+@import './helpers.scss';
+
+.details-layout {
+  background-color: rgb(29, 29, 29);
+  width: calc(100% - 250px);
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: 89px;
+}
+.other-details-container {
+  width: 100%;
+  border: 2x solid red;
+}
+.details-container {
+  width: calc(100% - 560px);
+  border: 2px solid pink;
+  height: 315px;
+
+}

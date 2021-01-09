@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const fetch = require('node-fetch');
 const { Pool } = require('pg');
+
+
 const db = new Pool({
   connectionString: process.env.DATABASE_URL
 });
@@ -33,13 +35,11 @@ const replaceAll = (str, search, replace) => {
 
 };
 const formatSpaces = (str) => {
+
   let newStr = str;
 
-  for (const [key, val] of Object.entries(encoding)) {
-    console.log(typeof key, typeof val);
-    console.log(newStr);
+  for (const [key, val] of Object.entries(encoding))
     newStr = replaceAll(newStr, `${key}`, `${val}`);
-  }
 
   return newStr;
 };
@@ -71,6 +71,34 @@ app.get('/api/autocomplete', async (req, res) => {
     console.log(er);
     return res.send(er);
   }
+});
+
+app.get(`/api/details/:id`, async (req, res) => {
+
+  try {
+    const response = await fetch(`https://movies-tvshows-data-imdb.p.rapidapi.com/?type=get-movie-details&imdb=${req.params.id}`, {
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-key": process.env.IMDB_API_KEY,
+        "x-rapidapi-host": process.env.RAPID_HOST
+      }
+    });
+    res.send(response);
+  } catch (er) {
+    console.error(er);
+  }
+
+});
+
+
+app.post('/api/nominate', async (req, res) => {
+  try {
+
+
+  } catch (er) {
+    console.log(er);
+  }
+
 });
 
 app.post('/api/users', async (req, res) => {
@@ -112,8 +140,10 @@ app.get('/api/search', async (req, res) => {
       req.query.y,
       req.query.page
     ];
+    console.log(params);
 
-    if (param) {
+    if (params.length) {
+
       const data = await fetch(getURL(...params));
       const json = await data.json();
       if (json.Search)
@@ -124,6 +154,7 @@ app.get('/api/search', async (req, res) => {
     }
   } catch (er) {
     console.log(er);
+    res.send(er);
   }
 
 });

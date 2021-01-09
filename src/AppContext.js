@@ -11,7 +11,9 @@ export const AppProvider = ({ children }) => {
     authoriseLog,
     loadUser,
     getAutoResults,
-    autoResults
+    autoResults,
+    resetAutoResults,
+    getSearchResults
   } = useAppState();
   
   return (
@@ -21,7 +23,9 @@ export const AppProvider = ({ children }) => {
       authoriseLog,
       loadUser,
       getAutoResults,
-      autoResults
+      autoResults,
+      resetAutoResults,
+      getSearchResults
     }}>
       {children}
     </AppContext.Provider>

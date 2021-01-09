@@ -1,0 +1,19 @@
+@import './helpers.scss';
+
+.search-container {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  top: 50%;
+  @include flexbox(row, flex-start, center);
+  left: 35%;
+}
+
+.search-input {
+  height: 1em;
+  padding: 5px;
+  width: 80%;
+  outline: none;
+  font-size: 1em;
+  border: none;
+}

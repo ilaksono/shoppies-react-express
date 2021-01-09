@@ -2,12 +2,13 @@ import 'styles/NavBar.scss';
 import AppContext from 'AppContext';
 import { useContext, useState } from 'react';
 import 'styles/Animations.scss';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import Logo from 'components/Logo';
 import { Button } from '@material-ui/core';
 import Register from 'components/Login/Register';
 import Login from 'components/Login';
 import MenuIcon from '@material-ui/icons/Menu';
+import Search from 'components/Search';
 
 const initAnim = {
   mainSpin: false,
@@ -22,7 +23,7 @@ const initMod = {
   logOpen: false
 };
 
-const NavBar = ({handleDrawerToggle}) => {
+const NavBar = ({ handleDrawerToggle }) => {
   const location = useLocation();
   const [modal, setModal] = useState(initMod);
   const [openLogin, setOpenLogin] = useState(false);
@@ -32,20 +33,23 @@ const NavBar = ({handleDrawerToggle}) => {
     authoriseReg,
     authoriseLog
   } = useContext(AppContext);
+  const history = useHistory();
+
+
   return (
     <>
       <nav className='nav-container'>
-       
+
 
         <div
-          className={location.pathname === '/' ? 'selected' : 'not-selected'}
+          className={location.pathname === '/home' ? 'selected' : 'not-selected'}
         >
-          <div className='nav-logo'>
+          <div className='nav-logo' onClick={() => history.push('/home')}>
             <Logo />
 
           </div>
         </div>
-        <div className={location.pathname === '/search' ? 'selected' : 'not-selected'}>
+        {/* <div className={location.pathname === '/search' ? 'selected' : 'not-selected'}>
           <div className='nav-logo'>
             <i className="fas fa-briefcase"></i>
           </div>
@@ -61,49 +65,53 @@ const NavBar = ({handleDrawerToggle}) => {
         <div
           className={location.pathname === '/analytics' ? 'selected' : 'not-selected'}
         >
-          {
-            !app.id &&
-            <div>
-              <Button color="primary"
-                variant="contained"
-                style={{
-                  // position: 'fixed',
-                  color: 'white',
-                  // top: '0',
-                  fontWeight: 'bold',
-                  transform: 'none',
-                  // margin: '25px',
-                  // right: '0',
-                  zIndex: 1
-                }}
-                onClick={() => setModal(prev => ({...prev, logOpen: true}))}
-              >
-                Sign In
+        </div> */}
+        {
+          location.pathname !== '/home' &&
+          <Search />
+        }
+        {
+          !app.id &&
+          <div>
+            <Button color="primary"
+              variant="contained"
+              style={{
+                // position: 'fixed',
+                color: 'white',
+                // top: '0',
+                fontWeight: 'bold',
+                transform: 'none',
+                // margin: '25px',
+                // right: '0',
+                zIndex: 1
+              }}
+              onClick={() => setModal(prev => ({ ...prev, logOpen: true }))}
+            >
+              Sign In
             </Button>
               &nbsp;
             <Button color="primary"
-                variant="contained"
-                style={{
-                  // position: 'fixed',
-                  color: 'white',
-                  // top: '0',
-                  fontWeight: 'bold',
-                  transform: 'none',
-                  // margin: '25px',
-                  // right: '0',
-                  zIndex: 1
-                }}
-                onClick={() => setModal(prev => ({ ...prev, regOpen: true }))}
-              >
-                Register
+              variant="contained"
+              style={{
+                // position: 'fixed',
+                color: 'white',
+                // top: '0',
+                fontWeight: 'bold',
+                transform: 'none',
+                // margin: '25px',
+                // right: '0',
+                zIndex: 1
+              }}
+              onClick={() => setModal(prev => ({ ...prev, regOpen: true }))}
+            >
+              Register
             </Button>
-            </div>
-          }
-        </div>
+          </div>
+        }
         <div className='hamburger-btn'
-        onClick={handleDrawerToggle}
+          onClick={handleDrawerToggle}
         >
-          <MenuIcon />
+          <MenuIcon color='primary' />
         </div>
       </nav >
 
@@ -116,7 +124,7 @@ const NavBar = ({handleDrawerToggle}) => {
       }
       {
         modal.logOpen &&
-        <Login setModal={setModal} 
+        <Login setModal={setModal}
           modal={modal}
           authoriseLog={authoriseLog}
         />

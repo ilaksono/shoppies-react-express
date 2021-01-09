@@ -1,15 +1,19 @@
 import { useReducer, useState } from 'react';
 import axios from 'axios';
 const AUTH = "AUTHORISE_USER";
+const GET_RESULTS = "GET_SEARCH_RESULTS";
+
 const appReducer = (state, action) => {
   switch (action.type) {
-    case AUTH: {
+    case AUTH:
       return {
         ...state, id: action.id,
         username: action.username
       };
-
-    }
+    case GET_RESULTS:
+      return {
+        ...state, results: action.arr
+      };
     default:
       return state;
   }
@@ -18,6 +22,8 @@ const initApp = {
   id: 0,
   username: '',
   noms: [],
+  results: [],
+  details: {}
 };
 
 const useAppState = () => {
@@ -55,6 +61,15 @@ const useAppState = () => {
     }
   };
 
+  const getMovieDetails = async (id) => {
+    try {
+      const data = await axios.get(`/api/details/${id}`)
+      console.log(data.data);
+    } catch (er) {
+      console.error(er);
+    }
+  };
+
   const authoriseLog = async (email) => {
     try {
       const data = await axios
@@ -87,8 +102,18 @@ const useAppState = () => {
     }
   };
 
-  const getSearchResults = () => {
+  const getSearchResults = async (s) => {
+    try {
 
+      const data = await axios.get(`/api/search?s=${s}`);
+      // console.log(data)
+      const arr = data.data;
+      if (arr.length) {
+        dispatch({ type: GET_RESULTS, arr });
+      }
+    } catch (er) {
+      console.log(er);
+    }
   };
 
   const getAutoResults = async (s) => {
@@ -107,6 +132,9 @@ const useAppState = () => {
       console.log(er);
     }
   };
+  const resetAutoResults = () => {
+    setAutoResults([]);
+  };
 
   return {
     app,
@@ -114,7 +142,9 @@ const useAppState = () => {
     authoriseLog,
     loadUser,
     getAutoResults,
-    autoResults
+    autoResults,
+    resetAutoResults,
+    getSearchResults
   };
 };
 export default useAppState;

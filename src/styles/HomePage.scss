@@ -55,13 +55,19 @@
   }
 }
 
-@media screen and (max-width: 740px) {
+@media screen and (max-width: 850px) {
   .home-search-container {
     max-width: 100%;
     left: 10%;
   }
   .home-search-input {
     width: 80%;
+  }
+}
 
+@media screen and (max-width: 520px) {
+  .home-search-container {
+    @include flexbox(column, center, center);
+    width: 82%;
   }
 }

@@ -7,26 +7,38 @@ import {
 import "@reach/combobox/styles.css";
 import { useState, useContext, useEffect } from 'react';
 import AppContext from 'AppContext';
-import { Button} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import {useHistory} from 'react-router-dom';
+
 const styles = {
   root: {
     backgroundColor: 'white',
     color: 'black',
     '&:hover': {
-      backgroundColor:'grey'
+      backgroundColor: 'grey'
     },
     height: '57.6px'
   }
 };
 const useStyles = makeStyles(styles);
 const HomeSearch = (props) => {
+
+  const history = useHistory();
   const classes = useStyles();
   const [value, setValue] = useState('');
-  const { getAutoResults,
-    autoResults
+  const {
+    getAutoResults,
+    autoResults,
+    getSearchResults,
+    resetAutoResults
   } = useContext(AppContext);
+
+  const handleClick = () => {
+    getSearchResults(value)
+    history.push(`/search?s=${value}`)
+  }
 
   useEffect(() => {
     if (value)
@@ -42,7 +54,8 @@ const HomeSearch = (props) => {
           outline: 'none'
         }}
         onSelect={res => {
-          setValue(res);
+          setValue(res.slice(0, -7));
+          resetAutoResults()
         }}
       >
         <ComboboxInput value={value}
@@ -53,7 +66,8 @@ const HomeSearch = (props) => {
           disabled={false}
           style={{
             outline: 'none',
-            border: 'none'
+            border: 'none',
+            width: '100%'
           }}
           placeholder="Search Movies"
         />
@@ -64,13 +78,13 @@ const HomeSearch = (props) => {
           {autoResults.length > 0 && autoResults.map(({ Title, Year, imdbID }) =>
             <ComboboxOption key={imdbID} value={`${Title} - ${Year}`}>
             </ComboboxOption>
-          )
-          }
-
+          )}
         </ComboboxPopover>
 
       </Combobox>
-      <Button className={classes.root}>
+      <Button className={classes.root}
+        onClick={handleClick}
+      >
         <SearchIcon />
       </Button>
     </div>

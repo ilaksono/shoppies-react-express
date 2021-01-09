@@ -1,7 +1,11 @@
+@import './helpers.scss';
+
 .result-card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: 80%;
+  margin-bottom: 18px;
+  @include flexbox(column, space-between, center);
 }
 
 .result-card:hover {
@@ -9,5 +13,23 @@
 }
 
 .result-container {
-  padding: 2px 16px;
+  padding: 0px 16px;
+  // margin-bottom: 5px;
+  position: relative;
+  bottom: 0;
+  width: calc(100% - 32px);
+}
+.results-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.card-result-footer {
+  position: relative;
+  @include flexbox(row, space-between, flex-end);
+  bottom: 4px;
+}
+
+.begin-search {
+  text-align: center;
+  font-family: 'Poppins'
 }
