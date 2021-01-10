@@ -155,7 +155,6 @@ const useAppState = () => {
   const getMovieDetails = async (id) => {
     try {
       const data = await axios.get(`/api/details/${id}`);
-      console.log(data.data);
       const {
         db,
         yt,

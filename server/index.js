@@ -161,7 +161,6 @@ app.get('/api/search', async (req, res) => {
       req.query.y,
       req.query.page
     ];
-    console.log(params);
     if (params.length) {
 
       const data = await fetch(getURL(...params));
