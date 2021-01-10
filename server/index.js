@@ -8,8 +8,12 @@ const { Pool } = require('pg');
 
 
 const db = new Pool({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
+db.connect();
 const query = require('./queries')(db);
 app.use(cors());
 app.use(bodyParser.json());

@@ -29,7 +29,7 @@ const appReducer = (state, action) => {
     case GET_DETAILS:
       return {
         ...state, lastIMDB: action.id,
-        details: { ...action.omdb, yt: action.yt, count: action.db[0].num_nom },
+        details: { ...action.omdb, yt: action.yt, count: action.db[0].num_nom || 0 },
       };
     case UPDATE_LIST:
       return {
