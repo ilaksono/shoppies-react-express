@@ -5,7 +5,7 @@ import 'styles/index.scss';
 import { AppProvider } from "AppContext";
 import { CookiesProvider } from 'react-cookie';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
+import axios from 'axios';
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -19,6 +19,10 @@ const theme = createMuiTheme({
     }
   }
 });
+
+if (process.env.REACT_APP_API_BASE_URL) {
+  axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+}
 
 ReactDOM.render(
   <React.StrictMode>
