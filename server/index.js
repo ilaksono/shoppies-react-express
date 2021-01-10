@@ -54,6 +54,9 @@ const getAutoURL = (s) =>
   formatSpaces(
     `http://www.omdbapi.com/?s=${s}&r=json&apikey=${process.env.OMDB_API_KEY}`);
 
+const detailURL = (i) =>
+  `http://www.omdbapi.com/?i=${i}&apikey=${process.env.OMDB_API_KEY}`;
+
 app.get('/api/autocomplete', async (req, res) => {
   try {
 
@@ -77,13 +80,18 @@ app.get(`/api/details/:id`, async (req, res) => {
 
   try {
     const response = await fetch(`https://movies-tvshows-data-imdb.p.rapidapi.com/?type=get-movie-details&imdb=${req.params.id}`, {
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-key": process.env.IMDB_API_KEY,
-        "x-rapidapi-host": process.env.RAPID_HOST
-      }
-    });
-    res.send(response);
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-key": process.env.IMDB_API_KEY,
+          "x-rapidapi-host": process.env.RAPID_HOST
+        }
+      });
+      const responseJson = await response.json();
+    const data = await fetch(detailURL(req.params.id));
+      const dataJson = await data.json();
+    const db = await query.getNomsForMovie(req.params.id);
+      // console.log(response, data, db)
+    res.json({ yt: responseJson['youtube_trailer_key'], omdb: dataJson, db });
   } catch (er) {
     console.error(er);
   }
@@ -110,22 +118,22 @@ app.post('/api/nominate', async (req, res) => {
 // query.updateNominate(1,"asd",1,1)
 // .then(data => console.log(data));
 app.post('/api/users', async (req, res) => {
-
+  const {
+    email,
+    username
+  } = req.body;
+  
   try {
-    const {
-      email,
-      username
-    } = req.body;
 
     if (username) {
       const data = await query.authoriseReg(email, username);
       return res.send(data);
     } else {
       const data = await query.authoriseLog(email);
-      if (!data[0]) return res.send(data);
+      if (!data[0]) return res.send(null);
       const noms = await query
         .getNomsOfUser(data[0].id);
-      return res.send({ ...data[0], noms });
+      return res.json({ ...data[0], noms });
     }
   } catch (er) {
     console.log(er);
@@ -156,7 +164,7 @@ app.get('/api/search', async (req, res) => {
       if (json.Search)
         return res.send(json);
       else
-        res.status(400).send('No Data');
+        res.send('No Data');
 
     }
   } catch (er) {

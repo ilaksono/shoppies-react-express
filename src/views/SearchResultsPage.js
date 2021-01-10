@@ -65,7 +65,10 @@ const SearchResultsPage = () => {
     load,
     setSearchLoad,
     handleNominate,
-    setModal
+    setModal,
+    setSnack,
+    addNomToList,
+    removeNomFromList
   } = useContext(AppContext);
 
   const classes = useStyles();
@@ -118,6 +121,9 @@ const SearchResultsPage = () => {
                 handleNominate={handleNominate}
                 app={app}
                 setModal={setModal}
+                setSnack={setSnack}
+                addNomToList={addNomToList}
+              removeNomFromList={removeNomFromList}
               />
               : (!query.get('s') ?
                 <div className='begin-search'>

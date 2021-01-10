@@ -5,23 +5,27 @@ module.exports = (db) => {
     SELECT * from users
     WHERE email = $1
     ;`;
-
-    const valid = await db
-      .query(qsCheck, [email.toLowerCase()]);
-    if (valid.rows[0])
-      return 0;
-    const qsInsert = `
-    INSERT INTO users (email, username)
-    VALUES ($1, $2)
-    RETURNING *;`;
-    return db
-      .query(qsInsert, [email, username])
-      .then(res => res.rows);
+    try {
+      const valid = await db
+        .query(qsCheck, [email.toLowerCase()]);
+      if (valid.rows[0])
+        return null;
+      const qsInsert = `
+      INSERT INTO users (email, username)
+      VALUES ($1, $2)
+      RETURNING *;`;
+      return db
+        .query(qsInsert, [email, username])
+        .then(res => res.rows);
+    } catch (er) {
+      console.error(er);
+      return null
+    }
   };
 
   const authoriseLog = (email) => {
     const qs = `
-    SELECT * FROM users where email = $1;`;
+    SELECT * FROM users WHERE email = $1;`;
     return db
       .query(qs, [email])
       .then(res => res.rows);
@@ -30,7 +34,7 @@ module.exports = (db) => {
   const loadUser = async id => {
     const qs = `
     SELECT * FROM users where id = $1;`;
-    const user = await db.query(qs, [id]);
+    const user = await db.query(qs, [Number(id)]);
 
     return getNomsOfUser(id)
       .then(res => ({
@@ -41,11 +45,36 @@ module.exports = (db) => {
 
   const getNomsOfUser = id => {
     const qs = `
-    SELECT * FROM nominations WHERE users_id = $1;`;
+    SELECT * FROM nominations WHERE user_id = $1;`;
     return db
-      .query(qs, [id])
+      .query(qs, [Number(id)])
       .then(res => res.rows);
+  };
 
+  const getNomsForMovie = async (imdbID) => {
+    const qs1 = `
+    SELECT * FROM movies WHERE imdbID = $1;`;
+    let data;
+    try {
+      data = await db.query(qs1, [imdbID]);
+    } catch (er) {
+      console.error(er);
+      return 0;
+    }
+    if (!data.rows.length)
+      return 0;
+    data = data.rows[0];
+    let nom;
+    try {
+      const qs2 = `
+      SELECT COUNT(*) as num_nom FROM nominations 
+      WHERE movie_id = $1;`;
+
+      nom = await db.query(qs2, [imdbID]);
+      return nom.rows;
+    } catch (er) {
+      console.error(er);
+    }
   };
 
   const insertNomination = (user_id, movie_id) => {
@@ -87,10 +116,10 @@ module.exports = (db) => {
     let nomData;
     try {
       nomData = await db
-        .query(getNomQs, [user_id, data.id]);
+        .query(getNomQs, [user_id, imdbID]);
       if (!nomData.rows.length)
-        await insertNomination(user_id, data.id);
-      else await deleteNomination(user_id, data.id);
+        await insertNomination(user_id, imdbID);
+      else await deleteNomination(user_id, imdbID);
       return data;
     } catch (er) {
       console.error(er);
@@ -103,6 +132,7 @@ module.exports = (db) => {
     authoriseLog,
     loadUser,
     getNomsOfUser,
-    updateNominate
+    updateNominate,
+    getNomsForMovie
   };
 };

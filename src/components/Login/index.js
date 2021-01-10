@@ -7,7 +7,6 @@ import 'styles/Login.scss';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { useCookies } from 'react-cookie';
-
 const initLogin = {
   email: '',
   errMsg: '',
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
 }));
-const LoginForm = ({ setModal, authoriseLog, modal }) => {
+const LoginForm = ({ setModal, authoriseLog, modal, setSnack }) => {
 
   const classes = useStyles();
   const [login, setLogin] = useState(initLogin);
@@ -42,7 +41,7 @@ const LoginForm = ({ setModal, authoriseLog, modal }) => {
     });
   };
 
-  const validate = () => {
+  const validate = async () => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(String(login.email).toLowerCase()))
       return setLogin({ ...login, errMsg: 'Invalid email', password: '', errType: 'email' });
@@ -56,11 +55,14 @@ const LoginForm = ({ setModal, authoriseLog, modal }) => {
       });
     }
 
-    const err = authoriseLog(email);
+    const err = await authoriseLog(email);
     if (err.id) {
       setCookie('id', err.id, { path: '/' });
-      return setCookie('username', err.username, { path: '/' });
+      setCookie('username', err.username, { path: '/' });
+      setSnack(prev => ({...prev, log: true}))
+      return handleClose();
     };
+    if(!err) handleClose();
     setLogin({ ...login, errType: 'email', errMsg: err });
   };
 
@@ -93,7 +95,7 @@ const LoginForm = ({ setModal, authoriseLog, modal }) => {
               handleChange(event.target.value, 'email')}
               className={`user-input-item${login.errType === 'email'
                 ? ' error-input' : ''}`} />
-            <Button onClick={validate}
+            <Button
               variant='contained' color='primary'
               type='submit'
               className='user-input-btn'
@@ -105,7 +107,7 @@ const LoginForm = ({ setModal, authoriseLog, modal }) => {
             {login.errMsg && <div className='error'>
               <i className="fas fa-exclamation-triangle"></i> {login.errMsg}
             </div>}
-            <div>
+            <div style={{fontFamily:'Poppins', fontSize: 12, marginTop:12}}>
               Don't have an account? 
               <span className="swap-register"
               onClick={() => setModal({logOpen: false, regOpen: true})}
@@ -132,3 +134,6 @@ export default LoginForm;
     {login.errMsg && <div>{login.errMsg}</div>}
   </form>
 </div> */
+// <SnackBar message="Thanks for leaving a review!" 
+// open={reviewSnackBar} 
+// setSnackBar={setReviewSnackBar} />

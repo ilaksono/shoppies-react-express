@@ -2,18 +2,42 @@ import { useReducer, useState } from 'react';
 import axios from 'axios';
 const AUTH = "AUTHORISE_USER";
 const GET_RESULTS = "GET_SEARCH_RESULTS";
-
+const GET_DETAILS = "GET_DETAILS_BY_IMDB_ID";
+const LOGOUT = 'LOGOUT';
+const LOGIN = 'LOGIN';
+const UPDATE_LIST = 'UPDATE_NOMINATION_LIST';
 const appReducer = (state, action) => {
   switch (action.type) {
-    case AUTH:
+    case AUTH: {
+
+
       return {
         ...state, id: action.id,
-        username: action.username
+        username: action.username,
+        noms: action.noms || []
+      };
+    }
+    case LOGIN:
+      return {
+        ...state,
+        id: action.id,
+        username: action.username,
+        noms: action.noms,
       };
     case GET_RESULTS:
       return {
         ...state, results: action.arr, numRes: action.numRes
       };
+    case GET_DETAILS:
+      return {
+        ...state, lastIMDB: action.id, details: { ...action.omdb, yt: action.yt, count: action.db },
+      };
+    case UPDATE_LIST:
+      return {
+        ...state, noms: action.cpy
+      };
+    case LOGOUT:
+      return { ...state, id: 0, username: '', noms: [] };
     default:
       return state;
   }
@@ -24,7 +48,8 @@ const initApp = {
   noms: [],
   results: [],
   details: {},
-  numRes: 0
+  numRes: 0,
+  lastIMDB: ''
 };
 
 const useAppState = () => {
@@ -37,45 +62,17 @@ const useAppState = () => {
     try {
       const data = await axios
         .post('/api/users', { email, username });
-      if (data) {
-        const { username, id } = data.data;
+      if (data.data) {
+        const { username, id } = data.data[0];
         dispatch({
           type: AUTH,
           username,
           id
         });
         return id;
-      } else
+      } else {
         return "Email already in use";
-
-    } catch (er) {
-      console.log(er);
-    }
-  };
-  const loadUser = async (username, id) => {
-    try {
-      const data = await axios
-        .get(`/api/users/${id}`);
-      dispatch({ type: AUTH, username: data.username, id: data.id });
-    } catch (er) {
-      console.log(er);
-    }
-  };
-  const handleNominate = async (Title, Year, imdbID) => {
-    // console.log(app.id, Title, year, imdbID);
-    const data = axios
-    .post('/api/nominate', {
-      user_id: app.id,
-      Title,
-      Year: Number(Year),
-      imdbID 
-    })
-  }
-
-  const getMovieDetails = async (id) => {
-    try {
-      const data = await axios.get(`/api/details/${id}`);
-      console.log(data.data);
+      }
     } catch (er) {
       console.error(er);
     }
@@ -87,12 +84,13 @@ const useAppState = () => {
         .post('/api/users', {
           email
         });
-      const res = data[0];
+      const res = data.data;
       if (res) {
         dispatch({
-          type: AUTH,
-          email: res.email,
-          username: res.username
+          type: LOGIN,
+          username: res.username,
+          noms: res.noms,
+          id: res.id
         });
         return { id: Number(res.id), username: res.username };
       } else
@@ -101,6 +99,65 @@ const useAppState = () => {
       console.log(er);
     }
   };
+  const logout = () => {
+    dispatch({ type: LOGOUT });
+  };
+  const loadUser = async (u, i) => {
+    try {
+      const data = await axios
+        .get(`/api/users/${i}`);
+      const {username, id} = data.data.user;
+      const {noms} = data.data
+      dispatch({
+        type: AUTH,
+        username,
+        id: Number(id),
+        noms
+      });
+    } catch (er) {
+      console.log(er);
+    }
+  };
+  const handleNominate = async (Title, Year, imdbID) => {
+    // console.log(app.id, Title, year, imdbID);
+    const data = await axios
+      .post('/api/nominate', {
+        user_id: app.id,
+        Title,
+        Year: Number(Year),
+        imdbID
+      });
+
+  };
+  const removeNomFromList = (imdbID) => {
+    const cpy = [...app.noms];
+    cpy.splice(cpy.findIndex(each =>
+      each.imdbID === imdbID), 1);
+    dispatch({ type: UPDATE_LIST, cpy });
+  };
+  const addNomToList = (Title, Year, imdbID) => {
+    const cpy = [...app.noms, { Title, Year, imdbID }];
+    dispatch({ type: UPDATE_LIST, cpy });
+  };
+
+  const getMovieDetails = async (id) => {
+    try {
+      const data = await axios.get(`/api/details/${id}`);
+      console.log(data.data);
+      const {
+        db,
+        yt,
+        omdb
+      } = data.data;
+      dispatch({
+        type: GET_DETAILS,
+        db, yt, omdb, id
+      });
+    } catch (er) {
+      console.error(er);
+    }
+  };
+
 
   const wait = () => {
     if (!ready) {
@@ -125,7 +182,7 @@ const useAppState = () => {
       if (arr.length) {
         dispatch({ type: GET_RESULTS, arr, numRes });
       } else {
-        dispatch({type: GET_RESULTS, arr:[], numRes:0})
+        dispatch({ type: GET_RESULTS, arr: [], numRes: 0 });
       }
     } catch (er) {
       console.log(er);
@@ -161,7 +218,11 @@ const useAppState = () => {
     autoResults,
     resetAutoResults,
     getSearchResults,
-    handleNominate
+    handleNominate,
+    getMovieDetails,
+    logout,
+    addNomToList,
+    removeNomFromList
   };
 };
 export default useAppState;

@@ -15,12 +15,16 @@ import Icon from "@material-ui/core/Icon";
 import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
 import 'styles/Sidebar.scss';
+import Button from '@material-ui/core/Button';
+import AppContext from 'AppContext';
 
 const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
   const classes = useStyles();
   const location = useLocation();
+
+  const { app, setModal } = useContext(AppContext);
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     if (routeName === '/home' && location.pathname === '/')
@@ -43,7 +47,7 @@ export default function Sidebar(props) {
         });
         return (
           <NavLink
-            to={prop.path}
+            to={prop.path === '/films' ? `${prop.path + (app.lastIMDB ? `/${app.lastIMDB}` : '')}` : prop.path}
             className={activePro + classes.item}
             activeClassName="active"
             key={key}
@@ -71,21 +75,26 @@ export default function Sidebar(props) {
   var brand = (
     <div className={classes.logo}>
 
-      <a
-        href="https://laks.ca/"
-        className={classNames(classes.logoLink)}
-        target="_blank"
-      >
-        <div className={classes.logoImage}>
-          <img src={logo} alt="logo" className={classes.img} />
-        </div>
-        <div title="To Ian's Portfolio" className='tooltip'>
-          Ian Laksono
-      <span style={{ fontSize: '14px' }}
-            className="tooltiptext">To Ian's Porfolio</span>
-        </div>
-      </a>
 
+      <div className={classes.logoImage}>
+        <img src={logo} alt="logo"
+          className={classes.img} />
+      </div>
+      {app.username ?
+        <div>
+          app.username
+            </div>
+        :
+        <Button
+          onClick={() => setModal(prev => ({ ...prev, logOpen: true }))}
+          variant='outlined'
+          color='primary'
+          style={{
+            color: '#222',
+            fontWeight: 'bold'
+          }}
+        >Sign in</Button>
+      }
     </div>
   );
   return (

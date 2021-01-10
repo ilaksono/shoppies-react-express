@@ -5,7 +5,7 @@ import {
   , Redirect
 } from 'react-router-dom';
 import HomePage from 'views/HomePage';
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, Suspense } from 'react';
 import { useCookies } from 'react-cookie';
 import PerfectScrollbar from "perfect-scrollbar";
 import logo from 'assets/img/logo.png';
@@ -16,7 +16,10 @@ import SearchResultsPage from 'views/SearchResultsPage';
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import { makeStyles } from "@material-ui/core/styles";
 import routes from 'routes';
-import DetailsPage from 'views/DetailsPage';
+// import DetailsPage from 'views/DetailsPage';
+import { CircularProgress } from '@material-ui/core';
+
+const DetailsPage = React.lazy(() => import('views/DetailsPage'));
 
 const useStyles = makeStyles(styles);
 
@@ -64,8 +67,9 @@ function App() {
   }, [mainPanel]);
 
   useEffect(() => {
+    console.log(cookies.username, cookies.id);
     if (cookies.username && cookies.id)
-      loadUser(cookies.username, cookies.id);
+      loadUser(cookies.username, Number(cookies.id));
   }, []);
 
 
@@ -95,8 +99,15 @@ function App() {
             <Route path="/search">
               <SearchResultsPage />
             </Route>
-            <Route path="/films">
-              <DetailsPage />
+            <Route path="/films" exact>
+              <Suspense fallback={<CircularProgress />}>
+                <DetailsPage />
+              </Suspense>
+            </Route>
+            <Route path="/films/:id">
+              <Suspense fallback={<CircularProgress />}>
+                <DetailsPage />
+              </Suspense>
             </Route>
           </div>
         </div>

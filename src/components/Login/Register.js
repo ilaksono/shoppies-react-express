@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
 }));
-const LoginForm = ({ setModal, modal, authoriseReg }) => {
+const LoginForm = ({ setModal, modal, authoriseReg, setSnack }) => {
 
-  
+
   const classes = useStyles();
   const [login, setLogin] = useState(initLogin);
   const [cookies, setCookie, removeCookie] = useCookies();
@@ -45,18 +45,9 @@ const LoginForm = ({ setModal, modal, authoriseReg }) => {
     });
   };
 
-  const validate = () => {
+  const validate = async () => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(String(login.email).toLowerCase()))
-      return setLogin({ ...login, errMsg: 'Invalid email', password: '', errType: 'email' });
     const { email, username } = login;
-    if (!email) {
-      return setLogin({
-        ...login,
-        errMsg: 'Email cannot be empty',
-        errType: 'email'
-      });
-    }
     if (!username) {
       return setLogin({
         ...login,
@@ -64,14 +55,30 @@ const LoginForm = ({ setModal, modal, authoriseReg }) => {
         errType: 'username'
       });
     }
-
-    const err = authoriseReg(email, username);
-
-    if (!Number.isNaN(err)) {
-      setCookie('id', err, { path: '/' });
-      return setCookie('username', username, { path: '/' });
+    if (!email) {
+      return setLogin({
+        ...login,
+        errMsg: 'Email cannot be empty',
+        errType: 'email'
+      });
     }
-    setLogin({ ...login, errType: 'email', errMsg: err });
+    if (!re.test(String(login.email).toLowerCase()))
+      return setLogin({ ...login, errMsg: 'Invalid email', password: '', errType: 'email' });
+    try {
+
+      const err = await authoriseReg(email, username);
+      if (Number(err) > 0) {
+        setCookie('id', err, { path: '/' });
+        setCookie('username', username, { path: '/' });
+        setSnack(prev => ({ ...prev, reg: true }))
+        return handleClose();
+      }
+      if (!err) handleClose();
+      setLogin({ ...login, errType: 'email', errMsg: "Email already in use" });
+    } catch (er) {
+      console.error(er);
+      return;
+    }
   };
 
   const handleClose = () => {
@@ -99,11 +106,11 @@ const LoginForm = ({ setModal, modal, authoriseReg }) => {
           }
           }
             className='register-container'>
+            <input type='text' placeholder='Username' value={login.username} onChange={(event) =>
+              handleChange(event.target.value, 'username')} className={`user-input-item${login.errType === 'username' ? ' error-input' : ''}`} />
             <input type='email' placeholder='Email@gmail.com' value={login.email} onChange={(event) =>
               handleChange(event.target.value, 'email')} className={`user-input-item${login.errType === 'email' ? ' error-input' : ''}`} />
-            <input type='password' placeholder='Password' value={login.password} onChange={(event) =>
-              handleChange(event.target.value, 'password')} className={`user-input-item${login.errType === 'password' ? ' error-input' : ''}`} />
-            <Button onClick={validate}
+            <Button
               variant='contained' color='primary'
               type='submit'
               style={{
@@ -112,7 +119,8 @@ const LoginForm = ({ setModal, modal, authoriseReg }) => {
               }}
               className='user-input-btn'>Register</Button>
             {login.errMsg && <div className='error'>
-              <i className="fas fa-exclamation-triangle"></i> {login.errMsg}
+              <i className="fas fa-exclamation-triangle"></i>
+              {login.errMsg}
             </div>}
           </form>
         </Fade>

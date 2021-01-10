@@ -3,7 +3,7 @@ import useAppState from 'hooks/useAppState';
 import useLoadingState from 'hooks/useLoadingState';
 import usePagination from 'hooks/usePagination';
 import useLoginModal from 'hooks/useLoginModal';
-
+import useSnackbar from 'hooks/useSnackbar';
 const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
@@ -12,6 +12,10 @@ export const AppProvider = ({ children }) => {
     load,
     setSearchLoad
   } = useLoadingState();
+  const {
+    snack,
+    setSnack
+  } = useSnackbar();
 
   const {
     app,
@@ -22,8 +26,11 @@ export const AppProvider = ({ children }) => {
     autoResults,
     resetAutoResults,
     getSearchResults,
-    handleNominate
-
+    handleNominate,
+    getMovieDetails,
+    logout,
+    addNomToList,
+    removeNomFromList
   } = useAppState();
 
   const {
@@ -53,7 +60,13 @@ export const AppProvider = ({ children }) => {
       resetPagination,
       handleNominate,
       modal,
-      setModal
+      setModal,
+      getMovieDetails,
+      logout,
+      snack,
+      setSnack,
+      addNomToList,
+      removeNomFromList
     }}>
       {children}
     </AppContext.Provider>

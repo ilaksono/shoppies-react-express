@@ -19,7 +19,7 @@ const styles = {
     '&:hover': {
       backgroundColor: 'grey'
     },
-    height: '57.6px'
+    height: '57.6px',
   }
 };
 const useStyles = makeStyles(styles);
@@ -73,7 +73,8 @@ const HomeSearch = (props) => {
           style={{
             outline: 'none',
             border: 'none',
-            width: '100%'
+            maxWidth: '460px',
+            width: '96.6%'
           }}
           placeholder="Search Movies"
         />

@@ -1,11 +1,14 @@
-const VideoEmbed = ({ youtube_trailer_key }) => {
-
+const VideoEmbed = ({ yt }) => {
+  console.log(yt);
   return (
+    <div className='vid-container'>
       <iframe
         width="560" height="315"
-        src={`https://www.youtube.com/embed/ykC_wu6ffOU`}
-        frameborder="0" allow="autoplay; encrypted-media" allowFullScreen
+        src={`https://www.youtube.com/embed/${yt}`}
+        frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen
       />
+    </div>
+
   );
 };
 

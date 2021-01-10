@@ -6,20 +6,26 @@
   height: 100%;
   position: fixed;
   right: 0;
+  padding-left: 8px;
+  padding-top: 8px;
   top: 89px;
+  overflow-y: scroll;
+  padding-bottom: 10px;
   color: whitesmoke;
-  font-family: 'Poppins'
+  font-family: 'Poppins';
+
 }
 .other-details-container {
   width: 100%;
+  height: calc(100% - 100px);
+  padding-top: 24px;
   border: 2x solid red;
+  @include flexbox(row, flex-start, flex-start);
 }
 .details-container {
   width: calc(100% - 560px);
-  border: 2px solid pink;
   height: 315px;
   padding-left: 10px;
-
 }
 .partial-details-container {
   @include flexbox(row, flex-start, flex-start);
@@ -28,6 +34,63 @@
   @include flexbox(row, flex-start, center);
 }
 .details-movie-title {
-  font-size: 3em;
+  font-size: 2.4em;
   font-weight: bold;
+}
+.details-movie-genre-container {
+  @include flexbox(row, flex-start, center);
+}
+.genre-list-item {
+  padding: 5px;
+  margin: 4px;
+  border: 2px solid grey;
+  font-family: 'Poppins';
+  border-radius: 3px;
+  color: rgb(211, 211, 211);
+}
+
+.details-movie-plot {
+  color: rgb(211, 211, 211);
+  font-size: 0.9em;
+  padding: 15px;
+  padding-left: 0;
+  width: 90%;
+
+}
+.details-table {
+  border-spacing: 10px;
+  text-align: center;
+}
+.details-movie-lang-container {
+  margin: 4px;
+  @include flexbox(row, flex-start, center);
+  width: 80%;
+  span {
+    margin-right: 8px;
+  }
+}
+.after-poster {
+  padding-left: 24px;
+  width: calc(100vw - 324px);
+}
+.vid-container {
+  padding-right: 10px;
+
+}
+
+.separator {
+  color: grey;
+}
+.read-more {
+  color: #00acc1;
+  &:hover {
+    color: rgb(253, 212, 166);
+  }
+  margin-left: 6px;
+  cursor: pointer;
+}
+@media screen and (max-width: 959px) {
+  .details-layout {
+    width: 100vw;
+  }
 }
