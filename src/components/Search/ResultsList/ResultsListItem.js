@@ -28,11 +28,11 @@ const ResultsListItem = ({ imdbID, Poster,
 
   let bool;
   if (app.noms.length) {
-    bool = app.noms.some((each) => each.imdbID === imdbID);
+    bool = app.noms.some((each) => each.imdbid === imdbID);
   }
   
   const handleClick = () => {
-    if (app.id > 0) {
+    if (app.id) {
       handleNominate(Title, Year, imdbID);
       if (bool) {
         removeNomFromList(imdbID);
@@ -41,9 +41,7 @@ const ResultsListItem = ({ imdbID, Poster,
       else {
         addNomToList(Title, Year, imdbID);
         setSnack(prev => ({ ...prev, vote: true }))
-
       }
-
     }
     else setModal(prev => ({ ...prev, logOpen: true }));
   };

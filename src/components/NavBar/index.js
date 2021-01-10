@@ -1,6 +1,6 @@
 import 'styles/NavBar.scss';
 import AppContext from 'AppContext';
-import { useContext, useState } from 'react';
+import { useContext, useState} from 'react';
 import 'styles/Animations.scss';
 import { useLocation, useHistory } from 'react-router-dom';
 import Logo from 'components/Logo';
@@ -9,16 +9,16 @@ import Register from 'components/Login/Register';
 import Login from 'components/Login';
 import MenuIcon from '@material-ui/icons/Menu';
 import Search from 'components/Search';
-import {useCookies} from 'react-cookie';
+import { useCookies } from 'react-cookie';
 import ConfirmModal from 'components/Login/ConfirmModal';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import SnackBar from 'components/SnackBar';
-
+import NotificationsMenu from 'components/Sidebar/Notifications';
 const styles = {
   root: {
-    fontWeight:'bold'
+    fontWeight: 'bold'
   }
-}
+};
 
 const initAnim = {
   mainSpin: false,
@@ -27,7 +27,7 @@ const initAnim = {
   newsSpin: false,
 };
 
-const useStyles = makeStyles(styles)
+const useStyles = makeStyles(styles);
 // const initMod = {
 //   regOpen: false,
 //   logOpen: false
@@ -49,11 +49,19 @@ const NavBar = ({ handleDrawerToggle }) => {
     setSnack
   } = useContext(AppContext);
   const history = useHistory();
+  // const [size, setSize] = useState(window.innerWidth);
 
-  
+  // useEffect(() => {
+  //   const A = () => {
+  //     setSize(window.innerWidth);
+  //   };
+  //   window.addEventListener('resize', A);
+  //   return () => window.removeEventListener('resize', A);
+  // }, []);
+
   const popConfirm = () => {
     setOut(true);
-  }
+  };
   return (
     <>
       <nav className='nav-container'>
@@ -85,6 +93,10 @@ const NavBar = ({ handleDrawerToggle }) => {
         {
           location.pathname !== '/home' &&
           <Search />
+        }
+        {
+          window.innerWidth > 959 &&
+          <NotificationsMenu />
         }
         {
           !app.id ?
@@ -124,10 +136,10 @@ const NavBar = ({ handleDrawerToggle }) => {
             </Button>
             </div>
             :
-            <Button color='secondary' 
-            variant='contained'
-            className={classes.root}
-            onClick={popConfirm}>
+            <Button color='secondary'
+              variant='contained'
+              className={classes.root}
+              onClick={popConfirm}>
               Sign out
           </Button>
         }
@@ -157,29 +169,29 @@ const NavBar = ({ handleDrawerToggle }) => {
       }
       {
         out &&
-        <ConfirmModal logout={logout} 
-        modal={out} 
-        setModal={setOut}
+        <ConfirmModal logout={logout}
+          modal={out}
+          setModal={setOut}
           setSnack={setSnack}
         />
 
       }
       {
         snack.reg &&
-        <SnackBar message='Successfully Registered!' 
-        open={snack.reg} setSnackbar={setSnack}/>
+        <SnackBar message='Successfully Registered!'
+          open={snack.reg} setSnackbar={setSnack} />
 
       }
       {
         snack.log &&
-        <SnackBar message='Successfully Logged In!' 
-        open={snack.log} setSnackbar={setSnack} />
+        <SnackBar message='Successfully Logged In!'
+          open={snack.log} setSnackbar={setSnack} />
 
       }
       {
         snack.out &&
-        <SnackBar message='Successfully Logged Out!' 
-        open={snack.out} setSnackbar={setSnack} />
+        <SnackBar message='Successfully Logged Out!'
+          open={snack.out} setSnackbar={setSnack} />
 
       }
       {

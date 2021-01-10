@@ -17,3 +17,13 @@
   font-size: 1em;
   border: none;
 }
+@media screen and (max-width: 570px) {
+  .search-input {
+    max-width: 25vw;
+  }
+}
+@media screen and (max-width: 370px) {
+  .search-input {
+    max-width: 80px;
+  }
+}

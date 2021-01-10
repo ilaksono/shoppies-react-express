@@ -18,7 +18,11 @@
   padding-left: 10px;
   padding-right: 10px;
 }
-
+.hoverable-icon {
+  &:hover {
+    color: #b1b1b1;
+  }
+}
 .logo {
   max-height: 55px;
   max-width: 55px;

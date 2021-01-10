@@ -71,3 +71,13 @@
     width: 82%;
   }
 }
+@media screen and (min-width: 961px) {
+  .home-search-input {
+    margin-left: 20%;
+  }
+  .home-search-container {
+    width: 100vw;
+    position: relative;
+    
+  }
+}

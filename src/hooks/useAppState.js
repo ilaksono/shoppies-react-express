@@ -9,8 +9,6 @@ const UPDATE_LIST = 'UPDATE_NOMINATION_LIST';
 const appReducer = (state, action) => {
   switch (action.type) {
     case AUTH: {
-
-
       return {
         ...state, id: action.id,
         username: action.username,
@@ -30,11 +28,13 @@ const appReducer = (state, action) => {
       };
     case GET_DETAILS:
       return {
-        ...state, lastIMDB: action.id, details: { ...action.omdb, yt: action.yt, count: action.db },
+        ...state, lastIMDB: action.id,
+        details: { ...action.omdb, yt: action.yt, count: action.db[0].num_nom },
       };
     case UPDATE_LIST:
       return {
-        ...state, noms: action.cpy
+        ...state, noms: action.cpy,
+        details: action.json || state.details
       };
     case LOGOUT:
       return { ...state, id: 0, username: '', noms: [] };
@@ -106,8 +106,8 @@ const useAppState = () => {
     try {
       const data = await axios
         .get(`/api/users/${i}`);
-      const {username, id} = data.data.user;
-      const {noms} = data.data
+      const { username, id } = data.data.user;
+      const { noms } = data.data;
       dispatch({
         type: AUTH,
         username,
@@ -132,12 +132,24 @@ const useAppState = () => {
   const removeNomFromList = (imdbID) => {
     const cpy = [...app.noms];
     cpy.splice(cpy.findIndex(each =>
-      each.imdbID === imdbID), 1);
-    dispatch({ type: UPDATE_LIST, cpy });
+      each.imdbid === imdbID), 1);
+    let json;
+    if (app.details) {
+      if (app.details.imdbID === imdbID) {
+        json = { ...app.details, count: Number(app.details.count - 1) };
+      }
+    }
+    dispatch({ type: UPDATE_LIST, cpy, json });
   };
-  const addNomToList = (Title, Year, imdbID) => {
-    const cpy = [...app.noms, { Title, Year, imdbID }];
-    dispatch({ type: UPDATE_LIST, cpy });
+  const addNomToList = (title, year, imdbid) => {
+    const cpy = [...app.noms, { title, year, imdbid }];
+    let json;
+    if (app.details) {
+      if (app.details.imdbID === imdbid) {
+        json = { ...app.details, count: Number(app.details.count + 1) };
+      }
+    }
+    dispatch({ type: UPDATE_LIST, cpy, json });
   };
 
   const getMovieDetails = async (id) => {
@@ -172,11 +184,8 @@ const useAppState = () => {
 
   const getSearchResults = async (s, page = 1) => {
     try {
-      console.log(page);
-
       const data = await axios
         .get(`/api/search?s=${s}&page=${page}`);
-      // console.log(data)
       const arr = data.data.Search;
       const numRes = Number(data.data.totalResults);
       if (arr.length) {

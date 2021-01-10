@@ -21,7 +21,7 @@ const headerLinksStyle = theme => ({
       width: "60%",
       marginTop: "40px",
       "& input": {
-        color: whiteColor
+        color: 'black'
       }
     }
   },
@@ -29,13 +29,20 @@ const headerLinksStyle = theme => ({
     zIndex: "4",
     ...defaultFont,
     fontSize: "14px",
-    margin: "0px"
+    margin: "0px",
+    "&:hover": {
+      color: '#00acc1'
+    }
+    // transform: 'none'
+    // color: 'green'
   },
+  
   buttonLink: {
     [theme.breakpoints.down("sm")]: {
       display: "flex",
       margin: "10px 15px 0",
       width: "-webkit-fill-available",
+      color:"black",
       "& svg": {
         width: "24px",
         height: "30px",

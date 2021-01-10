@@ -80,17 +80,17 @@ app.get(`/api/details/:id`, async (req, res) => {
 
   try {
     const response = await fetch(`https://movies-tvshows-data-imdb.p.rapidapi.com/?type=get-movie-details&imdb=${req.params.id}`, {
-        "method": "GET",
-        "headers": {
-          "x-rapidapi-key": process.env.IMDB_API_KEY,
-          "x-rapidapi-host": process.env.RAPID_HOST
-        }
-      });
-      const responseJson = await response.json();
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-key": process.env.IMDB_API_KEY,
+        "x-rapidapi-host": process.env.RAPID_HOST
+      }
+    });
+    const responseJson = await response.json();
     const data = await fetch(detailURL(req.params.id));
-      const dataJson = await data.json();
+    const dataJson = await data.json();
     const db = await query.getNomsForMovie(req.params.id);
-      // console.log(response, data, db)
+    // console.log(response, data, db)
     res.json({ yt: responseJson['youtube_trailer_key'], omdb: dataJson, db });
   } catch (er) {
     console.error(er);
@@ -122,7 +122,7 @@ app.post('/api/users', async (req, res) => {
     email,
     username
   } = req.body;
-  
+
   try {
 
     if (username) {
@@ -142,7 +142,8 @@ app.post('/api/users', async (req, res) => {
 
 app.get('/api/users/:id', async (req, res) => {
   try {
-    const data = await query.loadUser(Number(req.params.id));
+    const data = await query
+      .loadUser(Number(req.params.id));
     res.send(data);
   } catch (er) {
     console.log(er);

@@ -33,13 +33,13 @@ const ConfirmModal = ({ setModal, modal, logout, setSnack }) => {
   const handleLogout = () => {
     const arr = ['id', 'username'];
     logout();
-    setSnack(prev => ({...prev, out: true}))
+    setSnack(prev => ({ ...prev, out: true }));
     arr.forEach((cook) => removeCookie(cook));
     handleClose();
-  }
+  };
   const handleClose = () => {
     setModal(false);
-  }
+  };
 
   return (
     <>
@@ -56,35 +56,51 @@ const ConfirmModal = ({ setModal, modal, logout, setSnack }) => {
         open={modal}
       >
         <Fade in={modal}>
+
           <form onSubmit={event => {
             event.preventDefault();
             handleLogout();
           }}
             className='register-container'
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around'
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'center'
             }}
-            >
-            <Button onClick={() => setModal(false)}
-              variant='contained' color='primary'
-              className='user-input-btn'
-              color='default'
-              style={{
-                color: 'black',
-                fontWeight: 'bold'
-              }}
-            >Cancel</Button>
-            <Button
-              variant='contained' color='primary'
-              type='submit'
-              className='user-input-btn'
-              style={{
-                color: 'white',
-                fontWeight: 'bold'
-              }}
-            >OK</Button>
-            
+          >
+            <div style={{
+              fontFamily:'Poppins',
+              marginBottom: 12
+            }}>
+              Confirm Logout?
+            </div>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              width: "100%"
+            }}>
+              <Button onClick={() => setModal(false)}
+                variant='contained' color='primary'
+                className='user-input-btn'
+                color='default'
+                style={{
+                  color: 'black',
+                  fontWeight: 'bold'
+                }}
+              >Cancel</Button>
+              <Button
+                variant='contained' color='primary'
+                type='submit'
+                className='user-input-btn'
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold'
+                }}
+              >OK</Button>
+
+            </div>
+
           </form>
         </Fade>
       </Modal>

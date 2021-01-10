@@ -27,6 +27,7 @@ const HomeSearch = (props) => {
 
   const history = useHistory();
   const classes = useStyles();
+  const [errMsg, setErrMsg] = useState('');
   const [value, setValue] = useState('');
   const {
     getAutoResults,
@@ -37,13 +38,15 @@ const HomeSearch = (props) => {
     setSearchLoad
   } = useContext(AppContext);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     if (value) {
       setSearchLoad(true);
       resetPagination();
       getSearchResults(value);
       history.push(`/search?s=${value}`);
-    }
+    } else
+      setErrMsg('Field can\'t be empty');
   };
 
   useEffect(() => {
@@ -52,49 +55,75 @@ const HomeSearch = (props) => {
   }, [value]);
 
   return (
-    <div className='home-search-container'>
-      <Combobox
-        style={{
-          fontFamily: 'Poppins',
-          border: 'none',
-          outline: 'none'
-        }}
-        onSelect={res => {
-          setValue(res.slice(0, -7));
-          resetAutoResults();
-        }}
-      >
-        <ComboboxInput value={value}
-          onChange={e => {
-            setValue(e.target.value);
-          }}
-          className='home-search-input'
-          disabled={false}
+    <>
+      <div className='home-search-container'>
+
+        <Combobox
           style={{
-            outline: 'none',
+            fontFamily: 'Poppins',
             border: 'none',
-            maxWidth: '460px',
-            width: '96.6%'
+            outline: 'none'
           }}
-          placeholder="Search Movies"
-        />
-        <ComboboxPopover style={{
-          zIndex: autoResults.length > 0 ? 10 : -1,
-        }}>
+          onSelect={res => {
+            setValue(res.slice(0, -7));
+            resetAutoResults();
+          }}
+        >
+          <ComboboxInput value={value}
+            onChange={e => {
+              setValue(e.target.value);
+              setErrMsg('');
+            }}
+            className='home-search-input'
+            disabled={false}
+            style={{
+              outline: 'none',
+              border: 'none',
+              maxWidth: '460px',
+              width: '96.6%'
+            }}
+            placeholder="Search Movies"
+          />
+          <ComboboxPopover style={{
+            zIndex: autoResults.length > 0 ? 10 : -1,
+          }}>
 
-          {autoResults.length > 0 && autoResults.map(({ Title, Year, imdbID }) =>
-            <ComboboxOption key={imdbID} value={`${Title} - ${Year}`}>
-            </ComboboxOption>
-          )}
-        </ComboboxPopover>
+            {autoResults.length > 0 && autoResults.map(({ Title, Year, imdbID }) =>
+              <ComboboxOption key={imdbID} value={`${Title} - ${Year}`}>
+              </ComboboxOption>
+            )}
+          </ComboboxPopover>
 
-      </Combobox>
-      <Button className={classes.root}
-        onClick={handleClick}
-      >
-        <SearchIcon />
-      </Button>
-    </div>
+        </Combobox>
+        <form onSubmit={e => handleClick(e)}>
+
+          <Button type='submit' className={classes.root}
+          // onClick={handleClick}
+          >
+            <SearchIcon />
+          </Button>
+        </form>
+      </div>
+      {errMsg &&
+        <div
+          style={{
+            backgroundColor: '#222',
+            color: 'white',
+            position: 'relative',
+            top: '200px',
+            textAlign: 'center',
+            width: 240,
+            justifySelf: 'center',
+            padding: '10px',
+            font: "1.4em 'Poppins'",
+            alignSelf: 'center',
+            left: 'calc(50% - 130px + 130px)'
+          }}
+        >
+          {errMsg}
+      </div>
+      }
+    </>
   );
 };
 export default HomeSearch;

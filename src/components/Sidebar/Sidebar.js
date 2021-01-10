@@ -12,12 +12,11 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 // core components
-import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
 import 'styles/Sidebar.scss';
 import Button from '@material-ui/core/Button';
 import AppContext from 'AppContext';
-
+import NotificationsMenu from './Notifications';
 const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
@@ -74,27 +73,27 @@ export default function Sidebar(props) {
   );
   var brand = (
     <div className={classes.logo}>
-
-
-      <div className={classes.logoImage}>
-        <img src={logo} alt="logo"
-          className={classes.img} />
+      <div className={classes.logoLink}>
+        <div className={classes.logoImage}>
+          <img src={logo} alt="logo"
+            className={classes.img} />
+        </div>
+        {app.username ?
+          <span>
+            {app.username}
+          </span>
+          :
+          <Button
+            onClick={() => setModal(prev => ({ ...prev, logOpen: true }))}
+            variant='outlined'
+            color='primary'
+            style={{
+              color: '#222',
+              fontWeight: 'bold'
+            }}
+          >Sign in</Button>
+        }
       </div>
-      {app.username ?
-        <div>
-          app.username
-            </div>
-        :
-        <Button
-          onClick={() => setModal(prev => ({ ...prev, logOpen: true }))}
-          variant='outlined'
-          color='primary'
-          style={{
-            color: '#222',
-            fontWeight: 'bold'
-          }}
-        >Sign in</Button>
-      }
     </div>
   );
   return (
@@ -114,7 +113,7 @@ export default function Sidebar(props) {
         >
           {brand}
           <div className={classes.sidebarWrapper}>
-            <AdminNavbarLinks />
+            <NotificationsMenu />
             {links}
           </div>
 
@@ -122,7 +121,7 @@ export default function Sidebar(props) {
       </Hidden>
       <Hidden smDown implementation="css">
         <Drawer
-          anchor={props.rtlActive ? "right" : "left"}
+          anchor="left"
           variant="permanent"
           open
           classes={{
@@ -130,7 +129,8 @@ export default function Sidebar(props) {
           }}
         >
           {brand}
-          <div className={classes.sidebarWrapper}>{links}</div>
+          <div className={classes.sidebarWrapper}>
+            {links}</div>
 
         </Drawer>
       </Hidden>

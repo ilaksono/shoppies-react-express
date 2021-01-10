@@ -31,21 +31,25 @@ module.exports = (db) => {
       .then(res => res.rows);
   };
 
-  const loadUser = async id => {
+  const loadUser = async (id) => {
     const qs = `
     SELECT * FROM users where id = $1;`;
     const user = await db.query(qs, [Number(id)]);
 
     return getNomsOfUser(id)
       .then(res => ({
-        noms: res.rows,
+        noms: res,
         user: user.rows[0]
       }));
   };
 
   const getNomsOfUser = id => {
     const qs = `
-    SELECT * FROM nominations WHERE user_id = $1;`;
+    SELECT nominations.*, movies.title, 
+    movies.year, movies.imdbID as imdbID
+    FROM nominations
+    JOIN movies ON movie_id = movies.imdbID 
+    WHERE user_id = $1;`;
     return db
       .query(qs, [Number(id)])
       .then(res => res.rows);

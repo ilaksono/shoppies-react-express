@@ -102,7 +102,7 @@ const sidebarStyle = theme => ({
   },
   img: {
     width: "35px",
-    top: "5px",
+    top: "20px",
     position: "absolute",
     verticalAlign: "middle",
     border: "0"

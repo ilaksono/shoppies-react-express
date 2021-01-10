@@ -40,6 +40,9 @@
 .details-movie-genre-container {
   @include flexbox(row, flex-start, center);
 }
+.actors-container {
+  padding-right: 25px;
+}
 .genre-list-item {
   padding: 5px;
   margin: 4px;
@@ -60,6 +63,8 @@
 .details-table {
   border-spacing: 10px;
   text-align: center;
+  min-width: 225px;
+  margin-top: 25px;
 }
 .details-movie-lang-container {
   margin: 4px;
@@ -74,7 +79,10 @@
   width: calc(100vw - 324px);
 }
 .vid-container {
-  padding-right: 10px;
+  // padding-right: 10px;
+  // displa
+  width: 100%;
+  text-align: center;
 
 }
 
@@ -93,4 +101,60 @@
   .details-layout {
     width: 100vw;
   }
+  .partial-details-container {
+    margin-top: 5px;
+  }
+  .details-container {
+    padding-left: 15px;
+    padding-top: 5px;
+    margin-bottom: 35px;
+  }
+  .other-details-container {
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 55px;
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1060px) {
+  .partial-details-container {
+    flex-direction: column;
+    margin-top: 5px;
+  }
+  .details-container {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .other-details-container {
+    margin-top: 15px;
+    margin-left: 15px;
+  }
+}
+
+@media screen and (max-width: 865px) {
+  .partial-details-container {
+    flex-direction: column;
+    margin-top: 5px;
+  }
+  .details-container {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 515px) {
+  .other-details-container {
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+  }
+  .after-poster {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 100px;
+  }
+  .button-count-group {
+    text-align: center;
+  }
+
 }

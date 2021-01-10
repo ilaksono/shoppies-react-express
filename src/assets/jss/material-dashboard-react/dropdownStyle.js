@@ -9,12 +9,16 @@ import {
 } from "assets/jss/material-dashboard-react.js";
 
 const dropdownStyle = theme => ({
+  
   buttonLink: {
     [theme.breakpoints.down("md")]: {
       display: "flex",
       marginLeft: "30px",
-      width: "auto"
-    }
+      width: "auto",
+      "&:hover": {
+        color: "#00acc1"
+      }
+    },
   },
   links: {
     width: "20px",
@@ -31,7 +35,10 @@ const dropdownStyle = theme => ({
   linkText: {
     zIndex: "4",
     ...defaultFont,
-    fontSize: "14px"
+    fontSize: "14px",
+    "&:hover": {
+      color: "#00acc1"
+    }
   },
   popperClose: {
     pointerEvents: "none"
@@ -67,12 +74,13 @@ const dropdownStyle = theme => ({
         padding: "0px !important",
         backgroundColor: "transparent !important",
         "& ul li": {
-          color: whiteColor + " !important",
+          color: '#222',
           margin: "10px 15px 0!important",
           padding: "10px 15px !important",
           "&:hover": {
             backgroundColor: "hsla(0,0%,78%,.2)",
-            boxShadow: "none"
+            boxShadow: "none",
+            color: "#00acc1"
           }
         }
       }
@@ -109,13 +117,13 @@ const dropdownStyle = theme => ({
     clear: "both",
     fontWeight: "400",
     lineHeight: "1.42857143",
-    color: grayColor[8],
+    color: 'black',
     whiteSpace: "nowrap",
     height: "unset",
     minHeight: "unset",
     "&:hover": {
       backgroundColor: primaryColor[0],
-      color: whiteColor,
+      color: 'grey',
       ...primaryBoxShadow
     }
   }

@@ -53,8 +53,8 @@ const FilmDetails = () => {
         {parsedGenres}
       </div>
       <div className='details-movie-lang-container'>
-        <span>{Country} &nbsp;<span className='separator'>|</span></span> <span>{Language} &nbsp;
-        <span className='separator'>|</span></span>
+        <span>{Country} &nbsp;</span><span className='separator'>|</span> <span>{Language} &nbsp;
+        </span><span className='separator'>|</span>
         <span>{Runtime}</span>
       </div>
       {

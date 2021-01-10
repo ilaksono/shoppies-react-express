@@ -39,7 +39,8 @@ const Search = (props) => {
     setSearchLoad
   } = useContext(AppContext);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault()
     if (value) {
       setSearchLoad(true);
       resetPagination();
@@ -93,11 +94,15 @@ const Search = (props) => {
             )}
           </ComboboxPopover>
         </Combobox>
+        <form onSubmit={e => handleClick(e)}>
+
         <Button className={classes.root}
-          onClick={handleClick}
+        type='submit'
+        // onClick={handleClick}
         >
           <SearchIcon />
         </Button>
+        </form>
 
       </div>
       <div style={{ textAlign: 'center', fontFamily: 'Poppins', height: "1em" }}>
