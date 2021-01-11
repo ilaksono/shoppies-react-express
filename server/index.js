@@ -68,7 +68,6 @@ const detailURL = (i) =>
 app.get('/api/autocomplete', async (req, res) => {
   try {
     const s = req.query.s;
-    console.log();
     if (s) {
       const data = await fetch(getAutoURL(formatSpaces(s)));
       const json = await data.json();

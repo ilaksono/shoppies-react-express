@@ -40,7 +40,8 @@ export const AppProvider = ({ children }) => {
     getMovieDetails,
     logout,
     addNomToList,
-    removeNomFromList
+    removeNomFromList,
+    resetDetails
   } = useAppState();
 
   const {
@@ -81,7 +82,8 @@ export const AppProvider = ({ children }) => {
       getSummary,
       chooseOption,
       getGraphData,
-      getCountryData
+      getCountryData,
+      resetDetails
     }}>
       {children}
     </AppContext.Provider>

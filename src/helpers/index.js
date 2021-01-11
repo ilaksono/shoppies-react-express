@@ -20,7 +20,7 @@ export const formatNum = (val, neg = false) => {
   let num = val;
 
   if (num === 'null' || num === 'None' || !num || num === 'N/A')
-    return 0;
+    return `$N/A`;
   num = Math.floor(Number(num));
   if (num < 0)
     return formatNum(num * -1, true);

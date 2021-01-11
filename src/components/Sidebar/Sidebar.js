@@ -47,7 +47,9 @@ export default function Sidebar(props) {
         });
         return (
           <NavLink
-            to={prop.path === '/films' ? `${prop.path + (app.lastIMDB ? `/${app.lastIMDB}` : '')}` : prop.path}
+            to={prop.path === '/films' 
+            ? `${prop.path + (app.lastIMDB ? `/${app.lastIMDB}` 
+            : '')}` : ((prop.path === '/search' && app.lastQuery) ?`/search?s=${app.lastQuery}` : prop.path)}
             className={activePro + classes.item}
             activeClassName="active"
             key={key}

@@ -7,7 +7,7 @@ const LOGOUT = 'LOGOUT';
 const LOGIN = 'LOGIN';
 const UPDATE_LIST = 'UPDATE_NOMINATION_LIST';
 const ERROR = "FETCH_DATA_ERROR";
-
+const RESET_DETAIL = "RESET_MOVIE_SPECIFIC_DETAILS";
 const appReducer = (state, action) => {
   switch (action.type) {
     case AUTH: {
@@ -18,6 +18,8 @@ const appReducer = (state, action) => {
         error: ''
       };
     }
+    case RESET_DETAIL:
+      return { ...state, details: {} };
     case LOGIN:
       return {
         ...state,
@@ -29,7 +31,8 @@ const appReducer = (state, action) => {
     case GET_RESULTS:
       return {
         ...state, results: action.arr, numRes: action.numRes,
-        error: ''
+        error: '',
+        lastQuery: action.s
 
       };
     case GET_DETAILS:
@@ -67,7 +70,8 @@ const initApp = {
   details: {},
   numRes: 0,
   lastIMDB: '',
-  error: ''
+  error: '',
+  lastQuery: ''
 };
 
 const useAppState = () => {
@@ -169,6 +173,9 @@ const useAppState = () => {
     }
     dispatch({ type: UPDATE_LIST, cpy, json });
   };
+  const resetDetails = () => {
+    dispatch({ type: RESET_DETAIL });
+  };
 
   const getMovieDetails = async (id) => {
     try {
@@ -178,7 +185,6 @@ const useAppState = () => {
         yt,
         omdb
       } = data.data;
-      console.log(data.data);
       dispatch({
         type: GET_DETAILS,
         db, yt, omdb, id
@@ -206,9 +212,9 @@ const useAppState = () => {
       const arr = data.data.Search;
       const numRes = Number(data.data.totalResults);
       if (arr.length) {
-        dispatch({ type: GET_RESULTS, arr, numRes });
+        dispatch({ type: GET_RESULTS, arr, numRes, s });
       } else {
-        dispatch({ type: GET_RESULTS, arr: [], numRes: 0 });
+        dispatch({ type: GET_RESULTS, arr: [], numRes: 0, s });
       }
     } catch (er) {
       dispatch({ type: ERROR, msg: 'Too many results' });
@@ -249,7 +255,8 @@ const useAppState = () => {
     getMovieDetails,
     logout,
     addNomToList,
-    removeNomFromList
+    removeNomFromList,
+    resetDetails
   };
 };
 export default useAppState;

@@ -8,8 +8,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import {formatNum} from 'helpers';
-import {useHistory} from 'react-router-dom';
+import { formatNum } from 'helpers';
+import { useHistory } from 'react-router-dom';
 
 const columns = [
   { id: 'name', label: 'Title', minWidth: 100 },
@@ -28,7 +28,7 @@ const columns = [
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
-  
+
 ];
 
 function createData(name, code, population, size, imdb) {
@@ -42,14 +42,14 @@ function createData(name, code, population, size, imdb) {
 //   createData('Italy', 'IT', 60483973, 301340),
 //   createData('United States', 'US', 327167434, 9833520),
 //   createData('Canada', 'CA', 37602103, 9984670),
-  
+
 // ];
 
 const useStyles = makeStyles({
   root: {
     width: '100%',
     height: '85%',
-    overflowY:'hidden'
+    overflowY: 'hidden'
   },
   container: {
     maxHeight: "95%",
@@ -57,24 +57,25 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StickyHeadTable({data, getMovieDetails}) {
+export default function StickyHeadTable({ data,
+  getMovieDetails, resetDetails }) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  let rows = [];
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-  let rows = []
-  if(data.length) {
-    rows = data.map(each => createData(each.title,
-       each.country, each["revenue_usd"], each.total, each.movie_id ))
-  }
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
+  // if(data.length) {
+  //   rows = data.map(each => createData(each.title,
+  //      each.country, each["revenue_usd"], each.total, each.movie_id ))
+  // }
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  // const handleChangeRowsPerPage = (event) => {
+  //   setRowsPerPage(+event.target.value);
+  //   setPage(0);
+  // };
   const history = useHistory();
   return (
     <Paper className={classes.root}>
@@ -86,7 +87,7 @@ export default function StickyHeadTable({data, getMovieDetails}) {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth, fontWeight:'bold' }}
+                  style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
                 >
                   {column.label}
                 </TableCell>
@@ -96,15 +97,16 @@ export default function StickyHeadTable({data, getMovieDetails}) {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => {
               return (
-                <TableRow 
-                onClick={() => {
-                  getMovieDetails(row.imdb);
-                  history.push(`/films/${row.imdb}`)
-                }}
-                style={{
-                  cursor:'pointer'
-                }}
-                hover role="checkbox" tabIndex={-1} key={i}>
+                <TableRow
+                  onClick={() => {
+                    resetDetails();
+                    getMovieDetails(row.imdb);
+                    history.push(`/films/${row.imdb}`);
+                  }}
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                  hover role="checkbox" tabIndex={-1} key={i}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (

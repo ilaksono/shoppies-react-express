@@ -76,7 +76,7 @@ const sidebarStyle = theme => ({
   },
   logoLink: {
     ...defaultFont,
-    textTransform: "uppercase",
+    textTransform: "none important!",
     padding: "5px 0",
     display: "block",
     fontSize: "22px",

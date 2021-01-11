@@ -32,6 +32,7 @@ const pLookup = {
     movies.title, movies.revenue_usd, movies.country 
     FROM nominations JOIN movies 
     ON movies.imdbID = nominations.movie_id
+    WHERE movies.revenue_usd > 0
     GROUP BY movie_id, movies.title, 
     movies.revenue_usd, movies.country
     ORDER BY movies.revenue_usd ASC

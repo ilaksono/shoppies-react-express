@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import GenreListItem from './GenreListItem';
 import RatingTable from './RatingTable';
 import { formatDollsToNum } from 'helpers';
+import { CircularProgress } from '@material-ui/core';
 const FilmDetails = () => {
 
   const {
@@ -41,39 +42,37 @@ const FilmDetails = () => {
 
   return (
     <div className='details-container'>
-      {
-        BoxOffice &&
-        <div className='details-movie-preface'>
-          {Year} &nbsp; | &nbsp;
+      {Title ?
+        <>
+          <div className='details-movie-preface'>
+            {Year} &nbsp; | &nbsp;
         {formatDollsToNum(BoxOffice)} &nbsp; | &nbsp;
         {Director}
-        </div>
-      }
-      <div className='details-movie-title'>
-        {Title}
-      </div>
+          </div>
+          <div className='details-movie-title'>
+            {Title}
+          </div>
 
-      <div className='details-movie-genre-container'>
-        {parsedGenres}
-      </div>
-      <div className='details-movie-lang-container'>
-        <span>{Country} &nbsp;</span><span className='separator'>|</span> <span>{Language} &nbsp;
+          <div className='details-movie-genre-container'>
+            {parsedGenres}
+          </div>
+          <div className='details-movie-lang-container'>
+            <span>{Country} &nbsp;</span><span className='separator'>|</span> <span>{Language} &nbsp;
         </span><span className='separator'>|</span>
-        <span>{Runtime}</span>
-      </div>
-      {
-        Ratings &&
-        <div className='details-table-container'>
-          <RatingTable arr={Ratings} />
+            <span>{Runtime}</span>
+          </div>
+          <div className='details-table-container'>
+            <RatingTable arr={Ratings} />
+          </div>
+          <div style={{
+            marginLeft: 8,
+            color: "grey"
+          }}>
+            {imdbVotes} IMDB Votes
         </div>
+        </>
+        : <CircularProgress size={100} />
       }
-      <div style={{
-        marginLeft: 8,
-        color: "grey"
-      }}>
-        {imdbVotes} IMDB Votes
-      </div>
-
     </div>
   );
 

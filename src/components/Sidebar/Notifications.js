@@ -32,8 +32,8 @@ const NotificationsMenu = () => {
   const handleCloseNotification = () => {
     setOpenNotification(null);
   };
-  if(!app.id)
-    return <div></div>
+  if (!app.id)
+    return <div></div>;
 
   let parsedList = [];
   if (app.noms.length) {
@@ -72,11 +72,13 @@ const NotificationsMenu = () => {
           /> */}
         {/* <span className={classes.notifications}></span> */}
 
-        <i className="fas fa-award hoverable-icon" 
-        style={{ fontSize: 32 }}></i>
+        <i className="fas fa-award hoverable-icon"
+          style={{ fontSize: 32 }}></i>
         <Hidden mdUp implementation="css">
           <p onClick={handleCloseNotification}
-            className={classes.linkText}>
+            className={classes.linkText}
+            style={{textTransform: 'none'}}
+            >
             Nominations
             </p>
         </Hidden>

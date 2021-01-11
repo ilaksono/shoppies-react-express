@@ -1,7 +1,8 @@
 import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
+import {useContext} from 'react';
+import AppContext from 'AppContext';
 const styles = {
   root: {
     color: "white",
@@ -20,8 +21,18 @@ const styles = {
 };
 const useStyles = makeStyles(styles);
 const ResultsListItem = ({ imdbID, Poster,
-  Title, Type, Year, handleNominate, app, setModal,
-  setSnack, addNomToList, removeNomFromList, getMovieDetails }) => {
+  Title, Type, Year  }) => {
+
+  const {
+    resetDetails,
+    handleNominate, 
+    app, 
+    setModal,
+    setSnack, 
+    addNomToList, 
+    removeNomFromList, 
+    getMovieDetails
+  } = useContext(AppContext)
 
   const history = useHistory();
   const classes = useStyles();
@@ -55,8 +66,10 @@ const ResultsListItem = ({ imdbID, Poster,
     <div className="result-card">
       <img
         onClick={() => {
-          if (imdbID !== app.lastIMDB)
+          if (imdbID !== app.lastIMDB) {
+            resetDetails()
             getMovieDetails(imdbID);
+          }
           history.push(`/films/${imdbID}`);
         }}
         src={imgURL} alt="Poster"
@@ -66,11 +79,18 @@ const ResultsListItem = ({ imdbID, Poster,
       <div className="result-container">
         <h3
           onClick={() => {
-            if (imdbID !== app.lastIMDB)
+            if (imdbID !== app.lastIMDB) {
+              resetDetails()
               getMovieDetails(imdbID);
+            }
             history.push(`/films/${imdbID}`);
           }}
-        ><b>{Title}</b></h3>
+          style={{
+            cursor: 'pointer'
+          }}
+        ><b style={{
+          cursor: 'pointer'
+        }}>{Title}</b></h3>
         <p className='card-result-footer'><div>{Year}</div>
           <Button className={!bool ? classes.root : classes.unroot}
             onClick={handleClick}
