@@ -56,7 +56,10 @@ const BarChart = ({ dash }) => {
         display: true,
         text: lookup[p],
         position: 'top'
-      }
+      },
+      legend: {
+        display: false
+      },
     };
   }
 
