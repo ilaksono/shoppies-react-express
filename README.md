@@ -46,8 +46,8 @@
  - `useSnackBar`: controls open and close of alerts (snack bars)
 
  ## Deploy
- - [netlify link](http://shoppies-il.netlify.app) - may stall for a few seconds due to heroku idling 
- - [heroku server](http://shoppies-il.herokuapp.com)
+ - [Netlify Link](http://shoppies-il.netlify.app) - may stall for a few seconds due to heroku idling 
+ - [Heroku API](http://shoppies-il.herokuapp.com)
 
 ## Diagrams
 
@@ -69,18 +69,19 @@
 ├── public                # Client assets and image sources
 └── README.md
 
- ## In src:
+ # In src:
 
 src
 ├── components             # All React component JSX files
 ├── assets                 # Material UI - JSS styles and image source files
 ├── helpers                # Some helpers to format numbers 
 ├── hooks                  # Custom react hooks
+├── reducers               # Exports reducers to useReducer hooks
 ├── styles                 # SCSS styles files
 ├── views                  # The page layouts for each route/view
-└── README.md              # this
-└── index.js               # index
-└── App.js                 # App
-└── routes.js              # Passes path and icon to Sidebar component
+├── README.md              # this
+├── index.js               # index
+├── App.js                 # App
+├── routes.js              # Passes path and icon to Sidebar component
 └── AppContext.js          # React Context Provider
 ```
