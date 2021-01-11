@@ -99,7 +99,6 @@ app.get(`/api/details/:id`, async (req, res) => {
     const data = await fetch(detailURL(req.params.id));
     const dataJson = await data.json();
     const db = await query.getNomsForMovie(req.params.id);
-    // console.log(response, data, db)
     res.json({ yt: responseJson['youtube_trailer_key'], omdb: dataJson, db });
   } catch (er) {
     console.error(er);
@@ -160,8 +159,7 @@ app.get('/api/dashboard/data', async (req, res) => {
     console.error(er);
   }
 });
-// query.getGraphData('votes')
-// .then((da) => console.log(da))
+
 app.post('/api/users', async (req, res) => {
   const {
     email,

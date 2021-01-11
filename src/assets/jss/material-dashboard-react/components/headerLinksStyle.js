@@ -33,8 +33,7 @@ const headerLinksStyle = theme => ({
     "&:hover": {
       color: '#00acc1'
     }
-    // transform: 'none'
-    // color: 'green'
+    
   },
   
   buttonLink: {

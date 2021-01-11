@@ -50,7 +50,6 @@ const Options = () => {
       />}
         labelPlacement="top"
         key={prop}
-        // label={options[prop]}
         label={lookup[prop]}
       />
     </div>

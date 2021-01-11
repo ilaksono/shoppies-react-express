@@ -157,7 +157,6 @@ module.exports = (db) => {
           extraData.country, extraData.revenue_usd]);
 
     } catch (er) {
-      // console.error(er);
       const getQs = `
         SELECT * FROM movies WHERE imdbID = $1;`;
       data = await db.query(getQs, [imdbID]);

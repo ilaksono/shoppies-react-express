@@ -18,7 +18,6 @@ const cardStyle = theme => ({
     right: 0,
     display: "flex",
     flexDirection: "column",
-    // alignItems:'flex-end',
     justifySelf: 'flex-end',
     minWidth: "0",
     wordWrap: "break-word",

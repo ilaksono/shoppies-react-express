@@ -8,7 +8,6 @@ const appStyle = theme => ({
   wrapper: {
     position: "relative",
     top: "0",
-    // height: "100vh"
   },
   mainPanel: {
     [theme.breakpoints.up("md")]: {
@@ -18,7 +17,6 @@ const appStyle = theme => ({
     position: "relative",
     float: "right",
     ...transition,
-    // maxHeight: "100%",
     width: "100%",
     overflowScrolling: "touch"
   },

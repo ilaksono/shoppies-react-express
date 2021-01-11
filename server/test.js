@@ -6,7 +6,6 @@ const a = [
   null
 ]
 
-// console.log({...a});
 
 const func = (a,b = '',c = 1) => {
   console.log(`${a},${b},${c}`)
@@ -24,5 +23,4 @@ const asyncFunc = async (a, b = '', c = 1) => {
    console.log(er);
  } 
 }
-// func(...a);
-// asyncFunc(...a);
+
