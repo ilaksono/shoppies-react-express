@@ -54,8 +54,10 @@ const getURL = (s, y = '', page = 1) =>
 
   );
 
-const formatRevenue = (str) =>
-  Number(str.slice(1).split(',').join(''));
+const formatRevenue = (str) => {
+  if (str === 'N/A') return 0;
+  return Number(str.slice(1).split(',').join(''));
+};
 
 const getAutoURL = (s) =>
   `http://www.omdbapi.com/?s=${s}&r=json&apikey=${process.env.OMDB_API_KEY}`;

@@ -19,7 +19,7 @@ export const formatLargeNumber = (num) => {
 export const formatNum = (val, neg = false) => {
   let num = val;
 
-  if (num === 'null' || num === 'None' || !num)
+  if (num === 'null' || num === 'None' || !num || num === 'N/A')
     return 0;
   num = Math.floor(Number(num));
   if (num < 0)
