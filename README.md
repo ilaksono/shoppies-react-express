@@ -24,6 +24,7 @@
  - Material UI
  - Combobox
  - Axios
+ - Suspense code splitting
  - react-cookie
  - react-chartjs-2
 

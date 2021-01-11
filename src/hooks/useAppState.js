@@ -138,7 +138,6 @@ const useAppState = () => {
     }
   };
   const handleNominate = async (Title, Year, imdbID) => {
-    // console.log(app.id, Title, year, imdbID);
     const data = await axios
       .post('/api/nominate', {
         user_id: app.id,
@@ -195,7 +194,6 @@ const useAppState = () => {
       const a = setTimeout(() => {
         if (!ready) {
           setReady(true);
-          // clearTimeout(a);
         }
       }, 250);
     }
@@ -213,7 +211,6 @@ const useAppState = () => {
         dispatch({ type: GET_RESULTS, arr: [], numRes: 0 });
       }
     } catch (er) {
-      // console.error(er);
       dispatch({ type: ERROR, msg: 'Too many results' });
 
     }

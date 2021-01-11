@@ -29,10 +29,6 @@ const initAnim = {
 };
 
 const useStyles = makeStyles(styles);
-// const initMod = {
-//   regOpen: false,
-//   logOpen: false
-// };
 
 const NavBar = ({ handleDrawerToggle }) => {
   const location = useLocation();
@@ -50,15 +46,6 @@ const NavBar = ({ handleDrawerToggle }) => {
     setSnack
   } = useContext(AppContext);
   const history = useHistory();
-  // const [size, setSize] = useState(window.innerWidth);
-
-  // useEffect(() => {
-  //   const A = () => {
-  //     setSize(window.innerWidth);
-  //   };
-  //   window.addEventListener('resize', A);
-  //   return () => window.removeEventListener('resize', A);
-  // }, []);
 
   const popConfirm = () => {
     setOut(true);
@@ -74,23 +61,6 @@ const NavBar = ({ handleDrawerToggle }) => {
 
           </div>
         </div>
-        {/* <div className={location.pathname === '/search' ? 'selected' : 'not-selected'}>
-          <div className='nav-logo'>
-            <i className="fas fa-briefcase"></i>
-          </div>
-        </div>
-        <div
-          className={location.pathname.match(/^\/user/) ? 'selected' : 'not-selected'}
-        >
-          <div className='nav-logo'>
-
-            <i className="fas fa-paper-plane nav-logo"></i>
-          </div>
-        </div>
-        <div
-          className={location.pathname === '/analytics' ? 'selected' : 'not-selected'}
-        >
-        </div> */}
         {
           !(location.pathname === '/home' || location.pathname === '/')
           &&
@@ -106,13 +76,9 @@ const NavBar = ({ handleDrawerToggle }) => {
               <Button color="primary"
                 variant="contained"
                 style={{
-                  // position: 'fixed',
                   color: 'white',
-                  // top: '0',
                   fontWeight: 'bold',
                   transform: 'none',
-                  // margin: '25px',
-                  // right: '0',
                   zIndex: 1
                 }}
                 onClick={() => setModal(prev => ({ ...prev, logOpen: true }))}
@@ -124,13 +90,9 @@ const NavBar = ({ handleDrawerToggle }) => {
             <Button color="secondary"
                 variant="contained"
                 style={{
-                  // position: 'fixed',
                   color: '#222',
-                  // top: '0',
                   fontWeight: 'bold',
                   transform: 'none',
-                  // margin: '25px',
-                  // right: '0',
                   zIndex: 1
                 }}
                 size={window.innerWidth > 560 ? 'default' : 'small'}
@@ -179,13 +141,11 @@ const NavBar = ({ handleDrawerToggle }) => {
           setModal={setOut}
           setSnack={setSnack}
         />
-
       }
       {
         snack.reg &&
         <SnackBar message='Successfully Registered!'
           open={snack.reg} setSnackbar={setSnack} />
-
       }
       {
         snack.log &&
@@ -215,7 +175,6 @@ const NavBar = ({ handleDrawerToggle }) => {
         snack.limit &&
         <RedSnackBar message='Maximum 5 Nominations Allowed!'
           open={snack.limit} setSnackbar={setSnack} />
-
       }
     </>
   );

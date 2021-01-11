@@ -16,7 +16,6 @@ import SearchResultsPage from 'views/SearchResultsPage';
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import { makeStyles } from "@material-ui/core/styles";
 import routes from 'routes';
-// import DetailsPage from 'views/DetailsPage';
 import { CircularProgress } from '@material-ui/core';
 
 const DetailsPage = React.lazy(() =>
@@ -50,7 +49,6 @@ function App() {
       setMobileOpen(false);
     }
   };
-  // initialize and destroy the PerfectScrollbar plugin
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current, {
