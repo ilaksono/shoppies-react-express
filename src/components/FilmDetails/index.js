@@ -2,7 +2,7 @@ import AppContext from 'AppContext';
 import { useContext } from 'react';
 import GenreListItem from './GenreListItem';
 import RatingTable from './RatingTable';
-
+import { formatNum } from 'helpers';
 const FilmDetails = () => {
 
   const {
@@ -17,6 +17,7 @@ const FilmDetails = () => {
     Genre,
     Actors,
     Plot,
+    BoxOffice,
     Language,
     Country,
     Awards,
@@ -33,18 +34,21 @@ const FilmDetails = () => {
     const genreRatingArr = [...Genre.split(', '), Rated];
     if (Genre.split(', ').length)
       parsedGenres = genreRatingArr.map((each, i) =>
-        <GenreListItem text={each} key={i}/>
+        <GenreListItem text={each} key={i} />
       );
   }
 
 
   return (
     <div className='details-container'>
-      <div className='details-movie-preface'>
-        {Year} &nbsp; | &nbsp;
-        {Rated} &nbsp; | &nbsp;
+      {
+        BoxOffice &&
+        <div className='details-movie-preface'>
+          {Year} &nbsp; | &nbsp;
+        {formatNum(BoxOffice.slice(1).split(',').join(''))} &nbsp; | &nbsp;
         {Director}
-      </div>
+        </div>
+      }
       <div className='details-movie-title'>
         {Title}
       </div>
