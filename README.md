@@ -57,7 +57,7 @@
 
 - Analysis Page Concept: 
 
-  !["Analysis Page Concept"](https://github.com/ilaksono/shoppies-react-express/blob/master/docs/AnalysisPageConcept.png)
+  !["Analysis Page Concept"](https://github.com/ilaksono/shoppies-react-express/blob/master/docs/AnalysisPage-Concept.png)
 
 ## Directory Layout  
 .
