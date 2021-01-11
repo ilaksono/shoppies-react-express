@@ -12,3 +12,8 @@
   command = "CI= npm run build"
 [build.environment]  
   REACT_APP_API_BASE_URL = "https://shoppies-il.herokuapp.com/"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
