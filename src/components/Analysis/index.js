@@ -42,10 +42,8 @@ const Analysis = () => {
         <table className='summary-table'>
           <thead>
             <tr>{parsedHead}</tr>
-
           </thead>
           <tbody>
-
             <tr>{parsedBody}</tr>
           </tbody>
         </table>

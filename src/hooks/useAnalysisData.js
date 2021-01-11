@@ -1,5 +1,7 @@
 import { useReducer } from 'react';
 import axios from 'axios';
+import * as B from 'reducers/analysisReducer';
+
 const init = {
   summary: {
     num_usr: 0,
@@ -14,50 +16,10 @@ const init = {
   data: [],
   country: []
 };
-const UPDATE_OPTION = 'CHOOSE_NEW_SORT_OPTION';
-const GET_SUMM = 'GET_SUMMARY_DASHBOARD';
-const GET_TOP = "GET_TOP_DATA";
-const GET_COUNTRY = "GET_COUNTRY_DATA_FOR_PIE";
-
-const analysisReducer = (state, action) => {
-  switch (action.type) {
-    case GET_SUMM: {
-      const {
-        num_usr,
-        num_mov,
-        num_vot
-      } = action;
-      return {
-        ...state, summary: {
-          num_usr, num_mov, num_vot
-        }
-      };
-    }
-    case GET_TOP:
-      return {
-        ...state,
-        data: action.data
-      };
-    case UPDATE_OPTION:
-      return {
-        ...state,
-        options: {
-          votes: false,
-          revenueA: false,
-          revenueD: false,
-          [action.option]: true
-        }
-      };
-    case GET_COUNTRY:
-      return { ...state, country: action.data };
-    default:
-      return state;
-  }
-};
-
 
 const useAnalysisData = () => {
-  const [dash, dispatch] = useReducer(analysisReducer, init);
+  const [dash, dispatch] =
+    useReducer(B.analysisReducer, init);
   const getSummary = async () => {
     try {
       const data = await axios
@@ -68,7 +30,7 @@ const useAnalysisData = () => {
         num_mov
       } = data.data;
       dispatch({
-        type: GET_SUMM,
+        type: B.GET_SUMM,
         num_usr,
         num_vot,
         num_mov
@@ -77,8 +39,8 @@ const useAnalysisData = () => {
       console.error(er);
     }
   };
-  const chooseOption = async (option) => {
-    dispatch({ type: UPDATE_OPTION, option });
+  const chooseOption = (option) => {
+    dispatch({ type: B.UPDATE_OPTION, option });
   };
 
   const getGraphData = async () => {
@@ -88,7 +50,7 @@ const useAnalysisData = () => {
     try {
       const data = await axios
         .get(`/api/dashboard/data?p=${p}`);
-      dispatch({ type: GET_TOP, data: data.data });
+      dispatch({ type: B.GET_TOP, data: data.data });
     } catch (er) {
       console.error(er);
     }
@@ -97,11 +59,10 @@ const useAnalysisData = () => {
     try {
       const data = await axios
         .get('/api/dashboard/pie');
-      dispatch({ type: GET_COUNTRY, data: data.data });
+      dispatch({ type: B.GET_COUNTRY, data: data.data });
     } catch (er) {
       console.error(er);
     }
-
   };
 
   return {

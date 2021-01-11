@@ -1,67 +1,7 @@
 import { useReducer, useState } from 'react';
 import axios from 'axios';
-const AUTH = "AUTHORISE_USER";
-const GET_RESULTS = "GET_SEARCH_RESULTS";
-const GET_DETAILS = "GET_DETAILS_BY_IMDB_ID";
-const LOGOUT = 'LOGOUT';
-const LOGIN = 'LOGIN';
-const UPDATE_LIST = 'UPDATE_NOMINATION_LIST';
-const ERROR = "FETCH_DATA_ERROR";
-const RESET_DETAIL = "RESET_MOVIE_SPECIFIC_DETAILS";
-const appReducer = (state, action) => {
-  switch (action.type) {
-    case AUTH: {
-      return {
-        ...state, id: action.id,
-        username: action.username,
-        noms: action.noms || [],
-        error: ''
-      };
-    }
-    case RESET_DETAIL:
-      return { ...state, details: {} };
-    case LOGIN:
-      return {
-        ...state,
-        id: action.id,
-        username: action.username,
-        noms: action.noms,
-        error: ''
-      };
-    case GET_RESULTS:
-      return {
-        ...state, results: action.arr, numRes: action.numRes,
-        error: '',
-        lastQuery: action.s
+import * as A from 'reducers/appReducer';
 
-      };
-    case GET_DETAILS:
-      return {
-        ...state, lastIMDB: action.id,
-        details: {
-          ...action.omdb, yt: action.yt,
-          count: action.db || 0
-        },
-        error: ''
-      };
-
-    case ERROR:
-      return { ...state, error: action.msg };
-    case UPDATE_LIST:
-      return {
-        ...state, noms: action.cpy,
-        details: action.json || state.details,
-        error: ''
-      };
-    case LOGOUT:
-      return {
-        ...state, id: 0, username: '', noms: [],
-        error: ''
-      };
-    default:
-      return state;
-  }
-};
 const initApp = {
   id: 0,
   username: '',
@@ -76,7 +16,7 @@ const initApp = {
 
 const useAppState = () => {
 
-  const [app, dispatch] = useReducer(appReducer, initApp);
+  const [app, dispatch] = useReducer(A.appReducer, initApp);
   const [ready, setReady] = useState(true);
   const [autoResults, setAutoResults] = useState([]);
 
@@ -87,7 +27,7 @@ const useAppState = () => {
       if (data.data) {
         const { username, id } = data.data[0];
         dispatch({
-          type: AUTH,
+          type: A.AUTH,
           username,
           id
         });
@@ -97,7 +37,7 @@ const useAppState = () => {
       }
     } catch (er) {
       console.error(er);
-      dispatch({ type: ERROR, msg: 'Could not find film' });
+      dispatch({ type: A.ERROR, msg: 'Could not find film' });
     }
   };
 
@@ -110,7 +50,7 @@ const useAppState = () => {
       const res = data.data;
       if (res) {
         dispatch({
-          type: LOGIN,
+          type: A.LOGIN,
           username: res.username,
           noms: res.noms,
           id: res.id
@@ -123,7 +63,7 @@ const useAppState = () => {
     }
   };
   const logout = () => {
-    dispatch({ type: LOGOUT });
+    dispatch({ type: A.LOGOUT });
   };
   const loadUser = async (u, i) => {
     try {
@@ -132,7 +72,7 @@ const useAppState = () => {
       const { username, id } = data.data.user;
       const { noms } = data.data;
       dispatch({
-        type: AUTH,
+        type: A.AUTH,
         username,
         id: Number(id),
         noms
@@ -161,7 +101,7 @@ const useAppState = () => {
         json = { ...app.details, count: Number(app.details.count - 1) };
       }
     }
-    dispatch({ type: UPDATE_LIST, cpy, json });
+    dispatch({ type: A.UPDATE_LIST, cpy, json });
   };
   const addNomToList = (title, year, imdbid) => {
     const cpy = [...app.noms, { title, year, imdbid }];
@@ -171,10 +111,10 @@ const useAppState = () => {
         json = { ...app.details, count: Number(app.details.count + 1) };
       }
     }
-    dispatch({ type: UPDATE_LIST, cpy, json });
+    dispatch({ type: A.UPDATE_LIST, cpy, json });
   };
   const resetDetails = () => {
-    dispatch({ type: RESET_DETAIL });
+    dispatch({ type: A.RESET_DETAIL });
   };
 
   const getMovieDetails = async (id) => {
@@ -186,7 +126,7 @@ const useAppState = () => {
         omdb
       } = data.data;
       dispatch({
-        type: GET_DETAILS,
+        type: A.GET_DETAILS,
         db, yt, omdb, id
       });
     } catch (er) {
@@ -212,12 +152,12 @@ const useAppState = () => {
       const arr = data.data.Search;
       const numRes = Number(data.data.totalResults);
       if (arr.length) {
-        dispatch({ type: GET_RESULTS, arr, numRes, s });
+        dispatch({ type: A.GET_RESULTS, arr, numRes, s });
       } else {
-        dispatch({ type: GET_RESULTS, arr: [], numRes: 0, s });
+        dispatch({ type: A.GET_RESULTS, arr: [], numRes: 0, s });
       }
     } catch (er) {
-      dispatch({ type: ERROR, msg: 'Too many results' });
+      dispatch({ type: A.ERROR, msg: 'Too many results' });
 
     }
   };
