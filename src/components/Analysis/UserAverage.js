@@ -32,7 +32,8 @@ const UserAverage = () => {
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        height: '100%'
       }}>
         <div className="outer-container"
           style={{
