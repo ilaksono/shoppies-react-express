@@ -1,6 +1,6 @@
 import 'styles/NavBar.scss';
 import AppContext from 'AppContext';
-import { useContext, useState} from 'react';
+import { useContext, useState } from 'react';
 import 'styles/Animations.scss';
 import { useLocation, useHistory } from 'react-router-dom';
 import Logo from 'components/Logo';
@@ -92,7 +92,8 @@ const NavBar = ({ handleDrawerToggle }) => {
         >
         </div> */}
         {
-          location.pathname !== '/home' &&
+          !(location.pathname === '/home' || location.pathname === '/')
+          &&
           <Search />
         }
         {
