@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import AppContext from 'AppContext';
+import {CircularProgress} from '@material-ui/core'
 const lookup = {
   "num_usr": "Users",
   "num_vot": "Votes",
@@ -36,7 +37,7 @@ const Analysis = () => {
     <>
       <h3>Dashboard</h3>
       {
-        dash.summary.num_mov &&
+        dash.summary.num_mov > 0 ?
         <table className='summary-table'>
           <thead>
             <tr>{parsedHead}</tr>
@@ -47,6 +48,8 @@ const Analysis = () => {
             <tr>{parsedBody}</tr>
           </tbody>
         </table>
+        :
+        <CircularProgress/>
       }
     </>
   );
