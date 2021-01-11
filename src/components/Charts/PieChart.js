@@ -2,7 +2,6 @@ import { Doughnut } from 'react-chartjs-2';
 
 
 const options = {
-  // cutoutPercentage: 40,
   responsive: true,
   title: {
     display: true,

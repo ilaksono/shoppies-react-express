@@ -3,7 +3,6 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import classNames from "classnames";
 import Button from "components/CustomButtons/Button";
 import Poppers from "@material-ui/core/Popper";
-import MovieFilterIcon from '@material-ui/icons/MovieFilter';
 import Hidden from "@material-ui/core/Hidden";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
@@ -63,15 +62,6 @@ const NotificationsMenu = () => {
         onClick={handleClickNotification}
         className={classes.buttonLink}
       >
-        {/* <MovieFilterIcon
-        style={{
-          fontSize:'36px'
-
-        }}
-          // className={classes.icons} 
-          /> */}
-        {/* <span className={classes.notifications}></span> */}
-
         <i className="fas fa-award hoverable-icon"
           style={{ fontSize: 32 }}></i>
         <Hidden mdUp implementation="css">

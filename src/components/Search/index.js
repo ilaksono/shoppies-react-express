@@ -104,7 +104,6 @@ const Search = (props) => {
 
           <Button className={classes.root}
             type='submit'
-          // onClick={handleClick}
           >
             <SearchIcon 
             fontSize={window.innerWidth > 560 ? 'default' : 'small'}

@@ -10,11 +10,10 @@ import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Icon from "@material-ui/core/Icon";
+import 'styles/Sidebar.scss';
 // core components
 import AdminNavbarLinks from 'components/Navbars/AdminNavbarLinks';
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
-import 'styles/Sidebar.scss';
 import Button from '@material-ui/core/Button';
 import AppContext from 'AppContext';
 import NotificationsMenu from './Notifications';

@@ -121,19 +121,3 @@ const LoginForm = ({ setModal, authoriseLog, modal, setSnack }) => {
 };
 
 export default LoginForm;
-
-/* <div className='login__container'>
-  <form onSubmit={event => event.preventDefault()}>
-    <label>I Am Login Form</label>
-    <input name='email' type='email' value={login.email} onChange={event => handleChange('email', event.target.value)} />
-    <input name='password' type='password'
-      value={login.password}
-      onChange={event =>
-        handleChange('password', event.target.value)} />
-    <Button onClick={validate} message='Login' confirm />
-    {login.errMsg && <div>{login.errMsg}</div>}
-  </form>
-</div> */
-// <SnackBar message="Thanks for leaving a review!" 
-// open={reviewSnackBar} 
-// setSnackBar={setReviewSnackBar} />

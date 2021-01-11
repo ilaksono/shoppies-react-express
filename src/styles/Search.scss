@@ -1,12 +1,9 @@
 @import './helpers.scss';
 
 .search-container {
-  // position: fixed;
   z-index: 1;
   width: 100%;
-  // top: 50%;
   @include flexbox(row, center, center);
-  // left: 35%;
 }
 
 .search-input {

@@ -104,7 +104,6 @@ const HomeSearch = (props) => {
 
           <Button type='submit'
             className={classes.root}
-          // onClick={handleClick}
           >
             <SearchIcon fontSize='large' />
           </Button>
@@ -119,7 +118,6 @@ const HomeSearch = (props) => {
             top: window.innerWidth > 520 ? '200px' : 'calc(0.6 * vh)',
             textAlign: 'center',
             width: 240,
-            // marginTop: window.innerWidth > 520 ? 100 : 0,
             justifySelf: 'center',
             padding: '10px',
             font: "1.4em 'Poppins'",

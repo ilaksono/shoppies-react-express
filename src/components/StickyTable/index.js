@@ -52,6 +52,9 @@ export default function StickyHeadTable({ data,
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   let rows = [];
+  if(data.length) {
+    rows = data.map(each => createData(each.title, each.country, each.revenue_usd, each.total))
+  }
 
   const history = useHistory();
   return (

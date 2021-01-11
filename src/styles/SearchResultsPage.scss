@@ -14,7 +14,6 @@
 
 .result-container {
   padding: 0px 16px;
-  // margin-bottom: 5px;
   position: relative;
   bottom: 0;
   width: calc(100% - 32px);
@@ -43,11 +42,9 @@
 }
 @media screen and (max-width: 600px) {
   .result-container {
-    // padding: 0 4px;
     width: 90%;
     p {
       max-width: 97%;
-      // padding-left: 4px;
     }
   }
   .results-grid-container {
