@@ -1,6 +1,6 @@
 import VideoEmbed from 'components/VideoEmbed';
 import 'styles/DetailsPage.scss';
-import React, { useEffect, useContext, Suspense } from 'react';
+import React, { useEffect, useContext, Suspense, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import AppContext from 'AppContext';
 import { CircularProgress } from '@material-ui/core';
@@ -20,6 +20,12 @@ const DetailsPage = () => {
     if (id)
       getMovieDetails(id);
   }, []);
+
+  const ref = useRef();
+  const focusInput = () => {
+    ref.current = document.querySelector('.search-input');
+    ref.current.focus();
+  };
 
   return (
     <div className='details-layout'>
@@ -50,7 +56,12 @@ const DetailsPage = () => {
             <div style={{
               textAlign: 'center'
             }}>
-              Search for a movie to see details
+              <span><h4 onClick={focusInput} style={{
+                cursor: 'pointer'
+              }}
+              className='hoverable-text'
+              >Search </h4>
+               for a movie to see details</span>
         </div>
         )
           :

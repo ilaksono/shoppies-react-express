@@ -44,7 +44,7 @@
 .details-movie-genre-container {
   @include flexbox(row, flex-start, center);
   width: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 .actors-container {
   padding-right: 25px;
@@ -91,7 +91,12 @@
   height: 100%;
   justify-self: flex-end
 }
-
+.hoverable-text {
+  display: inline;
+  &:hover {
+    color: #00acc1;
+  }
+}
 .separator {
   color: grey;
 }
