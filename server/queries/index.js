@@ -156,7 +156,7 @@ module.exports = (db) => {
           extraData.country, extraData.revenue_usd]);
 
     } catch (er) {
-      console.error(er);
+      // console.error(er);
       const getQs = `
         SELECT * FROM movies WHERE imdbID = $1;`;
       data = await db.query(getQs, [imdbID]);
@@ -199,11 +199,11 @@ module.exports = (db) => {
   };
   const getSummaryNumMovies = () => {
     const qs = `
-    SELECT COUNT(*) as num_mov 
-    FROM movies;
+    SELECT DISTINCT(movie_id) as num_mov 
+    FROM nominations;
     `;
     return db.query(qs, [])
-      .then(res => res.rows);
+      .then(res => res.rows.length);
   };
   const getSummary = async () => {
     const data1 = await getSummaryNumUsr();
@@ -212,7 +212,7 @@ module.exports = (db) => {
     return {
       num_usr: data1[0].num_usr || 0,
       num_vot: data2[0].num_vot || 0,
-      num_mov: data3[0].num_mov || 0
+      num_mov: data3 || 0
     };
   };
   const getGraphData = (p) => {
