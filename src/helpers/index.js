@@ -41,3 +41,9 @@ export const formatNum = (val, neg = false) => {
   }
   return formatLargeNumber(val);
 };
+
+export const formatDollsToNum = (str) => {
+  if (str === 'N/A' || str === 'null' || !str) 
+    return '$ N/A'
+  return formatNum(str.slice(1));
+}

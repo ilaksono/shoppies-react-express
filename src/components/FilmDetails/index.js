@@ -2,7 +2,7 @@ import AppContext from 'AppContext';
 import { useContext } from 'react';
 import GenreListItem from './GenreListItem';
 import RatingTable from './RatingTable';
-import { formatNum } from 'helpers';
+import { formatDollsToNum } from 'helpers';
 const FilmDetails = () => {
 
   const {
@@ -45,7 +45,7 @@ const FilmDetails = () => {
         BoxOffice &&
         <div className='details-movie-preface'>
           {Year} &nbsp; | &nbsp;
-        {formatNum(BoxOffice.slice(1).split(',').join(''))} &nbsp; | &nbsp;
+        {formatDollsToNum(BoxOffice)} &nbsp; | &nbsp;
         {Director}
         </div>
       }
