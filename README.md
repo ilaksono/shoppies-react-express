@@ -46,7 +46,7 @@
  - `useSnackBar`: controls open and close of alerts (snack bars)
 
  ## Deploy
- - [netlify link](http://shoppies-il.netlify.app)
+ - [netlify link](http://shoppies-il.netlify.app) - may stall for a few seconds due to heroku idling 
  - [heroku server](http://shoppies-il.herokuapp.com)
 
 ## Diagrams
