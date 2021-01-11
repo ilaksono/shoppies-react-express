@@ -61,7 +61,7 @@ const BarChart = ({ dash }) => {
   }
 
   return (
-    <Bar data={d} options={options} height='180' width='380' />
+    <Bar data={d} options={options} height='130' width='320' />
   );
 };
 export default BarChart;

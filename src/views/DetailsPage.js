@@ -15,7 +15,8 @@ const DetailsPage = () => {
   const { getMovieDetails, app } = useContext(AppContext);
 
   useEffect(() => {
-    getMovieDetails(id);
+    if (id)
+      getMovieDetails(id);
   }, []);
 
   return (
@@ -30,13 +31,13 @@ const DetailsPage = () => {
           :
           <>
             <div className='partial-details-container'>
-              <Suspense fallback={<CircularProgress style={{marginLeft:"36%"}} size={65}/>}>
+              <Suspense fallback={<CircularProgress style={{ marginLeft: "36%" }} size={65} />}>
 
                 <FilmDetails />
               </Suspense>
               <VideoEmbed yt={app.details.yt} />
             </div>
-            <Suspense fallback={<CircularProgress style={{ marginLeft: "36%" }} size={65}/>}>
+            <Suspense fallback={<CircularProgress style={{ marginLeft: "36%" }} size={65} />}>
               <OtherDetails />
             </Suspense>
           </>

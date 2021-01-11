@@ -32,7 +32,7 @@ const AnalysisPage = () => {
       </div>
       <div className='analysis-primary-b'>
 
-        <div className='user-average-container'>
+        <div className='pie-chart-container'>
           <PieChart data={dash.country}/>
         </div>
         <div className="top-table-container">

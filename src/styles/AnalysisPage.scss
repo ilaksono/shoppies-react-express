@@ -2,8 +2,8 @@
 
 .analysis-layout {
   width: calc(100vw - 260px - 30px);
-  border: 2px solid blue;
-  height: calc(100vh);
+  // border: 2px solid blue;
+  height: calc(100vh + 20px);
   margin-left: 260px;
   @include flexbox(column, flex-start, space-around);
 }
@@ -12,27 +12,46 @@
   @include flexbox(row, flex-start, center);
   width:100%;
   height: 22%;
-  border: 2px solid red;
+  // border: 2px solid red;
 }
 .analysis-primary-b {
     @include flexbox(row, flex-start, center);
     width: 100%;
     height: 56%;
-    border: 2px solid rgb(0, 255, 76);
+    margin-top: 8px;
+  // box-shadow: 0 2px 4px 0 rgba(97, 97, 97, 0.685);
 
 }
 .analysis-primary-c {
     @include flexbox(row, flex-start, center);
     width: 100%;
     height: 29%;
-    border: 2px solid rgb(251, 255, 0);
+  // box-shadow: 0 2px 4px 0 rgba(97, 97, 97, 0.685);
 
+}
+.pie-chart-container {
+  height: 100%;
+  width: 40%;
+  box-shadow: 0 2px 4px 0 rgba(97, 97, 97, 0.685);
+  padding: 6px;
+  padding-bottom: 6px;
+  margin-right: 8px;
+  margin-top: 6px;
+  margin-bottom: 20px;
+  margin-bottom: 10px;
+  font: 1.0em 'Poppins';
+  h3 {
+    margin: 3px;  
+  }
 }
 .summary-container {
   width: 55%;
   text-align: center;
   padding: 8px;
-  border: 2px solid grey;
+  margin-bottom: 12px;
+  // border: 2px solid grey;
+  box-shadow: 0 2px 4px 0 rgba(97, 97, 97, 0.685);
+
   font: 1.1em 'Poppins';
   h3 {
     text-align: left;
@@ -42,8 +61,13 @@
 .user-average-container {
   height: 100%;
   width: 40%;
-  border: 2px solid brown;
+  box-shadow: 0 2px 4px 0 rgba(97, 97, 97, 0.685);
   padding: 6px;
+  padding-bottom: 6px;
+  margin-right: 8px;
+  margin-top: 56px;
+
+  margin-bottom: 10px;
   font: 1.0em 'Poppins';
   h3 {
     margin: 3px;  
@@ -51,8 +75,11 @@
 }
 .options-container {
   width: 45%;
-  padding: 8px;
-  border: 2px solid black;
+  padding: 6px;
+  // border: 2px solid black;
+  box-shadow: 0 2px 4px 0 rgba(97, 97, 97, 0.685);
+  margin-left: 8px;
+  margin-bottom: 11px;
   font: 1.0em 'Poppins';
 
   h3 {
@@ -66,8 +93,9 @@
 .bar-chart-container {
   height: 100%;
   width: 60%;
-  border: 2px solid rgb(0, 0, 0);
+  box-shadow: 0 2px 4px 0 rgba(97, 97, 97, 0.685);
   padding: 6px;
+  margin-top: 44px;
   font: 1.0em 'Poppins';
   h3 {
     margin: 3px;  
@@ -77,7 +105,7 @@
 .top-table-container {
   height: 100%;
   width: 60%;
-  border: 2px solid rgb(102, 0, 170);
+  box-shadow: 0 2px 4px 0 rgba(97, 97, 97, 0.685);
   padding: 6px;
   font: 1.2em 'Poppins';
   @include flexbox(column, space-between, center);
@@ -103,16 +131,54 @@
 @media screen and (max-width: 560px) {
   .analysis-primary-a {
     @include flexbox(column, flex-start, center);
+    width: 100%;
   }
   .analysis-primary-b {
     @include flexbox(column, flex-start, center);
+        width: 100%;
+
   }
   .analysis-primary-c {
     @include flexbox(column, flex-start, center);
+        width: 100%;
+
   }
   .analysis-layout {
     height: 100%;
     overflow-y: scroll;
+    .summary-container {
+          width: 96%;
 
+    }
+    .user-average-container {
+        width: 96%;
+
+    }
+    .pie-chart-container {
+        width: 94%;
+
+    }
+    .options-container {
+        width: 96%;
+
+    }
+    .bar-chart-container {
+        width: 96%;
+
+    }
+    .top-table-container {
+        width: 96%;
+
+    }
+  }
+  .options-container {
+    margin-left: 0;
+  }
+  .summary-container {
+    margin-top: 10px;
+  }
+  .user-average-container {
+    width: 90%;
+    padding: 0px;
   }
 }

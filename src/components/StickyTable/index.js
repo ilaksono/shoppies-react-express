@@ -94,7 +94,7 @@ export default function StickyHeadTable({data, getMovieDetails}) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => {
               return (
                 <TableRow 
                 onClick={() => {
@@ -104,7 +104,7 @@ export default function StickyHeadTable({data, getMovieDetails}) {
                 style={{
                   cursor:'pointer'
                 }}
-                hover role="checkbox" tabIndex={-1} key={row.code}>
+                hover role="checkbox" tabIndex={-1} key={i}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (

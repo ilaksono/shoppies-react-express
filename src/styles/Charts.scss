@@ -15,7 +15,7 @@
 }
 
 .each-bar {
-  width: 10%;
+  width: calc(10%);
   // border-right: 2px solid whitesmoke;
   margin-right: 1.5px;
   // box-shadow: 4px 0 6px -2px rgb(255, 172, 172);
@@ -47,5 +47,12 @@
     opacity: 1;
     display: block;
 
+  }
+}
+@media screen and (max-width: 560px) {
+  .outer-container {
+    height: 50px;
+    max-width: 90%;
+    margin: 14px;
   }
 }

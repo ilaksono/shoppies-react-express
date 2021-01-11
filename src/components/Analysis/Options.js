@@ -34,13 +34,12 @@ const Options = () => {
   const { dash, chooseOption,
     getGraphData } = useContext(AppContext);
 
-  const handleChange = (val) => {
-    chooseOption(val);
-    getGraphData()
+  const handleChange = async (val) => {
+   chooseOption(val);
   };
   useEffect(() => {
     getGraphData()
-  }, [])
+  }, [dash.options])
   const parsedSwitches = Object.keys(options).map(prop =>
     <div className='each-switch'>
       <FormControlLabel control={<Radio

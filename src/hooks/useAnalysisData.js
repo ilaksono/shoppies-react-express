@@ -77,7 +77,7 @@ const useAnalysisData = () => {
       console.error(er);
     }
   };
-  const chooseOption = (option) => {
+  const chooseOption = async (option) => {
     dispatch({ type: UPDATE_OPTION, option });
   };
 
