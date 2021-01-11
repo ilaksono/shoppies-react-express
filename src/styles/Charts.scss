@@ -20,13 +20,13 @@
   margin-right: 1.5px;
   // box-shadow: 4px 0 6px -2px rgb(255, 172, 172);
   height: 100%;
-  animation: popIn 1.2s 1 forwards;
+  animation: popIn 0.8s 1 forwards;
   opacity: 0;
   // background-color: rgb(129, 204, 129);
 }
 @for $i from 1 through 10 {
   .inner-container > div:nth-child(#{$i}) {
-    animation-delay: #{(0 + (($i - 1) * 1.0))}s;
+    animation-delay: #{(0 + (($i - 1) * 0.40))}s;
   }
 }
 

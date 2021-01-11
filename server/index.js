@@ -58,8 +58,7 @@ const formatRevenue = (str) =>
   Number(str.slice(1).split(',').join(''));
 
 const getAutoURL = (s) =>
-  formatSpaces(
-    `http://www.omdbapi.com/?s=${s}&r=json&apikey=${process.env.OMDB_API_KEY}`);
+  `http://www.omdbapi.com/?s=${s}&r=json&apikey=${process.env.OMDB_API_KEY}`;
 
 const detailURL = (i) =>
   `http://www.omdbapi.com/?i=${i}&apikey=${process.env.OMDB_API_KEY}`;
@@ -67,8 +66,9 @@ const detailURL = (i) =>
 app.get('/api/autocomplete', async (req, res) => {
   try {
     const s = req.query.s;
+    console.log();
     if (s) {
-      const data = await fetch(getAutoURL(s));
+      const data = await fetch(getAutoURL(formatSpaces(s)));
       const json = await data.json();
       if (json.Search)
         return res.send(json.Search.slice(0, Math.min(5, json.Search.length)));
@@ -81,7 +81,7 @@ app.get('/api/autocomplete', async (req, res) => {
   }
 });
 
-const formatCountry = (str) => 
+const formatCountry = (str) =>
   str.split(',')[0];
 
 app.get(`/api/details/:id`, async (req, res) => {

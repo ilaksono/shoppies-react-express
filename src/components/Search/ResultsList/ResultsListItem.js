@@ -58,14 +58,19 @@ const ResultsListItem = ({ imdbID, Poster,
           if (imdbID !== app.lastIMDB)
             getMovieDetails(imdbID);
           history.push(`/films/${imdbID}`);
-        }
-        }
+        }}
         src={imgURL} alt="Poster"
         style={{ width: "100%", cursor: 'pointer' }}
         loading='lazy'
       />
       <div className="result-container">
-        <h3><b>{Title}</b></h3>
+        <h3
+          onClick={() => {
+            if (imdbID !== app.lastIMDB)
+              getMovieDetails(imdbID);
+            history.push(`/films/${imdbID}`);
+          }}
+        ><b>{Title}</b></h3>
         <p className='card-result-footer'><div>{Year}</div>
           <Button className={!bool ? classes.root : classes.unroot}
             onClick={handleClick}

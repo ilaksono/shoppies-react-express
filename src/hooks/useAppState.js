@@ -195,7 +195,7 @@ const useAppState = () => {
       const a = setTimeout(() => {
         if (!ready) {
           setReady(true);
-          clearTimeout(a);
+          // clearTimeout(a);
         }
       }, 250);
     }
