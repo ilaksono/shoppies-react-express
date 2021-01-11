@@ -43,11 +43,21 @@
 }
 @media screen and (max-width: 600px) {
   .result-container {
-    padding: 0 4px;
-    width: 100%;
+    // padding: 0 4px;
+    width: 90%;
     p {
       max-width: 97%;
-      padding-left: 4px;
+      // padding-left: 4px;
     }
+  }
+  .results-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+}
+@media screen and (max-width: 400px) {
+  .results-grid-container {
+    grid-template-columns: repeat(1, 1fr);
+
   }
 }

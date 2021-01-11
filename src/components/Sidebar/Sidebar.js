@@ -12,6 +12,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 // core components
+import AdminNavbarLinks from 'components/Navbars/AdminNavbarLinks';
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
 import 'styles/Sidebar.scss';
 import Button from '@material-ui/core/Button';
@@ -112,6 +113,7 @@ export default function Sidebar(props) {
           }}
         >
           {brand}
+          <AdminNavbarLinks />
           <div className={classes.sidebarWrapper}>
             <NotificationsMenu />
             {links}

@@ -61,10 +61,12 @@ const NavBar = ({ handleDrawerToggle }) => {
 
           </div>
         </div>
-        {
-          !(location.pathname === '/home' || location.pathname === '/')
-          &&
-          <Search />
+        {(
+            !(location.pathname === '/home'
+            || location.pathname === '/')
+            && window.innerWidth > 761
+          )
+          && <Search />
         }
         {
           window.innerWidth > 959 &&

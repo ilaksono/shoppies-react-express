@@ -6,17 +6,19 @@ import AnalysisPage from 'views/AnalysisPage'
 import MovieIcon from '@material-ui/icons/Movie';
 import SearchIcon from '@material-ui/icons/Search';
 import TheatersIcon from '@material-ui/icons/Theaters';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+
 const dashboardRoutes = [
   {
     path: "/home",
-    name: "Home",
-    icon: MovieIcon,
+    name: "Root",
+    icon: MovieIcon, 
     component: HomePage,
   },
   {
     path: "/search",
-    name: "Search",
-    icon: SearchIcon,
+    name: "Results",
+    icon: FormatListNumberedIcon,
     component: SearchResultsPage,
   },
   {
