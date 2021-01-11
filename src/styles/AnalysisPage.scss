@@ -1,0 +1,118 @@
+@import './helpers.scss';
+
+.analysis-layout {
+  width: calc(100vw - 260px - 30px);
+  border: 2px solid blue;
+  height: calc(100vh);
+  margin-left: 260px;
+  @include flexbox(column, flex-start, space-around);
+}
+
+.analysis-primary-a {
+  @include flexbox(row, flex-start, center);
+  width:100%;
+  height: 22%;
+  border: 2px solid red;
+}
+.analysis-primary-b {
+    @include flexbox(row, flex-start, center);
+    width: 100%;
+    height: 56%;
+    border: 2px solid rgb(0, 255, 76);
+
+}
+.analysis-primary-c {
+    @include flexbox(row, flex-start, center);
+    width: 100%;
+    height: 29%;
+    border: 2px solid rgb(251, 255, 0);
+
+}
+.summary-container {
+  width: 55%;
+  text-align: center;
+  padding: 8px;
+  border: 2px solid grey;
+  font: 1.1em 'Poppins';
+  h3 {
+    text-align: left;
+    margin: 3px;
+  }
+}
+.user-average-container {
+  height: 100%;
+  width: 40%;
+  border: 2px solid brown;
+  padding: 6px;
+  font: 1.0em 'Poppins';
+  h3 {
+    margin: 3px;  
+  }
+}
+.options-container {
+  width: 45%;
+  padding: 8px;
+  border: 2px solid black;
+  font: 1.0em 'Poppins';
+
+  h3 {
+    margin: 3px;
+    text-align: right;
+  }
+}
+.summary-table {
+  width: 90%;
+}
+.bar-chart-container {
+  height: 100%;
+  width: 60%;
+  border: 2px solid rgb(0, 0, 0);
+  padding: 6px;
+  font: 1.0em 'Poppins';
+  h3 {
+    margin: 3px;  
+  }
+}
+
+.top-table-container {
+  height: 100%;
+  width: 60%;
+  border: 2px solid rgb(102, 0, 170);
+  padding: 6px;
+  font: 1.2em 'Poppins';
+  @include flexbox(column, space-between, center);
+  h3 {
+    margin: 3px;  
+  }
+  // overflow-y: scroll;
+}
+.switch-container {
+  @include flexbox(row, space-around, center);
+}
+
+@media screen and (min-width: 961px) {
+  
+}
+@media screen and (max-width: 960px) {
+  .analysis-layout {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .analysis-primary-a {
+    @include flexbox(column, flex-start, center);
+  }
+  .analysis-primary-b {
+    @include flexbox(column, flex-start, center);
+  }
+  .analysis-primary-c {
+    @include flexbox(column, flex-start, center);
+  }
+  .analysis-layout {
+    height: 100%;
+    overflow-y: scroll;
+
+  }
+}

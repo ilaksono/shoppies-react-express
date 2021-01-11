@@ -54,6 +54,9 @@ const getURL = (s, y = '', page = 1) =>
 
   );
 
+const formatRevenue = (str) =>
+  Number(str.slice(1).split(',').join(''));
+
 const getAutoURL = (s) =>
   formatSpaces(
     `http://www.omdbapi.com/?s=${s}&r=json&apikey=${process.env.OMDB_API_KEY}`);
@@ -63,9 +66,7 @@ const detailURL = (i) =>
 
 app.get('/api/autocomplete', async (req, res) => {
   try {
-
     const s = req.query.s;
-
     if (s) {
       const data = await fetch(getAutoURL(s));
       const json = await data.json();
@@ -79,6 +80,9 @@ app.get('/api/autocomplete', async (req, res) => {
     return res.send(er);
   }
 });
+
+const formatCountry = (str) => 
+  str.split(',')[0];
 
 app.get(`/api/details/:id`, async (req, res) => {
 
@@ -102,6 +106,11 @@ app.get(`/api/details/:id`, async (req, res) => {
 
 });
 
+app.get('/api/dashboard/summary', async (req, res) => {
+  const data = await query.getSummary();
+  res.send(data);
+});
+
 app.post('/api/nominate', async (req, res) => {
   const {
     user_id,
@@ -109,9 +118,21 @@ app.post('/api/nominate', async (req, res) => {
     Year,
     imdbID
   } = req.body;
+  let extraData;
+  try {
+    const extra = await fetch(detailURL(imdbID));
+    const extraJson = await extra.json();
+    extraData = {
+      country: formatCountry(extraJson.Country),
+      revenue_usd: formatRevenue(extraJson.BoxOffice)
+    };
+
+  } catch (er) {
+    return console.error(er);
+  }
   try {
     const data = await query
-      .updateNominate(user_id, Title, Year, imdbID);
+      .updateNominate(user_id, Title, Year, imdbID, extraData);
     res.send(data);
 
   } catch (er) {
@@ -119,8 +140,27 @@ app.post('/api/nominate', async (req, res) => {
   }
 
 });
-// query.updateNominate(1,"asd",1,1)
-// .then(data => console.log(data));
+
+app.get('/api/dashboard/pie', async (req, res) => {
+  try {
+    const data = await query.getPieData();
+    res.send(data);
+  } catch (er) {
+    console.error(er);
+  }
+});
+
+app.get('/api/dashboard/data', async (req, res) => {
+  const { p } = req.query;
+  try {
+    const data = await query.getGraphData(p);
+    res.send(data);
+  } catch (er) {
+    console.error(er);
+  }
+});
+// query.getGraphData('votes')
+// .then((da) => console.log(da))
 app.post('/api/users', async (req, res) => {
   const {
     email,

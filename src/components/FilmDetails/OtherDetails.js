@@ -52,6 +52,7 @@ const OtherDetails = () => {
         setSnack(prev => ({ ...prev, unvote: true }));
       }
       else {
+        if (app.noms.length >= 5) return setSnack(prev => ({ ...prev, limit: true }));
         addNomToList(Title, Year, imdbID);
         setSnack(prev => ({ ...prev, vote: true }));
       }

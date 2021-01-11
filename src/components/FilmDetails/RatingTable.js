@@ -9,11 +9,11 @@ const RatingTable = ({arr}) => {
   let parsedHeaders;
   let parsedRatings;
   if(arr.length) {
-    parsedHeaders = arr.map(each => 
-      <td><img style={{borderRadius:"50%", border:"2px solid white"}} height="24" src={lookup[each.Source]} alt={each.Source}/></td>
+    parsedHeaders = arr.map((each, i) => 
+      <td key={i}><img style={{borderRadius:"50%", border:"2px solid white"}} height="24" src={lookup[each.Source]} alt={each.Source}/></td>
     )
-    parsedRatings = arr.map(each => 
-      <td>
+    parsedRatings = arr.map((each, i) => 
+      <td key={i}>
         {each.Value}
       </td>
       )

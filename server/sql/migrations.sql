@@ -14,7 +14,8 @@ CREATE TABLE movies (
   title VARCHAR(255) NOT NULL,
   year INTEGER,
   imdbID VARCHAR(255) NOT NULL UNIQUE,
-  CONSTRAINT UC_imdbID UNIQUE(imdbID)
+  country VARCHAR(255) NOT NULL,
+  revenue_usd INTEGER
 );
 
 CREATE TABLE nominations (

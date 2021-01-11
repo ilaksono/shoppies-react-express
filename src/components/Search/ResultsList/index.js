@@ -2,7 +2,7 @@ import ResultsListItem from './ResultsListItem';
 
 const ResultsList = ({arr, handleNominate, 
   app, setModal, setSnack, addNomToList,
-  removeNomFromList}) => {
+  removeNomFromList, getMovieDetails}) => {
 
   let parsedList = [];
   if(arr.length) {
@@ -11,8 +11,9 @@ const ResultsList = ({arr, handleNominate,
     handleNominate={handleNominate}
     setModal={setModal}
     setSnack={setSnack}
-        addNomToList={addNomToList}
-        removeNomFromList={removeNomFromList}
+    addNomToList={addNomToList}
+    removeNomFromList={removeNomFromList}
+        getMovieDetails={getMovieDetails}
     />
     ) 
   }

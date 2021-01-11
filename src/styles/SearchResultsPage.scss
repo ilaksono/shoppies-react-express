@@ -18,6 +18,7 @@
   position: relative;
   bottom: 0;
   width: calc(100% - 32px);
+  font-family: 'Fira Sans', sans-serif;
 }
 .results-grid-container {
   display: grid;
@@ -33,4 +34,20 @@
 .begin-search {
   text-align: center;
   font-family: 'Poppins'
+}
+.blank-search {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 8px;
+  font-family: "Fira- Sans", sans-serif;
+}
+@media screen and (max-width: 600px) {
+  .result-container {
+    padding: 0 4px;
+    width: 100%;
+    p {
+      max-width: 97%;
+      padding-left: 4px;
+    }
+  }
 }

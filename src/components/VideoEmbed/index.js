@@ -9,7 +9,11 @@ const VideoEmbed = ({ yt }) => {
             frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen
           />
           :
-          <div>
+          <div style={{
+            maxWidth: '400px',
+            padding: '50px',
+            height: "100%"
+          }}>
             No Trailer Available
           </div>
       }

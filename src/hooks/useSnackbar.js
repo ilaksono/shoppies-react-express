@@ -5,7 +5,8 @@ const init = {
   log: false,
   out: false,
   vote: false,
-  unvote: false
+  unvote: false,
+  limit: false
 }
 
 const useSnackbar = () => {

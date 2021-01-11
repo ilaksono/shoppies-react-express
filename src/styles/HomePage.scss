@@ -51,14 +51,17 @@
   }
   .home-search-container {
     margin: 0 auto;
-    left: 20%;
+    width: 100vw;
+    left: calc(50% - (482.8px / 2));
+    text-align: center;
   }
 }
 
 @media screen and (max-width: 850px) {
   .home-search-container {
     max-width: 100%;
-    left: 10%;
+    
+
   }
   .home-search-input {
     width: 80%;
@@ -69,7 +72,9 @@
   .home-search-container {
     @include flexbox(column, center, center);
     width: 82%;
+    left: calc(50% - (100vw * 0.41));
   }
+
 }
 @media screen and (min-width: 961px) {
   .home-search-input {

@@ -19,8 +19,9 @@ const styles = {
     '&:hover': {
       backgroundColor: 'grey'
     },
-    width: '40px',
-    height: '26px'
+    maxWidth: '40px',
+    height: window.innerWidth > 560 ? '26px' : '16px',
+    padding: 0
   }
 };
 const useStyles = makeStyles(styles);
@@ -40,7 +41,7 @@ const Search = (props) => {
   } = useContext(AppContext);
 
   const handleClick = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (value) {
       setSearchLoad(true);
       resetPagination();
@@ -83,25 +84,32 @@ const Search = (props) => {
               border: 'none',
               width: '100%'
             }}
+            type={window.innerWidth > 560 ? '' : 'search'}
             placeholder="Search Movies"
           />
           <ComboboxPopover style={{
             zIndex: autoResults.length > 0 ? 10 : -1,
           }}>
-            {autoResults.length > 0 && autoResults.map(({ Title, Year, imdbID }) =>
-              <ComboboxOption key={imdbID} value={`${Title} - ${Year}`}>
-              </ComboboxOption>
+            {autoResults.length > 0 && autoResults.map(({ Title, Year, imdbID }) => {
+              if (Title !== value)
+                return (
+                  <ComboboxOption key={imdbID} value={`${Title} - ${Year}`}>
+                  </ComboboxOption>
+                );
+            }
             )}
           </ComboboxPopover>
         </Combobox>
         <form onSubmit={e => handleClick(e)}>
 
-        <Button className={classes.root}
-        type='submit'
-        // onClick={handleClick}
-        >
-          <SearchIcon />
-        </Button>
+          <Button className={classes.root}
+            type='submit'
+          // onClick={handleClick}
+          >
+            <SearchIcon 
+            fontSize={window.innerWidth > 560 ? 'default' : 'small'}
+            />
+          </Button>
         </form>
 
       </div>

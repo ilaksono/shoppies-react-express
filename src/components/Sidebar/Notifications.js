@@ -73,7 +73,7 @@ const NotificationsMenu = () => {
         {/* <span className={classes.notifications}></span> */}
 
         <i className="fas fa-award hoverable-icon" 
-        style={{ fontSize: 32, color: 'inherit' }}></i>
+        style={{ fontSize: 32 }}></i>
         <Hidden mdUp implementation="css">
           <p onClick={handleCloseNotification}
             className={classes.linkText}>

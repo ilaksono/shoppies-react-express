@@ -12,16 +12,20 @@ import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 
-const styles = {
+const styles = theme => ({
   root: {
     backgroundColor: 'white',
     color: 'black',
+    fontSize: "36px",
     '&:hover': {
       backgroundColor: 'grey'
     },
     height: '57.6px',
+    [theme.breakpoints.up('md')]: {
+      marginLeft: "50%"
+    }
   }
-};
+});
 const useStyles = makeStyles(styles);
 const HomeSearch = (props) => {
 
@@ -74,13 +78,14 @@ const HomeSearch = (props) => {
               setValue(e.target.value);
               setErrMsg('');
             }}
-            className='home-search-input'
             disabled={false}
+            type={window.innerWidth > 560 ? '' : 'search'}
+            className='home-search-input'
             style={{
               outline: 'none',
               border: 'none',
               maxWidth: '460px',
-              width: '96.6%'
+              width: '96.6%',
             }}
             placeholder="Search Movies"
           />
@@ -97,10 +102,11 @@ const HomeSearch = (props) => {
         </Combobox>
         <form onSubmit={e => handleClick(e)}>
 
-          <Button type='submit' className={classes.root}
+          <Button type='submit'
+            className={classes.root}
           // onClick={handleClick}
           >
-            <SearchIcon />
+            <SearchIcon fontSize='large' />
           </Button>
         </form>
       </div>
@@ -110,18 +116,20 @@ const HomeSearch = (props) => {
             backgroundColor: '#222',
             color: 'white',
             position: 'relative',
-            top: '200px',
+            top: window.innerWidth > 520 ? '200px' : 'calc(0.6 * vh)',
             textAlign: 'center',
             width: 240,
+            // marginTop: window.innerWidth > 520 ? 100 : 0,
             justifySelf: 'center',
             padding: '10px',
             font: "1.4em 'Poppins'",
             alignSelf: 'center',
-            left: 'calc(50% - 130px + 130px)'
+            left: window.innerWidth > 959 ? 'calc(50% - 130px + 130px)' : 'calc(50% - 130px)'
           }}
+
         >
           {errMsg}
-      </div>
+        </div>
       }
     </>
   );

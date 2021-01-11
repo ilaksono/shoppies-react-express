@@ -2,6 +2,7 @@ import Dashboard from "@material-ui/icons/Dashboard";
 import HomePage from 'views/HomePage';
 import SearchResultsPage from 'views/SearchResultsPage';
 import DetailsPage from 'views/DetailsPage';
+import AnalysisPage from 'views/AnalysisPage'
 const dashboardRoutes = [
   {
     path: "/home",
@@ -21,6 +22,12 @@ const dashboardRoutes = [
     icon: Dashboard,
     component: DetailsPage,
   },
+  {
+    path: "/dash",
+    name: "Dashboard",
+    icon: Dashboard,
+    component: AnalysisPage,
+  }
   
 
 ];

@@ -32,8 +32,8 @@ const FilmDetails = () => {
   if (Genre) {
     const genreRatingArr = [...Genre.split(', '), Rated];
     if (Genre.split(', ').length)
-      parsedGenres = genreRatingArr.map((each) =>
-        <GenreListItem text={each} />
+      parsedGenres = genreRatingArr.map((each, i) =>
+        <GenreListItem text={each} key={i}/>
       );
   }
 

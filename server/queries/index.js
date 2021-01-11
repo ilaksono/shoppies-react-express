@@ -1,3 +1,46 @@
+const pLookup = {
+  "votes": function (db) {
+    const qs = `
+    SELECT COUNT(*) as total, movie_id, 
+    movies.title, movies.revenue_usd, movies.country
+    FROM nominations JOIN movies 
+    ON movies.imdbID = nominations.movie_id
+    GROUP BY movie_id, movies.title, 
+    movies.revenue_usd, movies.country
+    ORDER BY total DESC
+    LIMIT 5;`;
+    return db.query(qs, [])
+      .then(res => res.rows
+      );
+  },
+  "revenueD": function (db) {
+    const qs = `
+     SELECT COUNT(*) as total, movie_id, 
+    movies.title, movies.revenue_usd, movies.country 
+    FROM nominations JOIN movies 
+    ON movies.imdbID = nominations.movie_id
+    GROUP BY movie_id, movies.title, 
+    movies.revenue_usd, movies.country
+    ORDER BY movies.revenue_usd DESC
+    LIMIT 5;`;
+    return db.query(qs, [])
+      .then(res => res.rows);
+  },
+  "revenueA": function (db) {
+    const qs = `
+     SELECT COUNT(*) as total, movie_id, 
+    movies.title, movies.revenue_usd, movies.country 
+    FROM nominations JOIN movies 
+    ON movies.imdbID = nominations.movie_id
+    GROUP BY movie_id, movies.title, 
+    movies.revenue_usd, movies.country
+    ORDER BY movies.revenue_usd ASC
+    LIMIT 5;`;
+    return db.query(qs, [])
+      .then(res => res.rows);
+  }
+};
+
 module.exports = (db) => {
   const authoriseReg = async (email, username) => {
 
@@ -19,7 +62,7 @@ module.exports = (db) => {
         .then(res => res.rows);
     } catch (er) {
       console.error(er);
-      return null
+      return null;
     }
   };
 
@@ -75,7 +118,8 @@ module.exports = (db) => {
       WHERE movie_id = $1;`;
 
       nom = await db.query(qs2, [imdbID]);
-      return nom.rows;
+      if (!nom.rows[0]) return 0;
+      return nom.rows[0].num_nom;
     } catch (er) {
       console.error(er);
     }
@@ -98,17 +142,21 @@ module.exports = (db) => {
       .then(res => res.rows);
   };
 
-  const updateNominate = async (user_id, title, year, imdbID) => {
+  const updateNominate = async (user_id, title, year, imdbID, extraData) => {
     const insertQs = `
-    INSERT INTO movies (title, year, imdbID)
-    VALUES ($1, $2, $3)
+    INSERT INTO movies (title, year, 
+      imdbID, country, revenue_usd)
+    VALUES ($1, $2, $3, $4, $5)
     RETURNING *
     ;`;
     let data;
     try {
       data = await db
-        .query(insertQs, [title, year, imdbID]);
+        .query(insertQs, [title, year, imdbID,
+          extraData.country, extraData.revenue_usd]);
+
     } catch (er) {
+      console.error(er);
       const getQs = `
         SELECT * FROM movies WHERE imdbID = $1;`;
       data = await db.query(getQs, [imdbID]);
@@ -126,10 +174,62 @@ module.exports = (db) => {
       else await deleteNomination(user_id, imdbID);
       return data;
     } catch (er) {
+
       console.error(er);
     }
   };
 
+  const getSummaryNumUsr = () => {
+    const qs = `
+    SELECT COUNT(*) as num_usr 
+    FROM users;
+    `;
+    return db.query(qs, [])
+      .then(res => res.rows);
+
+  };
+  const getSummaryNumVotes = () => {
+    const qs = `
+    SELECT COUNT(*) as num_vot 
+    FROM nominations;
+    `;
+    return db.query(qs, [])
+      .then(res => res.rows);
+
+  };
+  const getSummaryNumMovies = () => {
+    const qs = `
+    SELECT COUNT(*) as num_mov 
+    FROM movies;
+    `;
+    return db.query(qs, [])
+      .then(res => res.rows);
+  };
+  const getSummary = async () => {
+    const data1 = await getSummaryNumUsr();
+    const data2 = await getSummaryNumVotes();
+    const data3 = await getSummaryNumMovies();
+    return {
+      num_usr: data1[0].num_usr || 0,
+      num_vot: data2[0].num_vot || 0,
+      num_mov: data3[0].num_mov || 0
+    };
+  };
+  const getGraphData = (p) => {
+    return pLookup[p](db);
+  };
+
+  const getPieData = () => {
+    const qs = `
+    SELECT COUNT(movies.country) as count, country FROM nominations
+    JOIN movies ON movie_id = movies.imdbID
+    GROUP BY movies.country
+    ORDER BY count DESC
+    LIMIT 6;    
+    `;
+    return db.query(qs)
+      .then(res => res.rows);
+  };
 
   return {
     authoriseReg,
@@ -137,6 +237,9 @@ module.exports = (db) => {
     loadUser,
     getNomsOfUser,
     updateNominate,
-    getNomsForMovie
+    getNomsForMovie,
+    getSummary,
+    getGraphData,
+    getPieData
   };
 };

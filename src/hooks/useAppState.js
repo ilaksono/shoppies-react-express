@@ -6,13 +6,16 @@ const GET_DETAILS = "GET_DETAILS_BY_IMDB_ID";
 const LOGOUT = 'LOGOUT';
 const LOGIN = 'LOGIN';
 const UPDATE_LIST = 'UPDATE_NOMINATION_LIST';
+const ERROR = "FETCH_DATA_ERROR";
+
 const appReducer = (state, action) => {
   switch (action.type) {
     case AUTH: {
       return {
         ...state, id: action.id,
         username: action.username,
-        noms: action.noms || []
+        noms: action.noms || [],
+        error: ''
       };
     }
     case LOGIN:
@@ -21,23 +24,37 @@ const appReducer = (state, action) => {
         id: action.id,
         username: action.username,
         noms: action.noms,
+        error: ''
       };
     case GET_RESULTS:
       return {
-        ...state, results: action.arr, numRes: action.numRes
+        ...state, results: action.arr, numRes: action.numRes,
+        error: ''
+
       };
     case GET_DETAILS:
       return {
         ...state, lastIMDB: action.id,
-        details: { ...action.omdb, yt: action.yt, count: action.db[0].num_nom || 0 },
+        details: {
+          ...action.omdb, yt: action.yt,
+          count: action.db || 0
+        },
+        error: ''
       };
+
+    case ERROR:
+      return { ...state, error: action.msg };
     case UPDATE_LIST:
       return {
         ...state, noms: action.cpy,
-        details: action.json || state.details
+        details: action.json || state.details,
+        error: ''
       };
     case LOGOUT:
-      return { ...state, id: 0, username: '', noms: [] };
+      return {
+        ...state, id: 0, username: '', noms: [],
+        error: ''
+      };
     default:
       return state;
   }
@@ -49,7 +66,8 @@ const initApp = {
   results: [],
   details: {},
   numRes: 0,
-  lastIMDB: ''
+  lastIMDB: '',
+  error: ''
 };
 
 const useAppState = () => {
@@ -75,6 +93,7 @@ const useAppState = () => {
       }
     } catch (er) {
       console.error(er);
+      dispatch({ type: ERROR, msg: 'Could not find film' });
     }
   };
 
@@ -160,6 +179,7 @@ const useAppState = () => {
         yt,
         omdb
       } = data.data;
+      console.log(data.data);
       dispatch({
         type: GET_DETAILS,
         db, yt, omdb, id
@@ -177,7 +197,7 @@ const useAppState = () => {
           setReady(true);
           clearTimeout(a);
         }
-      }, 500);
+      }, 250);
     }
   };
 
@@ -193,7 +213,9 @@ const useAppState = () => {
         dispatch({ type: GET_RESULTS, arr: [], numRes: 0 });
       }
     } catch (er) {
-      console.log(er);
+      // console.error(er);
+      dispatch({ type: ERROR, msg: 'Too many results' });
+
     }
   };
 

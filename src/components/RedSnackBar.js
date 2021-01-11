@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const SnackBar = (props) => {
+const RedSnackBar = (props) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     open: false,
@@ -51,7 +51,7 @@ const SnackBar = (props) => {
         ClickAwayListenerProps={handleClose}
         style={{ height:'40px',marginTop: '100px', zIndex:10}}
         key={vertical + horizontal}>
-        <Alert onClose={handleClose} severity="success">
+        <Alert onClose={handleClose} severity="error">
           { props.message }
         </Alert>
       </Snackbar>
@@ -59,4 +59,4 @@ const SnackBar = (props) => {
   );
 }
 
-export default SnackBar;
+export default RedSnackBar;

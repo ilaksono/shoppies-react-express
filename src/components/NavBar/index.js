@@ -14,6 +14,7 @@ import ConfirmModal from 'components/Login/ConfirmModal';
 import { makeStyles } from '@material-ui/core/styles';
 import SnackBar from 'components/SnackBar';
 import NotificationsMenu from 'components/Sidebar/Notifications';
+import RedSnackBar from 'components/RedSnackBar';
 const styles = {
   root: {
     fontWeight: 'bold'
@@ -114,6 +115,7 @@ const NavBar = ({ handleDrawerToggle }) => {
                   zIndex: 1
                 }}
                 onClick={() => setModal(prev => ({ ...prev, logOpen: true }))}
+                size={window.innerWidth > 560 ? 'default' : 'small'}
               >
                 Sign In
             </Button>
@@ -130,6 +132,8 @@ const NavBar = ({ handleDrawerToggle }) => {
                   // right: '0',
                   zIndex: 1
                 }}
+                size={window.innerWidth > 560 ? 'default' : 'small'}
+
                 onClick={() => setModal(prev => ({ ...prev, regOpen: true }))}
               >
                 Register
@@ -204,6 +208,12 @@ const NavBar = ({ handleDrawerToggle }) => {
         snack.unvote &&
         <SnackBar message='Successfully Removed!'
           open={snack.unvote} setSnackbar={setSnack} />
+
+      }
+      {
+        snack.limit &&
+        <RedSnackBar message='Maximum 5 Nominations Allowed!'
+          open={snack.limit} setSnackbar={setSnack} />
 
       }
     </>

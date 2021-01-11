@@ -68,7 +68,8 @@ const SearchResultsPage = () => {
     setModal,
     setSnack,
     addNomToList,
-    removeNomFromList
+    removeNomFromList,
+    getMovieDetails
   } = useContext(AppContext);
 
   const classes = useStyles();
@@ -113,9 +114,7 @@ const SearchResultsPage = () => {
             <div className='center-loading'>
               <CircularProgress size={70} />
             </div>
-
             :
-
             (app.results.length > 0 ?
               <ResultsList arr={app.results}
                 handleNominate={handleNominate}
@@ -123,7 +122,8 @@ const SearchResultsPage = () => {
                 setModal={setModal}
                 setSnack={setSnack}
                 addNomToList={addNomToList}
-              removeNomFromList={removeNomFromList}
+                removeNomFromList={removeNomFromList}
+                getMovieDetails={getMovieDetails}
               />
               : (!query.get('s') ?
                 <div className='begin-search'>
@@ -135,13 +135,15 @@ const SearchResultsPage = () => {
                   </div>
                 </div>
                 :
-                (load.searchResults ?
-                  <CircularProgress />
-                  :
-                  <div className='blank-search'>
-                    No Results
+                app.error ? <div className='blank-search'>
+                  {app.error} </div> :
+                  (load.searchResults ?
+                    <CircularProgress />
+                    :
+                    <div className='blank-search'>
+                      No Results
               </div>
-                )
+                  )
               )
             )
         }

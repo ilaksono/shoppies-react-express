@@ -4,9 +4,19 @@ import useLoadingState from 'hooks/useLoadingState';
 import usePagination from 'hooks/usePagination';
 import useLoginModal from 'hooks/useLoginModal';
 import useSnackbar from 'hooks/useSnackbar';
+import useAnalysisData from 'hooks/useAnalysisData';
+
 const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
+
+  const {
+    dash,
+    getSummary,
+    chooseOption,
+    getGraphData,
+    getCountryData
+  } = useAnalysisData();
 
   const {
     load,
@@ -66,7 +76,12 @@ export const AppProvider = ({ children }) => {
       snack,
       setSnack,
       addNomToList,
-      removeNomFromList
+      removeNomFromList,
+      dash,
+      getSummary,
+      chooseOption,
+      getGraphData,
+      getCountryData
     }}>
       {children}
     </AppContext.Provider>

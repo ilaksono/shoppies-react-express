@@ -19,7 +19,10 @@ import routes from 'routes';
 // import DetailsPage from 'views/DetailsPage';
 import { CircularProgress } from '@material-ui/core';
 
-const DetailsPage = React.lazy(() => import('views/DetailsPage'));
+const DetailsPage = React.lazy(() =>
+  import('views/DetailsPage'));
+const AnalysisPage = React.lazy(() =>
+  import('views/AnalysisPage'));
 
 const useStyles = makeStyles(styles);
 
@@ -67,7 +70,6 @@ function App() {
   }, [mainPanel]);
 
   useEffect(() => {
-    console.log(cookies.username, cookies.id);
     if (cookies.username && cookies.id)
       loadUser(cookies.username, Number(cookies.id));
   }, []);
@@ -107,6 +109,11 @@ function App() {
             <Route path="/films/:id">
               <Suspense fallback={<CircularProgress />}>
                 <DetailsPage />
+              </Suspense>
+            </Route>
+            <Route path="/dash">
+              <Suspense fallback={<CircularProgress />}>
+                <AnalysisPage />
               </Suspense>
             </Route>
           </div>
