@@ -22,7 +22,7 @@ const TopTable = () => {
   });
   return (
     <>
-      <h3>Top Films - {lookup[key]}</h3>
+      <h3>{key === 'revenueA' ? '' : 'Top '}Films - {lookup[key]}</h3>
       <StickyTable
         data={dash.data}
         getMovieDetails={getMovieDetails}
