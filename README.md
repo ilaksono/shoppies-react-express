@@ -59,28 +59,28 @@
 
   !["Analysis Page Concept"](https://github.com/ilaksono/shoppies-react-express/blob/master/docs/AnalysisPage-Concept.png)
 
-## Directory Layout  
+## Directory Layout
+
+```
 .
-├── docs                    # Documentation files 
-├── src                     # Source files and app
-├── server                  # Sever source files and express app
-├── public                  # Client assets and image sources
+├── docs                  # Documentation files 
+├── src                   # Source files and app
+├── server                # Sever source files and express app
+├── public                # Client assets and image sources
 └── README.md
 
  ## In src:
 
 src
-├── components               # All React component JSX files
-├── assets                   # Material UI - JSS styles and image source files
-├── helpers                  # Some helper functions for formatting numbers and dollars 
-├── hooks                    # Custom react hooks
-├── styles                   # SCSS styles files
-├── views                    # The page layouts for each route/view
-└── README.md                # this
-└── index.js                 # index
-└── App.js                   # App
-└── routes.js                # Passes path and icon to Sidebar component
-└── AppContext.js            # React Context Provider
-
-
-
+├── components             # All React component JSX files
+├── assets                 # Material UI - JSS styles and image source files
+├── helpers                # Some helpers to format numbers 
+├── hooks                  # Custom react hooks
+├── styles                 # SCSS styles files
+├── views                  # The page layouts for each route/view
+└── README.md              # this
+└── index.js               # index
+└── App.js                 # App
+└── routes.js              # Passes path and icon to Sidebar component
+└── AppContext.js          # React Context Provider
+```
