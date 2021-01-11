@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -7,11 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { useCookies } from 'react-cookie';
 
-const initLogin = {
-  email: '',
-  errMsg: '',
-  errType: ''
-};
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -29,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 const ConfirmModal = ({ setModal, modal, logout, setSnack }) => {
 
   const classes = useStyles();
+  //eslint-disable-next-line
   const [cookies, setCookie, removeCookie] = useCookies();
   const handleLogout = () => {
     const arr = ['id', 'username'];
@@ -69,7 +64,7 @@ const ConfirmModal = ({ setModal, modal, logout, setSnack }) => {
             }}
           >
             <div style={{
-              fontFamily:'Poppins',
+              fontFamily: 'Poppins',
               marginBottom: 12
             }}>
               Confirm Logout?
@@ -81,7 +76,7 @@ const ConfirmModal = ({ setModal, modal, logout, setSnack }) => {
               width: "100%"
             }}>
               <Button onClick={() => setModal(false)}
-                variant='contained' color='primary'
+                variant='contained'
                 className='user-input-btn'
                 color='default'
                 style={{
@@ -109,16 +104,3 @@ const ConfirmModal = ({ setModal, modal, logout, setSnack }) => {
 };
 
 export default ConfirmModal;
-
-/* <div className='login__container'>
-  <form onSubmit={event => event.preventDefault()}>
-    <label>I Am Login Form</label>
-    <input name='email' type='email' value={login.email} onChange={event => handleChange('email', event.target.value)} />
-    <input name='password' type='password'
-      value={login.password}
-      onChange={event =>
-        handleChange('password', event.target.value)} />
-    <Button onClick={validate} message='Login' confirm />
-    {login.errMsg && <div>{login.errMsg}</div>}
-  </form>
-</div> */

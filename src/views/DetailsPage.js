@@ -19,6 +19,7 @@ const DetailsPage = () => {
   useEffect(() => {
     if (id)
       getMovieDetails(id);
+    //eslint-disable-next-line
   }, []);
 
   const ref = useRef();
@@ -59,10 +60,10 @@ const DetailsPage = () => {
               <span><h4 onClick={focusInput} style={{
                 cursor: 'pointer'
               }}
-              className='hoverable-text'
+                className='hoverable-text'
               >Search </h4>
                for a movie to see details</span>
-        </div>
+            </div>
         )
           :
           <>

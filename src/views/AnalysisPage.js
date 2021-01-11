@@ -12,12 +12,12 @@ const TopTable = React.lazy(() => import('components/Analysis/TopTable'));
 
 const AnalysisPage = () => {
   const {
-    getSummary,
     dash,
     getCountryData,
   } = useContext(AppContext);
   useEffect(() => {
     getCountryData();
+    //eslint-disable-next-line
   }, []);
 
   return (

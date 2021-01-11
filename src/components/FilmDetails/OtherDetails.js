@@ -27,12 +27,7 @@ const OtherDetails = () => {
   const {
     Actors,
     Plot,
-    Language,
-    Country,
-    Awards,
     Poster,
-    Director,
-    Ratings,
     imdbID,
     Title,
     Year

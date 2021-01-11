@@ -4,7 +4,6 @@ import SearchResultsPage from 'views/SearchResultsPage';
 import DetailsPage from 'views/DetailsPage';
 import AnalysisPage from 'views/AnalysisPage'
 import MovieIcon from '@material-ui/icons/Movie';
-import SearchIcon from '@material-ui/icons/Search';
 import TheatersIcon from '@material-ui/icons/Theaters';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 

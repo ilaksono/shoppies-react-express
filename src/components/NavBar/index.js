@@ -21,17 +21,11 @@ const styles = {
   }
 };
 
-const initAnim = {
-  mainSpin: false,
-  meSpin: false,
-  mailSpin: false,
-  newsSpin: false,
-};
-
 const useStyles = makeStyles(styles);
 
 const NavBar = ({ handleDrawerToggle }) => {
   const location = useLocation();
+  // eslint-disable-next-line
   const [cookies, setCookie, removeCookie] = useCookies();
   const [out, setOut] = useState(false);
   const classes = useStyles();
@@ -84,7 +78,7 @@ const NavBar = ({ handleDrawerToggle }) => {
                   zIndex: 1
                 }}
                 onClick={() => setModal(prev => ({ ...prev, logOpen: true }))}
-                size={window.innerWidth > 560 ? 'default' : 'small'}
+                size={window.innerWidth > 560 ? 'medium' : 'small'}
               >
                 Sign In
             </Button>
@@ -97,7 +91,7 @@ const NavBar = ({ handleDrawerToggle }) => {
                   transform: 'none',
                   zIndex: 1
                 }}
-                size={window.innerWidth > 560 ? 'default' : 'small'}
+                size={window.innerWidth > 560 ? 'medium' : 'small'}
 
                 onClick={() => setModal(prev => ({ ...prev, regOpen: true }))}
               >

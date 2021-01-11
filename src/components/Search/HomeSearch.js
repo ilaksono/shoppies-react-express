@@ -56,6 +56,7 @@ const HomeSearch = (props) => {
   useEffect(() => {
     if (value)
       getAutoResults(value);
+      //eslint-disable-next-line
   }, [value]);
 
   return (

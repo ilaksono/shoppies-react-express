@@ -11,9 +11,6 @@ const options = {
 
 };
 
-const color = [];
-const bgColors = [];
-
 const PieChart = ({ data }) => {
   let primed = {};
   if (data.length) {
@@ -50,7 +47,7 @@ const PieChart = ({ data }) => {
         data.length > 0 &&
         <Doughnut
           data={primed}
-          options={options} width='200' height='200' />
+          options={options} width={200} height={200} />
       }
     </>
   );

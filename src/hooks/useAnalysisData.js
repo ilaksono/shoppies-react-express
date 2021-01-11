@@ -85,11 +85,9 @@ const useAnalysisData = () => {
     const p = Object.keys(dash.options).find(key =>
       dash.options[key]
     );
-    console.log(p);
     try {
       const data = await axios
         .get(`/api/dashboard/data?p=${p}`);
-      console.log(data.data);
       dispatch({ type: GET_TOP, data: data.data });
     } catch (er) {
       console.error(er);
@@ -99,7 +97,6 @@ const useAnalysisData = () => {
     try {
       const data = await axios
         .get('/api/dashboard/pie');
-      console.log(data.data);
       dispatch({ type: GET_COUNTRY, data: data.data });
     } catch (er) {
       console.error(er);

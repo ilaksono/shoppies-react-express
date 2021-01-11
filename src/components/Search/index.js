@@ -55,6 +55,7 @@ const Search = (props) => {
   useEffect(() => {
     if (value)
       getAutoResults(value);
+      //eslint-disable-next-line
   }, [value]);
 
   return (
@@ -96,6 +97,7 @@ const Search = (props) => {
                   <ComboboxOption key={imdbID} value={`${Title} - ${Year}`}>
                   </ComboboxOption>
                 );
+              return <></>  
             }
             )}
           </ComboboxPopover>

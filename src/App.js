@@ -2,7 +2,6 @@ import {
   Switch
   , BrowserRouter as Router
   , Route
-  , Redirect
 } from 'react-router-dom';
 import HomePage from 'views/HomePage';
 import React, { useEffect, useContext, Suspense } from 'react';
@@ -37,7 +36,7 @@ function App() {
   } = useContext(AppContext);
 
   const mainPanel = React.createRef();
-  const [color, setColor] = React.useState("blue");
+  const [color] = React.useState("blue");
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -69,7 +68,8 @@ function App() {
   useEffect(() => {
     if (cookies.username && cookies.id)
       loadUser(cookies.username, Number(cookies.id));
-  }, []);
+    // eslint-disable-next-line
+    }, []);
 
 
 

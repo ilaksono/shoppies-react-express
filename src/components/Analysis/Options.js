@@ -9,17 +9,17 @@ const options = {
   "revenueA": "Low Revenue"
 };
 const lookup = {
-  "votes": function() {
+  "votes": function () {
     return (
       <i className="fas fa-award hoverable-icon"
         style={{ fontSize: 24, color: 'inherit' }}></i>
-    )
+    );
   }(),
-  "revenueD": function() {
+  "revenueD": function () {
     return (
       <i className="fas fa-money-check-alt hoverable-icon"
         style={{ fontSize: 24, color: 'green' }}></i>
-    )
+    );
   }(),
   "revenueA": function () {
     return (
@@ -27,7 +27,7 @@ const lookup = {
         style={{ fontSize: 24, color: 'red' }}></i>
     );
   }()
-}
+};
 
 const Options = () => {
 
@@ -35,13 +35,14 @@ const Options = () => {
     getGraphData } = useContext(AppContext);
 
   const handleChange = async (val) => {
-   chooseOption(val);
+    chooseOption(val);
   };
   useEffect(() => {
-    getGraphData()
-  }, [dash.options])
+    getGraphData();
+    // eslint-disable-next-line
+  }, [dash.options]);
   const parsedSwitches = Object.keys(options).map(prop =>
-    <div className='each-switch'>
+    <div className='each-switch' key={prop}>
       <FormControlLabel control={<Radio
         checked={dash.options[prop]}
         onChange={() => handleChange(prop)}

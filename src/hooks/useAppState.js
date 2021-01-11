@@ -142,7 +142,7 @@ const useAppState = () => {
     }
   };
   const handleNominate = async (Title, Year, imdbID) => {
-    const data = await axios
+    await axios
       .post('/api/nominate', {
         user_id: app.id,
         Title,
@@ -197,7 +197,7 @@ const useAppState = () => {
 
   const wait = () => {
     if (!ready) {
-      const a = setTimeout(() => {
+      setTimeout(() => {
         if (!ready) {
           setReady(true);
         }

@@ -80,6 +80,7 @@ const SearchResultsPage = () => {
       setSearchLoad(true);
       getSearchResults(query.get('s') || '');
     }
+    //eslint-disable-next-line
   }, []);
   const ref = useRef();
   const focusInput = () => {
@@ -98,6 +99,7 @@ const SearchResultsPage = () => {
   useEffect(() => {
     if (load.searchResults)
       setSearchLoad(false);
+    //eslint-disable-next-line
   }, [app]);
 
   return (

@@ -31,6 +31,7 @@ const Analysis = () => {
 
   useEffect(() => {
     getSummary();
+    //eslint-disable-next-line
   }, []);
 
   return (

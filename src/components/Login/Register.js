@@ -1,5 +1,4 @@
-import { useState, useContext } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -34,6 +33,7 @@ const LoginForm = ({ setModal, modal, authoriseReg, setSnack }) => {
 
   const classes = useStyles();
   const [login, setLogin] = useState(initLogin);
+  // eslint-disable-next-line
   const [cookies, setCookie, removeCookie] = useCookies();
 
   const handleChange = (val, type) => {
@@ -46,7 +46,7 @@ const LoginForm = ({ setModal, modal, authoriseReg, setSnack }) => {
   };
 
   const validate = async () => {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const { email, username } = login;
     if (!username) {
       return setLogin({

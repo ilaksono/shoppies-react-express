@@ -16,13 +16,9 @@ const FilmDetails = () => {
     Rated,
     Runtime,
     Genre,
-    Actors,
-    Plot,
     BoxOffice,
     Language,
     Country,
-    Awards,
-    Poster,
     imdbVotes,
     Director,
     Ratings
