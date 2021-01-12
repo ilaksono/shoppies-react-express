@@ -19,7 +19,7 @@ const BarChart = ({ dash }) => {
       yVals = dash.data.map(each => Number(each['revenue_usd']));
     }
     d = {
-      labels: dash.data.map((each) => each.title),
+      labels: dash.data.map((each) => each.title.slice(0, Math.min(10, each.title.length))),
       datasets: [{
         label: '',
         data: yVals,
