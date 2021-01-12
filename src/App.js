@@ -6,7 +6,7 @@ import {
 import HomePage from 'views/HomePage';
 import React, { useEffect, useContext, Suspense } from 'react';
 import { useCookies } from 'react-cookie';
-import PerfectScrollbar from "perfect-scrollbar";
+// import PerfectScrollbar from "perfect-scrollbar";
 import logo from 'assets/img/logo.png';
 import AppContext from 'AppContext';
 import NavBar from 'components/NavBar';
@@ -35,7 +35,7 @@ function App() {
     loadUser
   } = useContext(AppContext);
 
-  const mainPanel = React.createRef();
+  // const mainPanel = React.createRef();
   const [color] = React.useState("blue");
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -48,22 +48,22 @@ function App() {
       setMobileOpen(false);
     }
   };
-  React.useEffect(() => {
-    if (navigator.platform.indexOf("Win") > -1) {
-      ps = new PerfectScrollbar(mainPanel.current, {
-        suppressScrollX: true,
-        suppressScrollY: false
-      });
-      document.body.style.overflow = "hidden";
-    }
-    window.addEventListener("resize", resizeFunction);
-    return function cleanup() {
-      if (navigator.platform.indexOf("Win") > -1) {
-        ps.destroy();
-      }
-      window.removeEventListener("resize", resizeFunction);
-    };
-  }, [mainPanel]);
+  // React.useEffect(() => {
+  //   if (navigator.platform.indexOf("Win") > -1) {
+  //     ps = new PerfectScrollbar(mainPanel.current, {
+  //       suppressScrollX: true,
+  //       suppressScrollY: false
+  //     });
+  //     document.body.style.overflow = "hidden";
+  //   }
+  //   window.addEventListener("resize", resizeFunction);
+  //   return function cleanup() {
+  //     if (navigator.platform.indexOf("Win") > -1) {
+  //       ps.destroy();
+  //     }
+  //     window.removeEventListener("resize", resizeFunction);
+  //   };
+  // }, [mainPanel]);
 
   useEffect(() => {
     if (cookies.username && cookies.id)
