@@ -29,7 +29,8 @@ const NotificationsMenu = () => {
     setModal
   } = useContext(AppContext);
 
-  const handleClick = (Title, Year, imdbID) => {
+  const handleClick = (e, Title, Year, imdbID) => {
+    e.stopPropagation();
     handleNominate(Title, Year, imdbID);
     removeNomFromList(imdbID);
     setSnack(prev => ({ ...prev, unvote: true }));
@@ -57,15 +58,20 @@ const NotificationsMenu = () => {
           flexDirection: 'row',
           justifyContent: 'space-between'
         }}
-
+        onClick={event => {
+          getMovieDetails(each.imdbid);
+          history.push(`/films/${each.imdbid}`);
+          // handleCloseNotification(event);
+        }}
         className={classes.dropdownItem}
         key={each.imdbID}
       >
-        <div onClick={event => {
-          getMovieDetails(each.imdbid);
-          history.push(`/films/${each.imdbid}`);
-          handleCloseNotification(event);
-        }}>
+        <div
+
+          style={{
+            height: '100%'
+          }}
+        >
 
           {each.title} - {each.year}
         </div>
@@ -76,7 +82,7 @@ const NotificationsMenu = () => {
           margin: 0,
           padding: 0
         }}
-          onClick={() => handleClick(each.title, each.year, each.imdbid)}
+          onClick={(e) => handleClick(e, each.title, each.year, each.imdbid)}
         >
           X
         </MaterialButton>
