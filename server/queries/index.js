@@ -59,7 +59,7 @@ module.exports = (db) => {
       VALUES ($1, $2)
       RETURNING *;`;
       return db
-        .query(qsInsert, [email, username])
+        .query(qsInsert, [email.toLowerCase(), username])
         .then(res => res.rows);
     } catch (er) {
       console.error(er);
@@ -71,7 +71,7 @@ module.exports = (db) => {
     const qs = `
     SELECT * FROM users WHERE email = $1;`;
     return db
-      .query(qs, [email])
+      .query(qs, [email.toLowerCase()])
       .then(res => res.rows);
   };
 

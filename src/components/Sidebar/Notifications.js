@@ -12,6 +12,7 @@ import AppContext from 'AppContext';
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 import { useHistory } from 'react-router-dom';
+import { Button as MaterialButton } from '@material-ui/core';
 const useStyles = makeStyles(styles);
 
 const NotificationsMenu = () => {
@@ -20,7 +21,20 @@ const NotificationsMenu = () => {
   const [openNotification, setOpenNotification] = useState(null);
   const classes = useStyles();
 
-  const { app, getMovieDetails } = useContext(AppContext);
+
+  const { app, getMovieDetails,
+    handleNominate,
+    removeNomFromList,
+    setSnack,
+    setModal
+  } = useContext(AppContext);
+
+  const handleClick = (Title, Year, imdbID) => {
+    handleNominate(Title, Year, imdbID);
+    removeNomFromList(imdbID);
+    setSnack(prev => ({ ...prev, unvote: true }));
+  };
+
   const handleClickNotification = event => {
     if (openNotification && openNotification.contains(event.target)) {
       setOpenNotification(null);
@@ -38,15 +52,35 @@ const NotificationsMenu = () => {
   if (app.noms.length) {
     parsedList = app.noms.map((each) =>
       <MenuItem
-        onClick={event => {
-          getMovieDetails(each.imdbid);
-          history.push(`/films/${each.imdbid}`);
-          handleCloseNotification(event);
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between'
         }}
+
         className={classes.dropdownItem}
         key={each.imdbID}
       >
-        {each.title} - {each.year}
+        <div onClick={event => {
+          getMovieDetails(each.imdbid);
+          history.push(`/films/${each.imdbid}`);
+          handleCloseNotification(event);
+        }}>
+
+          {each.title} - {each.year}
+        </div>
+        <MaterialButton style={{
+          width: '36px',
+          height: '36px',
+          fontSize: '16px',
+          margin: 0,
+          padding: 0
+        }}
+          onClick={() => handleClick(each.title, each.year, each.imdbid)}
+        >
+          X
+        </MaterialButton>
+
       </MenuItem>
     );
   }
@@ -67,8 +101,8 @@ const NotificationsMenu = () => {
         <Hidden mdUp implementation="css">
           <p onClick={handleCloseNotification}
             className={classes.linkText}
-            style={{textTransform: 'none'}}
-            >
+            style={{ textTransform: 'none' }}
+          >
             Nominations
             </p>
         </Hidden>
