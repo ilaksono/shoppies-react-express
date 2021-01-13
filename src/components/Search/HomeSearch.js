@@ -20,6 +20,7 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: 'grey'
     },
+    width: 57.6,
     height: '57.6px',
     [theme.breakpoints.up('md')]: {
       marginLeft: "50%"
@@ -62,6 +63,14 @@ const HomeSearch = (props) => {
   return (
     <>
       <div className='home-search-container'>
+        <form onSubmit={e => handleClick(e)}
+          // className='home-search-container'
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: window.innerWidth > 560 ? 'row': 'column'
+          }}
+        >
 
         <Combobox
           style={{
@@ -101,7 +110,6 @@ const HomeSearch = (props) => {
           </ComboboxPopover>
 
         </Combobox>
-        <form onSubmit={e => handleClick(e)}>
 
           <Button type='submit'
             className={classes.root}
