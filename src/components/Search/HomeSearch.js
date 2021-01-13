@@ -57,20 +57,12 @@ const HomeSearch = (props) => {
   useEffect(() => {
     if (value)
       getAutoResults(value);
-      //eslint-disable-next-line
+    //eslint-disable-next-line
   }, [value]);
 
   return (
     <>
       <div className='home-search-container'>
-        <form onSubmit={e => handleClick(e)}
-          // className='home-search-container'
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            flexDirection: window.innerWidth > 560 ? 'row': 'column'
-          }}
-        >
 
         <Combobox
           style={{
@@ -110,6 +102,10 @@ const HomeSearch = (props) => {
           </ComboboxPopover>
 
         </Combobox>
+        <form onSubmit={e => handleClick(e)}
+        // className='home-search-container'
+
+        >
 
           <Button type='submit'
             className={classes.root}

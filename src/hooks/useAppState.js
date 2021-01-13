@@ -83,7 +83,7 @@ const useAppState = () => {
   };
   const handleNominate = async (Title, Year, imdbID) => {
     await axios
-      .post('/api/nominate', {
+      .post('/api/movies/nominate', {
         user_id: app.id,
         Title,
         Year: Number(Year),
@@ -119,7 +119,7 @@ const useAppState = () => {
 
   const getMovieDetails = async (id) => {
     try {
-      const data = await axios.get(`/api/details/${id}`);
+      const data = await axios.get(`/api/movies/details/${id}`);
       const {
         db,
         yt,
@@ -148,7 +148,7 @@ const useAppState = () => {
   const getSearchResults = async (s, page = 1) => {
     try {
       const data = await axios
-        .get(`/api/search?s=${s}&page=${page}`);
+        .get(`/api/movies/search?s=${s}&page=${page}`);
       const arr = data.data.Search;
       const numRes = Number(data.data.totalResults);
       if (arr.length) {
@@ -167,7 +167,7 @@ const useAppState = () => {
       if (ready) {
         await setReady(false);
         const arr = await axios
-          .get(`/api/autocomplete?s=${s}`);
+          .get(`/api/movies/autocomplete?s=${s}`);
         setAutoResults(arr.data);
         await wait();
       } else {
