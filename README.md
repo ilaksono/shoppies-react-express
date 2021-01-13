@@ -9,8 +9,13 @@
 ## Styles
  - styled with Material UI - JSS, and SASS
 
+## Key Functions
+ - search for movies and vote for top movies in imdb database - up to 5 votes
+ - able to add and remove votes
+ - be alerted when the user has created/deleted a nomination
+
 ## Additional Features
-- Autocomplete search with Combobox Popover
+- Autocomplete search with Combobox popover
 - Charts which show top nominations and best movies
   - Types:
     - #Votes vs Time -> for each film
