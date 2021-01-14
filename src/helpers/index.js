@@ -42,8 +42,36 @@ export const formatNum = (val, neg = false) => {
   return formatLargeNumber(val);
 };
 
+
+export const formatNumCommas = (val, neg = false) => {
+  let num = val;
+
+  if (num === 'null' || num === 'None' || !num || num === 'N/A')
+    return `$N/A`;
+  num = Math.floor(Number(num.split(',').join('')));
+  if (num < 0)
+    return formatNum(num * -1, true);
+  const power = ['M', 'B', 'T', 'Q'];
+  let cntr = 0;
+  let suf = '';
+  while (Math.floor(num / 1000) > 0) {
+    num /= 1000;
+    if (++cntr >= 2)
+      suf = power[cntr - 2];
+  }
+  num = Math.floor(num * 10) / 10;
+  if (suf) {
+    if (neg)
+      return `-$${num} ${suf}`;
+
+    return `$${num} ${suf}`;
+  }
+  return formatLargeNumber(val);
+};
+
 export const formatDollsToNum = (str) => {
-  if (str === 'N/A' || str === 'null' || !str) 
-    return '$ N/A'
-  return formatNum(str.slice(1));
-}
+  if (str === 'N/A' || str === 'null' || !str)
+    return '$ N/A';
+  return formatNumCommas(str.slice(1));
+};
+
