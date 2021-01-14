@@ -51,7 +51,7 @@ export default function StickyHeadTable({ data,
   const classes = useStyles();
   let rows = [];
   if(data.length) {
-    rows = data.map(each => createData(each.title, each.country, each.revenue_usd, each.total))
+    rows = data.map(each => createData(each.title, each.country, each.revenue_usd, each.total, each.movie_id))
   }
 
   const history = useHistory();
